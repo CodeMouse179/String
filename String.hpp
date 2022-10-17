@@ -166,6 +166,23 @@ namespace System
                 return String::GetHashCode(s);
             }
         }
+
+        static std::vector<std::basic_string<T>> Split(const std::basic_string<T>& s, const std::basic_string<T>& separator)
+        {
+            std::vector<std::basic_string<T>> strings;
+            size_t pos;
+            std::basic_string<T> rest = s;
+            while ((pos = rest.find(separator)) != std::string::npos)
+            {
+                strings.push_back(rest.substr(0, pos));
+                rest.erase(0, pos + separator.size());
+            }
+            if (!rest.empty())
+            {
+                strings.push_back(rest);
+            }
+            return strings;
+        }
     };
 }
 

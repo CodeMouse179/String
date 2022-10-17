@@ -13,3 +13,7 @@
 1. System::String::GetHashCode
 
     * [BKDR Hash Function](https://byvoid.com/zhs/blog/string-hash-compare/)
+
+1. System::String::Split
+
+    * [Split string in C++](https://stackoverflow.com/questions/14265581/parse-split-a-string-in-c-using-string-delimiter-standard-c)

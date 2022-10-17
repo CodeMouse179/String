@@ -16,5 +16,6 @@ int main()
     int hash = StringA::GetHashCode("ABC123");
     int hash1 = StringA::GetHashCode("ABC123", System::StringComparison::IgnoreCase);
     int hash2 = StringA::GetHashCode("abc123", System::StringComparison::IgnoreCase);
+    auto vector = StringA::Split("A B C 1 2 3", " ");
     return 0;
 }
