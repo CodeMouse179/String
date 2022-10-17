@@ -5,6 +5,7 @@
 #include <algorithm> //std::equal
 #include <cctype> //std::tolower
 #include <sstream> //std::basic_ostringstream
+#include <vector> //std::vector
 
 //ascii System::String class
 #define StringA System::String<char>
@@ -56,6 +57,18 @@ namespace System
         {
             std::basic_string<T> instance = str;
             return instance;
+        }
+
+        static std::basic_string<T> Concat(const std::basic_string<T>& str0, const std::basic_string<T>& str1)
+        {
+            return str0 + str1;
+        }
+
+        static std::basic_string<T> Concat(const std::vector<std::basic_string<T>>& values)
+        {
+            std::basic_string<T> str;
+            for (const auto& item : values) str += item;
+            return str;
         }
 
         static bool Equals(const std::basic_string<T>& a, const std::basic_string<T>& b)
