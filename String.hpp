@@ -1,7 +1,9 @@
 ﻿#ifndef SYSTEM_STRING_HPP
 #define SYSTEM_STRING_HPP
 
-#include <string>
+#include <string> //std::string, std::wstring, std::basic_string
+#include <algorithm> //std::equal
+#include <cctype> //std::tolower
 
 //ascii System::String class
 #define StringA System::String<char>
@@ -25,7 +27,7 @@
 
 namespace System
 {
-//generic types:
+    //generic types:
 #ifdef _WIN32
     typedef std::wstring tstring;
     typedef wchar_t tchar;
