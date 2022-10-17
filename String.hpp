@@ -34,6 +34,11 @@ namespace System
     typedef char tchar;
 #endif
 
+    enum class StringComparison
+    {
+        IgnoreCase = 10,
+    };
+
     template<typename T>
     class String
     {
@@ -41,6 +46,36 @@ namespace System
         static std::basic_string<T> Empty()
         {
             return std::basic_string<T>();
+        }
+
+    public:
+        static std::basic_string<T> Clone(const std::basic_string<T>& str)
+        {
+            std::basic_string<T> instance = str;
+            return instance;
+        }
+
+        static bool Equals(const std::basic_string<T>& a, const std::basic_string<T>& b)
+        {
+            return a.compare(b) == 0;
+        }
+
+        static bool Equals(const std::basic_string<T>& a, const std::basic_string<T>& b, StringComparison comparisonType)
+        {
+            if (comparisonType == StringComparison::IgnoreCase)
+            {
+                if (a.length() != b.length()) return false;
+                return std::equal(a.begin(), a.end(), b.begin(),
+                    [](T _a, T _b)
+                    {
+                        return std::tolower(_a) == std::tolower(_b);
+                    }
+                );
+            }
+            else
+            {
+                return String::Equals(a, b);
+            }
         }
     };
 }
