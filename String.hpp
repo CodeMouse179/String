@@ -71,6 +71,26 @@ namespace System
             return str;
         }
 
+    private:
+        template<typename Type>
+        static void ConcatHelper(std::basic_ostringstream<T>& boss, const Type& value)
+        {
+            boss << value;
+        }
+
+    public:
+        template<typename... Types>
+        static std::basic_string<T> Concat(Types... args)
+        {
+            std::basic_ostringstream<T> boss;
+#if SYSTEM_CXX_17
+            (String::ConcatHelper(boss, args), ...); //C++17
+#else
+            int arr[] = { (String::ConcatHelper(boss, args), 0)... }; //C++11
+#endif
+            return boss.str();
+        }
+
         static bool Equals(const std::basic_string<T>& a, const std::basic_string<T>& b)
         {
             return a.compare(b) == 0;

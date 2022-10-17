@@ -9,6 +9,7 @@ int main()
     values.push_back("B2");
     values.push_back("C3");
     std::string con2 = StringA::Concat(values);
+    std::string con3 = StringA::Concat("A1", "B2", "C3", "D4", "E5", "F6", "G7");
     bool eq1 = StringA::Equals("abc", "ABC");
     bool eq2 = StringA::Equals("abc", "ABC", System::StringComparison::IgnoreCase);
     std::string format = StringA::Format("{0} name is {1}.", "My", "ABC");
