@@ -4,6 +4,7 @@
 #include <string> //std::string, std::wstring, std::basic_string
 #include <algorithm> //std::equal
 #include <cctype> //std::tolower
+#include <sstream> //std::basic_ostringstream
 
 //ascii System::String class
 #define StringA System::String<char>
@@ -78,6 +79,33 @@ namespace System
             {
                 return String::Equals(a, b);
             }
+        }
+
+    private:
+        template<typename Type>
+        static void FormatHelper(std::basic_ostringstream<T>& boss, std::basic_string<T>& bs, const Type& value)
+        {
+            std::size_t openBracket = bs.find('{');
+            if (openBracket == std::string::npos) return;
+            std::size_t closeBracket = bs.find('}', openBracket + 1);
+            if (closeBracket == std::string::npos) return;
+            boss << bs.substr(0, openBracket) << value;
+            bs = bs.substr(closeBracket + 1);
+        }
+
+    public:
+        template<typename... Types>
+        static std::basic_string<T> Format(const std::basic_string<T>& format, Types... args)
+        {
+            std::basic_ostringstream<T> boss;
+            std::basic_string<T> clone = String::Clone(format);
+#if SYSTEM_CXX_17
+            (String::FormatHelper(boss, clone, args), ...); //C++17
+#else
+            int arr[] = { (String::FormatHelper(boss, clone, args), 0)... }; //C++11
+#endif
+            boss << clone;
+            return boss.str();
         }
     };
 }
