@@ -401,6 +401,9 @@ FodyWeavers.xsd
 /String.exe
 /String.pdb
 
+# ss(System.String)
+/ss
+
 # CMake
 CMakeLists.txt.user
 CMakeCache.txt
