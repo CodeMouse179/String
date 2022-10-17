@@ -8,16 +8,24 @@
 //wide-char System::String class
 #define StringW System::String<wchar_t>
 
-//general System::String class
+//generic System::String class
 #ifdef _WIN32
 #define StringT StringW
 #else
 #define StringT StringA
 #endif
 
+//generic macros:
+#ifdef _WIN32
+#define __T(s) L##s
+#define T(s) __T(s)
+#else
+#define T(s) s
+#endif
+
 namespace System
 {
-//general types:
+//generic types:
 #ifdef _WIN32
     typedef std::wstring tstring;
     typedef wchar_t tchar;
