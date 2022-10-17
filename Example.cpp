@@ -13,5 +13,8 @@ int main()
     bool eq1 = StringA::Equals("abc", "ABC");
     bool eq2 = StringA::Equals("abc", "ABC", System::StringComparison::IgnoreCase);
     std::string format = StringA::Format("{0} name is {1}.", "My", "ABC");
+    int hash = StringA::GetHashCode("ABC123");
+    int hash1 = StringA::GetHashCode("ABC123", System::StringComparison::IgnoreCase);
+    int hash2 = StringA::GetHashCode("abc123", System::StringComparison::IgnoreCase);
     return 0;
 }

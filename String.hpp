@@ -40,6 +40,7 @@ namespace System
 
     enum class StringComparison
     {
+        None = 0,
         IgnoreCase = 10,
     };
 
@@ -101,7 +102,7 @@ namespace System
             if (comparisonType == StringComparison::IgnoreCase)
             {
                 if (a.length() != b.length()) return false;
-                return std::equal(a.begin(), a.end(), b.begin(),
+                return std::equal(a.begin(), a.end(), b.begin(), b.end(),
                     [](T _a, T _b)
                     {
                         return std::tolower(_a) == std::tolower(_b);
@@ -139,6 +140,31 @@ namespace System
 #endif
             boss << clone;
             return boss.str();
+        }
+
+        static int GetHashCode(const std::basic_string<T>& s)
+        {
+            const unsigned int seed = 131; // 31 131 1313 13131 131313 etc..
+            unsigned int hash = 0;
+            for (int i = 0; i < s.size(); i++)
+            {
+                hash = hash * seed + s[i];
+            }
+            return (hash & 0x7FFFFFFF);
+        }
+
+        static int GetHashCode(const std::basic_string<T>& s, StringComparison comparisonType)
+        {
+            if (comparisonType == StringComparison::IgnoreCase)
+            {
+                std::basic_string<T> lower;
+                for (const auto& item : s) lower += std::tolower(item);
+                return String::GetHashCode(lower);
+            }
+            else
+            {
+                return String::GetHashCode(s);
+            }
         }
     };
 }
