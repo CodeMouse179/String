@@ -199,6 +199,26 @@ namespace System
             }
         }
 
+        static int IndexOf(const std::basic_string<T>& s, const std::basic_string<T>& value)
+        {
+            return s.find(value);
+        }
+
+        static int IndexOf(const std::basic_string<T>& s, T value)
+        {
+            return s.find(value);
+        }
+
+        static int LastIndexOf(const std::basic_string<T>& s, const std::basic_string<T>& value)
+        {
+            return s.find_last_of(value);
+        }
+
+        static int LastIndexOf(const std::basic_string<T>& s, T value)
+        {
+            return s.find_last_of(value);
+        }
+
         static std::basic_string<T> Slice(const std::basic_string<T>& s)
         {
             return s;

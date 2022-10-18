@@ -20,6 +20,10 @@ int main()
     int hash = StringA::GetHashCode("ABC123");
     int hash1 = StringA::GetHashCode("ABC123", System::StringComparison::IgnoreCase);
     int hash2 = StringA::GetHashCode("abc123", System::StringComparison::IgnoreCase);
+    int index1 = StringA::IndexOf("123456", "3");
+    int index2 = StringA::IndexOf("123456", '3');
+    int index3 = StringA::LastIndexOf("654321", "1");
+    int index4 = StringA::LastIndexOf("654321", "1");
     std::string slice1 = StringA::Slice("123", 1);
     std::string slice2 = StringA::Slice("123", -1);
     std::string slice3 = StringA::Slice("123", 0, 2);
