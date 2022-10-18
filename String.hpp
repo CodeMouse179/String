@@ -191,9 +191,7 @@ namespace System
         {
             if (comparisonType == StringComparison::IgnoreCase)
             {
-                std::basic_string<T> lower;
-                for (const auto& item : s) lower += std::tolower(item);
-                return String::GetHashCode(lower);
+                return String::GetHashCode(String::ToLower(s));
             }
             else
             {
