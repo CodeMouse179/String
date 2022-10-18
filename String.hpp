@@ -167,6 +167,34 @@ namespace System
             }
         }
 
+        static std::basic_string<T> Slice(const std::basic_string<T>& s)
+        {
+            return s;
+        }
+
+        static std::basic_string<T> Slice(const std::basic_string<T>& s, int start)
+        {
+            std::basic_string<T> slice;
+            if (start < 0) start += s.size();
+            for (int i = start; i < s.size(); i++)
+            {
+                slice += s[i];
+            }
+            return slice;
+        }
+
+        static std::basic_string<T> Slice(const std::basic_string<T>& s, int start, int end)
+        {
+            std::basic_string<T> slice;
+            if (start < 0) start += s.size();
+            if (end < 0) end += s.size();
+            for (int i = start; i < end; i++)
+            {
+                slice += s[i];
+            }
+            return slice;
+        }
+
         static std::vector<std::basic_string<T>> Split(const std::basic_string<T>& s, const std::basic_string<T>& separator)
         {
             std::vector<std::basic_string<T>> strings;

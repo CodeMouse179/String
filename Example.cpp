@@ -16,6 +16,11 @@ int main()
     int hash = StringA::GetHashCode("ABC123");
     int hash1 = StringA::GetHashCode("ABC123", System::StringComparison::IgnoreCase);
     int hash2 = StringA::GetHashCode("abc123", System::StringComparison::IgnoreCase);
+    std::string slice1 = StringA::Slice("123", 1);
+    std::string slice2 = StringA::Slice("123", -1);
+    std::string slice3 = StringA::Slice("123", 0, 2);
+    std::string slice4 = StringA::Slice("123", 0, -1);
+    std::string slice5 = StringA::Slice("123", 0, 0);
     auto vector = StringA::Split("A B C 1 2 3", " ");
     return 0;
 }
