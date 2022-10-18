@@ -257,6 +257,28 @@ namespace System
             for (const auto& item : s) lower += std::toupper(item);
             return lower;
         }
+
+        static std::basic_string<T> Trim(const std::basic_string<T>& s, T trimChar)
+        {
+            size_t indexOfFirstNonTrimChar = s.find_first_not_of(trimChar);
+            if (indexOfFirstNonTrimChar == std::string::npos) return String::Empty();
+            size_t indexOfLastNonTrimChar = s.find_last_not_of(trimChar);
+            return s.substr(indexOfFirstNonTrimChar, indexOfLastNonTrimChar - indexOfFirstNonTrimChar + 1);
+        }
+
+        static std::basic_string<T> TrimEnd(const std::basic_string<T>& s, T trimChar)
+        {
+            size_t indexOfLastNonTrimChar = s.find_last_not_of(trimChar);
+            if (indexOfLastNonTrimChar == std::string::npos) return String::Empty();
+            return s.substr(0, indexOfLastNonTrimChar + 1);
+        }
+
+        static std::basic_string<T> TrimStart(const std::basic_string<T>& s, T trimChar)
+        {
+            size_t indexOfFirstNonTrimChar = s.find_first_not_of(trimChar);
+            if (indexOfFirstNonTrimChar == std::string::npos) return String::Empty();
+            return s.substr(indexOfFirstNonTrimChar);
+        }
     };
 }
 

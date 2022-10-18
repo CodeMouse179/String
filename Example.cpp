@@ -28,5 +28,8 @@ int main()
     auto vector = StringA::Split("A B C 1 2 3", " ");
     std::string lower = StringA::ToLower("ABCDEFG");
     std::string upper = StringA::ToUpper("abcdefg");
+    std::string trimStr = StringA::Trim("111", '1');
+    std::string trimStr1 = StringA::TrimEnd(" ABC ", ' ');
+    std::string trimStr2 = StringA::TrimStart(" ABC ", ' ');
     return 0;
 }
