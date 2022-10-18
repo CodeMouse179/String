@@ -60,6 +60,23 @@ namespace System
             return instance;
         }
 
+        static int Compare(const std::basic_string<T>& strA, const std::basic_string<T>& strB)
+        {
+            return strA.compare(strB);
+        }
+
+        static int Compare(const std::basic_string<T>& strA, const std::basic_string<T>& strB, StringComparison comparisonType)
+        {
+            if (comparisonType == StringComparison::IgnoreCase)
+            {
+                return String::Compare(String::ToLower(strA), String::ToLower(strB));
+            }
+            else
+            {
+                return String::Compare(strA, strB);
+            }
+        }
+
         static std::basic_string<T> Concat(const std::basic_string<T>& str0, const std::basic_string<T>& str1)
         {
             return str0 + str1;
@@ -90,6 +107,23 @@ namespace System
             int arr[] = { (String::ConcatHelper(boss, args), 0)... }; //C++11
 #endif
             return boss.str();
+        }
+
+        static bool Contains(const std::basic_string<T>& s, const std::basic_string<T>& value)
+        {
+            return s.find(value) != std::string::npos;
+        }
+
+        static bool Contains(const std::basic_string<T>& s, const std::basic_string<T>& value, StringComparison comparisonType)
+        {
+            if (comparisonType == StringComparison::IgnoreCase)
+            {
+                return String::Contains(String::ToLower(s), String::ToLower(value));
+            }
+            else
+            {
+                return String::Contains(s, value);
+            }
         }
 
         static bool Equals(const std::basic_string<T>& a, const std::basic_string<T>& b)
@@ -210,6 +244,20 @@ namespace System
                 strings.push_back(rest);
             }
             return strings;
+        }
+
+        static std::basic_string<T> ToLower(const std::basic_string<T>& s)
+        {
+            std::basic_string<T> lower;
+            for (const auto& item : s) lower += std::tolower(item);
+            return lower;
+        }
+
+        static std::basic_string<T> ToUpper(const std::basic_string<T>& s)
+        {
+            std::basic_string<T> lower;
+            for (const auto& item : s) lower += std::toupper(item);
+            return lower;
         }
     };
 }
