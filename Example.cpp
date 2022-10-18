@@ -26,6 +26,8 @@ int main()
     std::string slice4 = StringA::Slice("123", 0, -1);
     std::string slice5 = StringA::Slice("123", 0, 0);
     auto vector = StringA::Split("A B C 1 2 3", " ");
+    std::string subStr1 = StringA::Substring("ABCDEFG", 1);
+    std::string subStr2 = StringA::Substring("ABCDEFG", 0, 2);
     std::string lower = StringA::ToLower("ABCDEFG");
     std::string upper = StringA::ToUpper("abcdefg");
     std::string trimStr = StringA::Trim("111", '1');

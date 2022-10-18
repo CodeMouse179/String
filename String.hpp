@@ -244,6 +244,16 @@ namespace System
             return strings;
         }
 
+        static std::basic_string<T> Substring(const std::basic_string<T>& s, int startIndex)
+        {
+            return s.substr(startIndex);
+        }
+
+        static std::basic_string<T> Substring(const std::basic_string<T>& s, int startIndex, int length)
+        {
+            return s.substr(startIndex, length);
+        }
+
         static std::basic_string<T> ToLower(const std::basic_string<T>& s)
         {
             std::basic_string<T> lower;
