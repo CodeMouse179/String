@@ -89,14 +89,6 @@ namespace System
             return str;
         }
 
-    private:
-        template<typename Type>
-        static void ConcatHelper(std::basic_ostringstream<T>& boss, const Type& value)
-        {
-            boss << value;
-        }
-
-    public:
         template<typename... Types>
         static std::basic_string<T> Concat(Types... args)
         {
@@ -149,19 +141,6 @@ namespace System
             }
         }
 
-    private:
-        template<typename Type>
-        static void FormatHelper(std::basic_ostringstream<T>& boss, std::basic_string<T>& bs, const Type& value)
-        {
-            std::size_t openBracket = bs.find('{');
-            if (openBracket == std::string::npos) return;
-            std::size_t closeBracket = bs.find('}', openBracket + 1);
-            if (closeBracket == std::string::npos) return;
-            boss << bs.substr(0, openBracket) << value;
-            bs = bs.substr(closeBracket + 1);
-        }
-
-    public:
         template<typename... Types>
         static std::basic_string<T> Format(const std::basic_string<T>& format, Types... args)
         {
@@ -308,6 +287,24 @@ namespace System
             size_t indexOfFirstNonTrimChar = s.find_first_not_of(trimChar);
             if (indexOfFirstNonTrimChar == std::string::npos) return String::Empty();
             return s.substr(indexOfFirstNonTrimChar);
+        }
+
+    private:
+        template<typename Type>
+        static void ConcatHelper(std::basic_ostringstream<T>& boss, const Type& value)
+        {
+            boss << value;
+        }
+
+        template<typename Type>
+        static void FormatHelper(std::basic_ostringstream<T>& boss, std::basic_string<T>& bs, const Type& value)
+        {
+            std::size_t openBracket = bs.find('{');
+            if (openBracket == std::string::npos) return;
+            std::size_t closeBracket = bs.find('}', openBracket + 1);
+            if (closeBracket == std::string::npos) return;
+            boss << bs.substr(0, openBracket) << value;
+            bs = bs.substr(closeBracket + 1);
         }
     };
 }
