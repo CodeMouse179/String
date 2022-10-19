@@ -1,6 +1,21 @@
 ﻿#ifndef SYSTEM_STRING_HPP
 #define SYSTEM_STRING_HPP
 
+//Platform macros:
+#ifdef _WIN32
+#define SYSTEM_WINDOWS
+#endif
+
+#ifdef __linux__
+#define SYSTEM_LINUX
+#endif
+
+//Platform headers:
+#ifdef SYSTEM_WINDOWS
+#include <Windows.h>
+#endif
+
+//C++ headers:
 #include <string> //std::string, std::wstring, std::basic_string
 #include <algorithm> //std::equal
 #include <cctype> //std::tolower
@@ -13,14 +28,14 @@
 #define StringW System::String<wchar_t>
 
 //generic System::String class
-#ifdef _WIN32
+#ifdef SYSTEM_WINDOWS
 #define StringT StringW
 #else
 #define StringT StringA
 #endif
 
 //generic macros:
-#ifdef _WIN32
+#ifdef SYSTEM_WINDOWS
 #define __T(s) L##s
 #define T(s) __T(s)
 #else
@@ -30,7 +45,7 @@
 namespace System
 {
     //generic types:
-#ifdef _WIN32
+#ifdef SYSTEM_WINDOWS
     typedef std::wstring tstring;
     typedef wchar_t tchar;
 #else
@@ -42,6 +57,12 @@ namespace System
     {
         None = 0,
         IgnoreCase = 10,
+    };
+
+    enum class StringEncoding
+    {
+        ANSI = 0,       //CP_ACP(windows)
+        UTF8 = 65001,   //CP_UTF8(windows)
     };
 
     template<typename T>
@@ -287,6 +308,53 @@ namespace System
             size_t indexOfFirstNonTrimChar = s.find_first_not_of(trimChar);
             if (indexOfFirstNonTrimChar == std::string::npos) return String::Empty();
             return s.substr(indexOfFirstNonTrimChar);
+        }
+
+    public: //extra convert function:
+        static tstring StringToWstring(const std::string& s, StringEncoding encoding)
+        {
+#ifdef SYSTEM_WINDOWS
+            std::wstring result;
+            int len = MultiByteToWideChar((UINT)encoding, 0, s.c_str(), -1, NULL, 0);
+            if (len == 0) return result;
+            wchar_t* wstr = new wchar_t[len];
+            if (wstr == nullptr) return result;
+            int ret = MultiByteToWideChar((UINT)encoding, 0, s.c_str(), -1, wstr, len);
+            if (ret == 0)
+            {
+                delete[] wstr;
+                return result;
+            }
+            result = wstr;
+            delete[] wstr;
+            return result;
+#endif
+#ifdef SYSTEM_LINUX
+            return s;
+#endif
+        }
+
+        static std::string WstringToString(const tstring& s, StringEncoding encoding)
+        {
+#ifdef SYSTEM_WINDOWS
+            std::string result;
+            int len = WideCharToMultiByte((UINT)encoding, 0, s.c_str(), -1, NULL, 0, NULL, NULL);
+            if (len == 0) return result;
+            char* str = new char[len];
+            if (str == nullptr) return result;
+            int ret = WideCharToMultiByte((UINT)encoding, 0, s.c_str(), -1, str, len, NULL, NULL);
+            if (ret == 0)
+            {
+                delete[] str;
+                return result;
+            }
+            result = str;
+            delete[] str;
+            return result;
+#endif
+#ifdef SYSTEM_LINUX
+            return s;
+#endif
         }
 
     private:

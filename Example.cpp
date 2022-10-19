@@ -37,5 +37,8 @@ int main()
     std::string trimStr = StringA::Trim("111", '1');
     std::string trimStr1 = StringA::TrimEnd(" ABC ", ' ');
     std::string trimStr2 = StringA::TrimStart(" ABC ", ' ');
+    System::tstring wstr1 = StringA::StringToWstring("你好世界", System::StringEncoding::ANSI);
+    System::tstring wstr2 = StringA::StringToWstring(u8"你好世界", System::StringEncoding::UTF8);
+    std::string str1 = StringA::WstringToString(T("你好世界"), System::StringEncoding::ANSI);
     return 0;
 }
