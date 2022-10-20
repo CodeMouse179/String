@@ -38,7 +38,9 @@ int main()
     std::string trimStr1 = StringA::TrimEnd(" ABC ", ' ');
     std::string trimStr2 = StringA::TrimStart(" ABC ", ' ');
     System::tstring wstr1 = StringA::StringToWstring("你好世界", System::StringEncoding::ANSI);
-    System::tstring wstr2 = StringA::StringToWstring(u8"你好世界", System::StringEncoding::UTF8);
+    System::tstring wstr2 = StringA::StringToWstring(U8("你好世界"), System::StringEncoding::UTF8);
     std::string str1 = StringA::WstringToString(T("你好世界"), System::StringEncoding::ANSI);
+    std::string str2temp = StringA::WstringToString(T("你好世界"), System::StringEncoding::UTF8);
+    System::u8str str2 = StringA::StringToU8string(str2temp);
     return 0;
 }

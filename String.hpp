@@ -42,6 +42,20 @@
 #define T(s) s
 #endif
 
+//CXX version define:
+#ifdef __cpp_char8_t
+#define SYSTEM_CXX_20
+#endif
+
+//using u8string in CXX20:
+#ifdef SYSTEM_CXX_20
+#define __U8(s) StringA::U8stringToString(u8##s)
+#define U8(s) __U8(s)
+#else
+#define __U8(s) u8##s
+#define U8(s) __U8(s)
+#endif
+
 namespace System
 {
     //generic types:
@@ -51,6 +65,15 @@ namespace System
 #else
     typedef std::string tstring;
     typedef char tchar;
+#endif
+
+    //CXX20 u8string:
+#ifdef SYSTEM_CXX_20
+    typedef std::u8string u8str;
+    typedef char8_t u8char;
+#else
+    typedef std::string u8str;
+    typedef char u8char;
 #endif
 
     enum class StringComparison
@@ -353,6 +376,24 @@ namespace System
             return result;
 #endif
 #ifdef SYSTEM_LINUX
+            return s;
+#endif
+        }
+
+        static u8str StringToU8string(const std::string& s)
+        {
+#ifdef SYSTEM_CXX_20
+            return u8str(reinterpret_cast<const u8char*>(s.c_str()));
+#else
+            return s;
+#endif
+        }
+
+        static std::string U8stringToString(const u8str& s)
+        {
+#ifdef SYSTEM_CXX_20
+            return std::string(reinterpret_cast<const char*>(s.c_str()));
+#else
             return s;
 #endif
         }
