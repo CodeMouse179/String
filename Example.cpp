@@ -42,5 +42,7 @@ int main()
     std::string str1 = StringA::WstringToString(T("你好世界"), System::StringEncoding::ANSI);
     std::string str2temp = StringA::WstringToString(T("你好世界"), System::StringEncoding::UTF8);
     System::u8str str2 = StringA::StringToU8string(str2temp);
+    std::u16string u16 = U16("你好世界");
+    std::u32string u32 = U32("你好世界");
     return 0;
 }

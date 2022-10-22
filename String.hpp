@@ -15,6 +15,10 @@
 #include <Windows.h>
 #endif
 
+#ifdef SYSTEM_LINUX
+//TODO
+#endif
+
 //C++ headers:
 #include <string> //std::string, std::wstring, std::basic_string
 #include <algorithm> //std::equal
@@ -34,17 +38,17 @@
 #define StringT StringA
 #endif
 
+//CXX version define:
+#ifdef __cpp_char8_t
+#define SYSTEM_CXX_20
+#endif
+
 //generic macros:
 #ifdef SYSTEM_WINDOWS
 #define __T(s) L##s
 #define T(s) __T(s)
 #else
 #define T(s) s
-#endif
-
-//CXX version define:
-#ifdef __cpp_char8_t
-#define SYSTEM_CXX_20
 #endif
 
 //using u8string in CXX20:
@@ -55,6 +59,14 @@
 #define __U8(s) u8##s
 #define U8(s) __U8(s)
 #endif
+
+//std::u16string
+#define __U16(s) u##s
+#define U16(s) __U16(s)
+
+//std::u32string
+#define __U32(s) U##s
+#define U32(s) __U32(s)
 
 namespace System
 {
