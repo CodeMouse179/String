@@ -44,5 +44,11 @@ int main()
     System::u8str str2 = StringA::StringToU8string(str2temp);
     std::u16string u16 = U16("你好世界");
     std::u32string u32 = U32("你好世界");
+    std::string s1 = StringA::To_UTF8(U16("你好世界"));
+    std::string s2 = StringA::To_UTF8(U32("你好世界"));
+    std::u16string us1 = StringA::To_UTF16(U8("你好世界"));
+    std::u16string us2 = StringA::To_UTF16(U32("你好世界"));
+    std::u32string Us1 = StringA::To_UTF32(U8("你好世界"));
+    std::u32string Us2 = StringA::To_UTF32(U16("你好世界"));
     return 0;
 }
