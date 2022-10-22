@@ -50,5 +50,8 @@ int main()
     std::u16string us2 = StringA::To_UTF16(U32("你好世界"));
     std::u32string Us1 = StringA::To_UTF32(U8("你好世界"));
     std::u32string Us2 = StringA::To_UTF32(U16("你好世界"));
+    std::string utf8_str = StringA::To_String(W("你好世界"));
+    std::wstring wide_str1 = StringA::To_Wstring(utf8_str);
+    std::wstring wide_str2 = StringA::To_Wstring(U8("你好世界"));
     return 0;
 }

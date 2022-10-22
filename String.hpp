@@ -19,6 +19,11 @@
 #include <locale> //std::wstring_convert
 #endif
 
+//CXX version define:
+#ifdef __cpp_char8_t
+#define SYSTEM_CXX_20
+#endif
+
 //disable warnings for MSVCXX(in C++20):
 #define _SILENCE_ALL_CXX17_DEPRECATION_WARNINGS
 
@@ -42,20 +47,15 @@
 #define StringT StringA
 #endif
 
-//CXX version define:
-#ifdef __cpp_char8_t
-#define SYSTEM_CXX_20
-#endif
+//std::string
+#define __S(s) s
+#define S(s) __S(s)
 
-//generic macros:
-#ifdef SYSTEM_WINDOWS
-#define __T(s) L##s
-#define T(s) __T(s)
-#else
-#define T(s) s
-#endif
+//std::wstring
+#define __W(s) L##s
+#define W(s) __W(s)
 
-//using u8string in CXX20:
+//std::u8string in CXX20:
 #ifdef SYSTEM_CXX_20
 #define __U8(s) StringA::U8stringToString(u8##s)
 #define U8(s) __U8(s)
@@ -71,6 +71,13 @@
 //std::u32string
 #define __U32(s) U##s
 #define U32(s) __U32(s)
+
+//generic macros:
+#ifdef SYSTEM_WINDOWS
+#define T(s) W(s)
+#else
+#define T(s) s
+#endif
 
 namespace System
 {
@@ -349,7 +356,7 @@ namespace System
             return s.substr(indexOfFirstNonTrimChar);
         }
 
-    public: //extra convert function:
+    public: //extra convert function 1:
         static tstring StringToWstring(const std::string& s, StringEncoding encoding)
         {
 #ifdef SYSTEM_WINDOWS
@@ -447,6 +454,19 @@ namespace System
         static std::u32string To_UTF32(const std::u16string& s)
         {
             return To_UTF32(To_UTF8(s));
+        }
+
+    public: //extra convert function 3:
+        static std::string To_String(const std::wstring& s)
+        {
+            std::wstring_convert<std::codecvt_utf8<wchar_t>, wchar_t> conv;
+            return conv.to_bytes(s);
+        }
+
+        static std::wstring To_Wstring(const std::string& s)
+        {
+            std::wstring_convert<std::codecvt_utf8<wchar_t>, wchar_t> conv;
+            return conv.from_bytes(s);
         }
 
     private:
