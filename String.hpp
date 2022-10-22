@@ -16,7 +16,7 @@
 #endif
 
 #ifdef SYSTEM_LINUX
-//TODO
+#include <locale> //std::wstring_convert
 #endif
 
 //disable warnings for MSVCXX(in C++20):
