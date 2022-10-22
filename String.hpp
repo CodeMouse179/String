@@ -435,9 +435,7 @@ namespace System
 
         static std::u16string To_UTF16(const std::u32string& s)
         {
-            std::wstring_convert<std::codecvt_utf16<char32_t>, char32_t> conv;
-            std::string bytes = conv.to_bytes(s);
-            return std::u16string(reinterpret_cast<const char16_t*>(bytes.c_str()), bytes.length() / sizeof(char16_t));
+            return To_UTF16(To_UTF8(s));
         }
 
         static std::u32string To_UTF32(const std::string& s)
@@ -448,9 +446,7 @@ namespace System
 
         static std::u32string To_UTF32(const std::u16string& s)
         {
-            const char16_t* pData = s.c_str();
-            std::wstring_convert<std::codecvt_utf16<char32_t>, char32_t> conv;
-            return conv.from_bytes(reinterpret_cast<const char*>(pData), reinterpret_cast<const char*>(pData + s.length()));
+            return To_UTF32(To_UTF8(s));
         }
 
     private:
