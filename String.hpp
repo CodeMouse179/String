@@ -133,9 +133,9 @@ namespace System
         }
 
     public:
-        static std::basic_string<T> Clone(const std::basic_string<T>& str)
+        static std::basic_string<T> Clone(const std::basic_string<T>& s)
         {
-            std::basic_string<T> instance = str;
+            std::basic_string<T> instance = s;
             return instance;
         }
 
@@ -495,14 +495,14 @@ namespace System
         }
 
         template<typename Type>
-        static void FormatHelper(std::basic_ostringstream<T>& boss, std::basic_string<T>& bs, const Type& value)
+        static void FormatHelper(std::basic_ostringstream<T>& boss, std::basic_string<T>& s, const Type& value)
         {
-            std::size_t openBracket = bs.find('{');
+            std::size_t openBracket = s.find('{');
             if (openBracket == std::string::npos) return;
-            std::size_t closeBracket = bs.find('}', openBracket + 1);
+            std::size_t closeBracket = s.find('}', openBracket + 1);
             if (closeBracket == std::string::npos) return;
-            boss << bs.substr(0, openBracket) << value;
-            bs = bs.substr(closeBracket + 1);
+            boss << s.substr(0, openBracket) << value;
+            s = s.substr(closeBracket + 1);
         }
     };
 }
