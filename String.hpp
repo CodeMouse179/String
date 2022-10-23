@@ -197,6 +197,33 @@ namespace System
             }
         }
 
+        static bool EndsWith(const std::basic_string<T>& s, const std::basic_string<T>& value)
+        {
+            if (value.size() > s.size()) return false;
+            for (int i = s.size() - value.size(), j = 0; j < value.size(); i++, j++)
+            {
+                if (s[i] != value[j]) return false;
+            }
+            return true;
+        }
+
+        static bool EndsWith(const std::basic_string<T>& s, const std::basic_string<T>& value, StringComparison comparisonType)
+        {
+            if (comparisonType == StringComparison::IgnoreCase)
+            {
+                if (value.size() > s.size()) return false;
+                for (int i = s.size() - value.size(), j = 0; j < value.size(); i++, j++)
+                {
+                    if (std::tolower(s[i]) != std::tolower(value[j])) return false;
+                }
+                return true;
+            }
+            else
+            {
+                return String::EndsWith(s, value);
+            }
+        }
+
         static bool Equals(const std::basic_string<T>& a, const std::basic_string<T>& b)
         {
             return a.compare(b) == 0;
@@ -326,6 +353,33 @@ namespace System
                 strings.push_back(rest);
             }
             return strings;
+        }
+
+        static bool StartsWith(const std::basic_string<T>& s, const std::basic_string<T>& value)
+        {
+            if (value.size() > s.size()) return false;
+            for (int i = 0; i < value.size(); i++)
+            {
+                if (s[i] != value[i]) return false;
+            }
+            return true;
+        }
+
+        static bool StartsWith(const std::basic_string<T>& s, const std::basic_string<T>& value, StringComparison comparisonType)
+        {
+            if (comparisonType == StringComparison::IgnoreCase)
+            {
+                if (value.size() > s.size()) return false;
+                for (int i = 0; i < value.size(); i++)
+                {
+                    if (std::tolower(s[i]) != std::tolower(value[i])) return false;
+                }
+                return true;
+            }
+            else
+            {
+                return String::StartsWith(s, value);
+            }
         }
 
         static std::basic_string<T> Substring(const std::basic_string<T>& s, int startIndex)

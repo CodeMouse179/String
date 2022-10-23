@@ -14,6 +14,8 @@ int main()
     std::string con3 = StringA::Concat("A1", "B2", "C3", "D4", "E5", "F6", "G7");
     bool contains = StringA::Contains("ABC123", "C12");
     bool contains2 = StringA::Contains("ABC123", "c12", System::StringComparison::IgnoreCase);
+    bool endWith1 = StringA::EndsWith("ABCDEFG", "EFg");
+    bool endWith2 = StringA::EndsWith("ABCDEFG", "EFg", System::StringComparison::IgnoreCase);
     bool eq1 = StringA::Equals("abc", "ABC");
     bool eq2 = StringA::Equals("abc", "ABC", System::StringComparison::IgnoreCase);
     std::string format = StringA::Format("{0} name is {1}.", "My", "ABC");
@@ -30,6 +32,8 @@ int main()
     std::string slice4 = StringA::Slice("123", 0, -1);
     std::string slice5 = StringA::Slice("123", 0, 0);
     auto vector = StringA::Split("A B C 1 2 3", " ");
+    bool startsWith1 = StringA::StartsWith("ABCDEFG", "ABc");
+    bool startsWith2 = StringA::StartsWith("ABCDEFG", "ABc", System::StringComparison::IgnoreCase);
     std::string subStr1 = StringA::Substring("ABCDEFG", 1);
     std::string subStr2 = StringA::Substring("ABCDEFG", 0, 2);
     std::string lower = StringA::ToLower("ABCDEFG");
