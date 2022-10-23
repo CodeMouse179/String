@@ -20,6 +20,18 @@
 #endif
 
 //CXX version define:
+#ifdef __SYSTEM_CXX_11
+#define SYSTEM_CXX_11
+#endif
+
+#ifdef __SYSTEM_CXX_14
+#define SYSTEM_CXX_14
+#endif
+
+#ifdef __SYSTEM_CXX_17
+#define SYSTEM_CXX_17
+#endif
+
 #ifdef __cpp_char8_t
 #define SYSTEM_CXX_20
 #endif
@@ -195,12 +207,18 @@ namespace System
             if (comparisonType == StringComparison::IgnoreCase)
             {
                 if (a.length() != b.length()) return false;
-                return std::equal(a.begin(), a.end(), b.begin(), b.end(),
-                    [](T _a, T _b)
-                    {
-                        return std::tolower(_a) == std::tolower(_b);
-                    }
-                );
+                for (int i = 0; i < a.size(); i++)
+                {
+                    if (std::tolower(a[i]) != std::tolower(b[i])) return false;
+                }
+                return true;
+                //CXX14 and above required:
+                //return std::equal(a.begin(), a.end(), b.begin(), b.end(),
+                //    [](T _a, T _b)
+                //    {
+                //        return std::tolower(_a) == std::tolower(_b);
+                //    }
+                //);
             }
             else
             {
