@@ -37,7 +37,9 @@
 #endif
 
 //disable warnings for MSVCXX(in C++20):
+#ifdef _MSC_VER
 #define _SILENCE_ALL_CXX17_DEPRECATION_WARNINGS
+#endif
 
 //C++ headers:
 #include <string> //std::string, std::wstring, std::basic_string
