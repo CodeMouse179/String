@@ -1,4 +1,8 @@
-﻿#ifndef SYSTEM_STRING_HPP
+﻿//Modified date : 2022/10/24 programmer's day :)
+//Designer : CodeMouse179(编程鼠鼠)
+//License : MIT
+
+#ifndef SYSTEM_STRING_HPP
 #define SYSTEM_STRING_HPP
 
 //Platform macros:
