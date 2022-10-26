@@ -1,5 +1,5 @@
 ﻿//     +--------------------------------------------------------------------------------+
-//     |                                  String v1.0.0                                 |
+//     |                                  String v1.0.1                                 |
 //     |  Introduction : System.String in C++                                           |
 //     |  Modified date : 2022/10/26                                                    |
 //     |  License : MIT                                                                 |
@@ -19,7 +19,7 @@
 //Semantic Versioning 2.0.0 : https://semver.org/
 #define SYSTEM_STRING_VERSION_MAJOR 1
 #define SYSTEM_STRING_VERSION_MINOR 0
-#define SYSTEM_STRING_VERSION_PATCH 0
+#define SYSTEM_STRING_VERSION_PATCH 1
 
 //Windows Platform:
 #ifdef _WIN32
@@ -34,6 +34,10 @@
 //Windows Headers:
 #ifdef SYSTEM_WINDOWS
 #include <Windows.h>
+//Disable warnings for MSVC++ 20:
+#ifdef _MSC_VER
+#define _SILENCE_ALL_CXX17_DEPRECATION_WARNINGS
+#endif
 #endif
 
 //Linux Headers:
@@ -58,9 +62,8 @@
 #define SYSTEM_CXX_20
 #endif
 
-//Disable warnings for MSVC++ 20:
-#ifdef _MSC_VER
-#define _SILENCE_ALL_CXX17_DEPRECATION_WARNINGS
+#ifdef __SYSTEM_STRING_ONLY
+#define SYSTEM_STRING_ONLY
 #endif
 
 //C++ Headers:
