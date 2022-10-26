@@ -1,24 +1,42 @@
-﻿//Modified date : 2022/10/24 programmer's day :)
-//Designer : CodeMouse179(编程鼠鼠)
-//License : MIT
+﻿//     +--------------------------------------------------------------------------------+
+//     |                                  String v1.0.0                                 |
+//     |  Introduction : System.String in C++                                           |
+//     |  Modified date : 2022/10/26                                                    |
+//     |  License : MIT                                                                 |
+//     |  Source code : https://github.com/CodeMouse179/String                          |
+//     |  Doc : https://github.com/CodeMouse179/String/blob/main/Doc/README.md          |
+//     |                                                                                |
+//     |                             Designer : CodeMouse179                            |
+//     |  Email : codemouse179@gmail.com                                                |
+//     |  Github : https://github.com/CodeMouse179                                      |
+//     |  Bilibili : https://space.bilibili.com/3461577785215838                        |
+//     |                                                                                |
+//     +--------------------------------------------------------------------------------+
 
 #ifndef SYSTEM_STRING_HPP
 #define SYSTEM_STRING_HPP
 
-//Platform macros:
+//Semantic Versioning 2.0.0 : https://semver.org/
+#define SYSTEM_STRING_VERSION_MAJOR 1
+#define SYSTEM_STRING_VERSION_MINOR 0
+#define SYSTEM_STRING_VERSION_PATCH 0
+
+//Windows Platform:
 #ifdef _WIN32
 #define SYSTEM_WINDOWS
 #endif
 
+//Linux Platform:
 #ifdef __linux__
 #define SYSTEM_LINUX
 #endif
 
-//Platform headers:
+//Windows Headers:
 #ifdef SYSTEM_WINDOWS
 #include <Windows.h>
 #endif
 
+//Linux Headers:
 #ifdef SYSTEM_LINUX
 #include <locale> //std::wstring_convert
 #endif
@@ -40,12 +58,12 @@
 #define SYSTEM_CXX_20
 #endif
 
-//disable warnings for MSVCXX(in C++20):
+//Disable warnings for MSVC++ 20:
 #ifdef _MSC_VER
 #define _SILENCE_ALL_CXX17_DEPRECATION_WARNINGS
 #endif
 
-//C++ headers:
+//C++ Headers:
 #include <string> //std::string, std::wstring, std::basic_string
 #include <algorithm> //std::equal
 #include <cctype> //std::tolower
@@ -316,6 +334,7 @@ namespace System
             return s.find_last_of(value);
         }
 
+#ifndef SYSTEM_STRING_ONLY
         static std::basic_string<T> Slice(const std::basic_string<T>& s)
         {
             return s;
@@ -343,6 +362,7 @@ namespace System
             }
             return slice;
         }
+#endif
 
         static std::vector<std::basic_string<T>> Split(const std::basic_string<T>& s, const std::basic_string<T>& separator)
         {
@@ -434,6 +454,7 @@ namespace System
             return s.substr(indexOfFirstNonTrimChar);
         }
 
+#ifndef SYSTEM_STRING_ONLY
     public: //extra convert function 1:
         static tstring StringToWstring(const std::string& s, StringEncoding encoding)
         {
@@ -546,6 +567,7 @@ namespace System
             std::wstring_convert<std::codecvt_utf8<wchar_t>, wchar_t> conv;
             return conv.from_bytes(s);
         }
+#endif
 
     private:
         template<typename Type>
