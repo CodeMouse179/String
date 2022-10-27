@@ -1,5 +1,5 @@
 ﻿//     +--------------------------------------------------------------------------------+
-//     |                                  String v1.2.0                                 |
+//     |                                  String v1.3.0                                 |
 //     |  Introduction : System.String in C++                                           |
 //     |  Modified date : 2022/10/26                                                    |
 //     |  License : MIT                                                                 |
@@ -17,7 +17,7 @@
 
 //Semantic Versioning 2.0.0 : https://semver.org/
 #define SYSTEM_STRING_VERSION_MAJOR 1
-#define SYSTEM_STRING_VERSION_MINOR 2
+#define SYSTEM_STRING_VERSION_MINOR 3
 #define SYSTEM_STRING_VERSION_PATCH 0
 
 //Windows Platform:
@@ -266,19 +266,22 @@ namespace System
         {
             if (comparisonType == StringComparison::IgnoreCase)
             {
+#ifndef SYSTEM_CXX_14
                 if (a.length() != b.length()) return false;
                 for (int i = 0; i < a.size(); i++)
                 {
                     if (std::tolower(a[i]) != std::tolower(b[i])) return false;
                 }
                 return true;
+#else
                 //CXX14 and above required:
-                //return std::equal(a.begin(), a.end(), b.begin(), b.end(),
-                //    [](T _a, T _b)
-                //    {
-                //        return std::tolower(_a) == std::tolower(_b);
-                //    }
-                //);
+                return std::equal(a.begin(), a.end(), b.begin(), b.end(),
+                    [](T _a, T _b)
+                    {
+                        return std::tolower(_a) == std::tolower(_b);
+                    }
+                );
+#endif
             }
             else
             {
@@ -449,6 +452,11 @@ namespace System
             return s.substr(indexOfFirstNonTrimChar, indexOfLastNonTrimChar - indexOfFirstNonTrimChar + 1);
         }
 
+        static std::basic_string<T> Trim(const std::basic_string<T>& s)
+        {
+            return String::Trim(s, (T)' ');
+        }
+
         static std::basic_string<T> TrimEnd(const std::basic_string<T>& s, T trimChar)
         {
             size_t indexOfLastNonTrimChar = s.find_last_not_of(trimChar);
@@ -456,11 +464,21 @@ namespace System
             return s.substr(0, indexOfLastNonTrimChar + 1);
         }
 
+        static std::basic_string<T> TrimEnd(const std::basic_string<T>& s)
+        {
+            return String::TrimEnd(s, (T)' ');
+        }
+
         static std::basic_string<T> TrimStart(const std::basic_string<T>& s, T trimChar)
         {
             size_t indexOfFirstNonTrimChar = s.find_first_not_of(trimChar);
             if (indexOfFirstNonTrimChar == std::string::npos) return String::Empty();
             return s.substr(indexOfFirstNonTrimChar);
+        }
+
+        static std::basic_string<T> TrimStart(const std::basic_string<T>& s)
+        {
+            return String::TrimStart(s, (T)' ');
         }
 
 #ifndef SYSTEM_STRING_ONLY
@@ -579,6 +597,7 @@ namespace System
 #endif
 
 #ifndef SYSTEM_STRING_ONLY
+    public: //extra support:
         static bool IsValidUTF8(const std::string& s)
         {
             for (int i = 0; i < s.size(); i++)

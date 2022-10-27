@@ -39,8 +39,11 @@ int main()
     std::string lower = StringA::ToLower("ABCDEFG");
     std::string upper = StringA::ToUpper("abcdefg");
     std::string trimStr = StringA::Trim("111", '1');
+    std::wstring _trimStr = StringW::Trim(W(" 你好世界 "));
     std::string trimStr1 = StringA::TrimEnd(" ABC ", ' ');
+    std::wstring _trimStr1 = StringW::TrimEnd(W(" 你好世界 "));
     std::string trimStr2 = StringA::TrimStart(" ABC ", ' ');
+    std::wstring _trimStr2 = StringW::TrimStart(W(" 你好世界 "));
     System::tstring wstr1 = StringA::StringToWstring("你好世界", System::StringEncoding::ANSI);
     System::tstring wstr2 = StringA::StringToWstring(U8("你好世界"), System::StringEncoding::UTF8);
     std::string str1 = StringA::WstringToString(T("你好世界"), System::StringEncoding::ANSI);
