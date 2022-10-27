@@ -1,5 +1,5 @@
 ﻿//     +--------------------------------------------------------------------------------+
-//     |                                  String v1.1.0                                 |
+//     |                                  String v1.2.0                                 |
 //     |  Introduction : System.String in C++                                           |
 //     |  Modified date : 2022/10/26                                                    |
 //     |  License : MIT                                                                 |
@@ -10,7 +10,6 @@
 //     |  Email : codemouse179@gmail.com                                                |
 //     |  Github : https://github.com/CodeMouse179                                      |
 //     |  Bilibili : https://space.bilibili.com/3461577785215838                        |
-//     |                                                                                |
 //     +--------------------------------------------------------------------------------+
 
 #ifndef SYSTEM_STRING_HPP
@@ -18,7 +17,7 @@
 
 //Semantic Versioning 2.0.0 : https://semver.org/
 #define SYSTEM_STRING_VERSION_MAJOR 1
-#define SYSTEM_STRING_VERSION_MINOR 1
+#define SYSTEM_STRING_VERSION_MINOR 2
 #define SYSTEM_STRING_VERSION_PATCH 0
 
 //Windows Platform:
@@ -94,7 +93,7 @@
 #define __W(s) L##s
 #define W(s) __W(s)
 
-//std::u8string in CXX20:
+//std::u8string(C++20)
 #ifdef SYSTEM_CXX_20
 #define __U8(s) StringA::U8stringToString(u8##s)
 #define U8(s) __U8(s)
@@ -111,11 +110,18 @@
 #define __U32(s) U##s
 #define U32(s) __U32(s)
 
-//generic macros:
+//Windows:wchar_t, Linux:char
 #ifdef SYSTEM_WINDOWS
 #define T(s) W(s)
 #else
 #define T(s) s
+#endif
+
+//Windows:char/char8_t(C++20), Linux:char
+#ifdef SYSTEM_WINDOWS
+#define T8(s) U8(s)
+#else
+#define T8(s) s
 #endif
 
 namespace System
