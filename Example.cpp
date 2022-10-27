@@ -1,6 +1,7 @@
 ﻿#include "String.hpp"
 int main()
 {
+    int version = SYSTEM_STRING_VERSION;
     System::tstring s = StringT::Empty();
     std::string clone = StringA::Clone("ABC123");
     int compare = StringA::Compare("a1", "1a");
