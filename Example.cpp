@@ -57,5 +57,7 @@ int main()
     std::string utf8_str = StringA::To_String(W("你好世界"));
     std::wstring wide_str1 = StringA::To_Wstring(utf8_str);
     std::wstring wide_str2 = StringA::To_Wstring(U8("你好世界"));
+    bool isUTF8_1 = StringA::IsValidUTF8(U8("你好世界"));
+    bool isUTF8_2 = StringA::IsValidUTF8("你好世界");
     return 0;
 }

@@ -1,5 +1,5 @@
 ﻿//     +--------------------------------------------------------------------------------+
-//     |                                  String v1.0.1                                 |
+//     |                                  String v1.1.0                                 |
 //     |  Introduction : System.String in C++                                           |
 //     |  Modified date : 2022/10/26                                                    |
 //     |  License : MIT                                                                 |
@@ -18,8 +18,8 @@
 
 //Semantic Versioning 2.0.0 : https://semver.org/
 #define SYSTEM_STRING_VERSION_MAJOR 1
-#define SYSTEM_STRING_VERSION_MINOR 0
-#define SYSTEM_STRING_VERSION_PATCH 1
+#define SYSTEM_STRING_VERSION_MINOR 1
+#define SYSTEM_STRING_VERSION_PATCH 0
 
 //Windows Platform:
 #ifdef _WIN32
@@ -569,6 +569,63 @@ namespace System
         {
             std::wstring_convert<std::codecvt_utf8<wchar_t>, wchar_t> conv;
             return conv.from_bytes(s);
+        }
+#endif
+
+#ifndef SYSTEM_STRING_ONLY
+        static bool IsValidUTF8(const std::string& s)
+        {
+            for (int i = 0; i < s.size(); i++)
+            {
+                unsigned char firstByte = (unsigned char)s[i];
+                unsigned int codePoint = 0;
+                int length = 0;
+                //Check Byte 1:
+                if ((firstByte & 0x80) == 0x00) // U+0000 to U+007F
+                {
+                    codePoint = (firstByte & 0x7F);
+                    length = 1;
+                }
+                else if ((firstByte & 0xE0) == 0xC0) // U+0080 to U+07FF
+                {
+                    codePoint = (firstByte & 0x1F);
+                    length = 2;
+                }
+                else if ((firstByte & 0xF0) == 0xE0) // U+0800 to U+FFFF
+                {
+                    codePoint = (firstByte & 0x0F);
+                    length = 3;
+                }
+                else if ((firstByte & 0xF8) == 0xF0) // U+10000 to U+10FFFF
+                {
+                    codePoint = (firstByte & 0x07);
+                    length = 4;
+                }
+                else return false;
+                //Calculate:
+                for (int j = 1; j < length; j++)
+                {
+                    int index = i + j;
+                    if (index < s.size())
+                    {
+                        unsigned char otherByte = s[index];
+                        if ((otherByte & 0xC0) != 0x80) return false;
+                        codePoint = (codePoint << 6) | (otherByte & 0x3F);
+                    }
+                }
+                //Check CodePoint:
+                if (codePoint >= 0xD800 && codePoint <= 0xDFFF)
+                    return false;
+                if (codePoint >= 0x0000 && codePoint <= 0x007F && length == 1)
+                    return true;
+                if (codePoint >= 0x0080 && codePoint <= 0x07FF && length == 2)
+                    return true;
+                if (codePoint >= 0x0800 && codePoint <= 0xFFFF && length == 3)
+                    return true;
+                if (codePoint >= 0x10000 && codePoint <= 0x10FFFF && length == 4)
+                    return true;
+            }
+            return false;
         }
 #endif
 
