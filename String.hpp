@@ -1,5 +1,5 @@
 ﻿//     +--------------------------------------------------------------------------------+
-//     |                                  String v1.3.1                                 |
+//     |                                  String v1.3.2                                 |
 //     |  Introduction : System.String in C++                                           |
 //     |  Modified date : 2022/10/26                                                    |
 //     |  License : MIT                                                                 |
@@ -19,7 +19,7 @@
 
 #define SYSTEM_STRING_VERSION_MAJOR 1
 #define SYSTEM_STRING_VERSION_MINOR 3
-#define SYSTEM_STRING_VERSION_PATCH 1
+#define SYSTEM_STRING_VERSION_PATCH 2
 #define SYSTEM_STRING_VERSION (SYSTEM_STRING_VERSION_MAJOR << 16 | SYSTEM_STRING_VERSION_MINOR << 8 | SYSTEM_STRING_VERSION_PATCH)
 
 //Windows Platform:
@@ -124,6 +124,13 @@
 #define T8(s) U8(s)
 #else
 #define T8(s) s
+#endif
+
+//Specifies the execution character set used for string and character literals.
+#ifdef SYSTEM_STRING_SET_UTF8
+#ifdef SYSTEM_WINDOWS
+#pragma execution_character_set("utf-8")
+#endif
 #endif
 
 namespace System
