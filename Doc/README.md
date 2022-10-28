@@ -47,3 +47,5 @@
 1. System::String::IsValidUTF8
 
     * [How to easily detect utf8 encoding in the string?](https://stackoverflow.com/questions/28270310/how-to-easily-detect-utf8-encoding-in-the-string)
+
+    * [UTF-8](https://en.wikipedia.org/wiki/UTF-8)

@@ -1,5 +1,5 @@
 ﻿//     +--------------------------------------------------------------------------------+
-//     |                                  String v1.3.4                                 |
+//     |                                  String v1.4.0                                 |
 //     |  Introduction : System.String in C++                                           |
 //     |  Modified date : 2022/10/28                                                    |
 //     |  License : MIT                                                                 |
@@ -18,8 +18,8 @@
 //Versioning refer to Semantic Versioning 2.0.0 : https://semver.org/
 
 #define SYSTEM_STRING_VERSION_MAJOR 1
-#define SYSTEM_STRING_VERSION_MINOR 3
-#define SYSTEM_STRING_VERSION_PATCH 4
+#define SYSTEM_STRING_VERSION_MINOR 4
+#define SYSTEM_STRING_VERSION_PATCH 0
 #define SYSTEM_STRING_VERSION (SYSTEM_STRING_VERSION_MAJOR << 16 | SYSTEM_STRING_VERSION_MINOR << 8 | SYSTEM_STRING_VERSION_PATCH)
 
 //Windows Platform:
@@ -657,19 +657,81 @@ namespace System
                         codePoint = (codePoint << 6) | (otherByte & 0x3F);
                     }
                 }
+                i += (length - 1);
                 //Check CodePoint:
                 if (codePoint >= 0xD800 && codePoint <= 0xDFFF)
                     return false;
                 if (codePoint >= 0x0000 && codePoint <= 0x007F && length == 1)
-                    return true;
+                    continue;
                 if (codePoint >= 0x0080 && codePoint <= 0x07FF && length == 2)
-                    return true;
+                    continue;
                 if (codePoint >= 0x0800 && codePoint <= 0xFFFF && length == 3)
-                    return true;
+                    continue;
                 if (codePoint >= 0x10000 && codePoint <= 0x10FFFF && length == 4)
-                    return true;
+                    continue;
+                return false;
             }
-            return false;
+            return true;
+        }
+
+        //return 0 if failed.
+        static int UTF8CharCount(const std::string& s)
+        {
+            int charCount = 0;
+            for (int i = 0; i < s.size(); i++)
+            {
+                unsigned char firstByte = (unsigned char)s[i];
+                unsigned int codePoint = 0;
+                int length = 0;
+                //Check Byte 1:
+                if ((firstByte & 0x80) == 0x00) // U+0000 to U+007F
+                {
+                    codePoint = (firstByte & 0x7F);
+                    length = 1;
+                }
+                else if ((firstByte & 0xE0) == 0xC0) // U+0080 to U+07FF
+                {
+                    codePoint = (firstByte & 0x1F);
+                    length = 2;
+                }
+                else if ((firstByte & 0xF0) == 0xE0) // U+0800 to U+FFFF
+                {
+                    codePoint = (firstByte & 0x0F);
+                    length = 3;
+                }
+                else if ((firstByte & 0xF8) == 0xF0) // U+10000 to U+10FFFF
+                {
+                    codePoint = (firstByte & 0x07);
+                    length = 4;
+                }
+                else return charCount;
+                //Calculate:
+                for (int j = 1; j < length; j++)
+                {
+                    int index = i + j;
+                    if (index < s.size())
+                    {
+                        unsigned char otherByte = s[index];
+                        if ((otherByte & 0xC0) != 0x80) return charCount;
+                        codePoint = (codePoint << 6) | (otherByte & 0x3F);
+                    }
+                }
+                i += (length - 1);
+                charCount++;
+                //Check CodePoint:
+                if (codePoint >= 0xD800 && codePoint <= 0xDFFF)
+                    return charCount;
+                if (codePoint >= 0x0000 && codePoint <= 0x007F && length == 1)
+                    continue;
+                if (codePoint >= 0x0080 && codePoint <= 0x07FF && length == 2)
+                    continue;
+                if (codePoint >= 0x0800 && codePoint <= 0xFFFF && length == 3)
+                    continue;
+                if (codePoint >= 0x10000 && codePoint <= 0x10FFFF && length == 4)
+                    continue;
+                return charCount;
+            }
+            return charCount;
         }
 #endif
 

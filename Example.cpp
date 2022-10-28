@@ -63,5 +63,6 @@ int main()
     std::wstring wide_str2 = StringA::To_Wstring(U8("你好世界"));
     bool isUTF8_1 = StringA::IsValidUTF8(U8("你好世界"));
     bool isUTF8_2 = StringA::IsValidUTF8("你好世界");
+    int charCount = StringA::UTF8CharCount(U8("你好世界ABC123"));
     return 0;
 }
