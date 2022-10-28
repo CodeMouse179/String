@@ -37,3 +37,13 @@
 1. System::String::Split
 
     * [Split string in C++](https://stackoverflow.com/questions/14265581/parse-split-a-string-in-c-using-string-delimiter-standard-c)
+
+1. To_UTF8, To_UTF16, To_UTF32, To_String, To_Wstring
+
+    * [std::u32string conversion to/from std::string and std::u16string](https://stackoverflow.com/questions/31302506/stdu32string-conversion-to-from-stdstring-and-stdu16string)
+
+    * [string,wstring,u16string,u32string](https://blog.51cto.com/mingtangduyao/1759254)
+
+1. System::String::IsValidUTF8
+
+    * [How to easily detect utf8 encoding in the string?](https://stackoverflow.com/questions/28270310/how-to-easily-detect-utf8-encoding-in-the-string)
