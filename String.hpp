@@ -1,5 +1,5 @@
 ﻿//     +--------------------------------------------------------------------------------+
-//     |                                  String v1.3.3                                 |
+//     |                                  String v1.3.4                                 |
 //     |  Introduction : System.String in C++                                           |
 //     |  Modified date : 2022/10/28                                                    |
 //     |  License : MIT                                                                 |
@@ -19,7 +19,7 @@
 
 #define SYSTEM_STRING_VERSION_MAJOR 1
 #define SYSTEM_STRING_VERSION_MINOR 3
-#define SYSTEM_STRING_VERSION_PATCH 3
+#define SYSTEM_STRING_VERSION_PATCH 4
 #define SYSTEM_STRING_VERSION (SYSTEM_STRING_VERSION_MAJOR << 16 | SYSTEM_STRING_VERSION_MINOR << 8 | SYSTEM_STRING_VERSION_PATCH)
 
 //Windows Platform:
@@ -224,7 +224,7 @@ namespace System
         static std::basic_string<T> Concat(Types... args)
         {
             std::basic_ostringstream<T> boss;
-#if SYSTEM_CXX_17
+#ifdef SYSTEM_CXX_17
             (String::ConcatHelper(boss, args), ...); //C++17
 #else
             int arr[] = { (String::ConcatHelper(boss, args), 0)... }; //C++11
@@ -313,7 +313,7 @@ namespace System
         {
             std::basic_ostringstream<T> boss;
             std::basic_string<T> clone = String::Clone(format);
-#if SYSTEM_CXX_17
+#ifdef SYSTEM_CXX_17
             (String::FormatHelper(boss, clone, args), ...); //C++17
 #else
             int arr[] = { (String::FormatHelper(boss, clone, args), 0)... }; //C++11
