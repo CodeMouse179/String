@@ -1,7 +1,7 @@
 ﻿//     +--------------------------------------------------------------------------------+
 //     |                                  String v1.3.2                                 |
 //     |  Introduction : System.String in C++                                           |
-//     |  Modified date : 2022/10/26                                                    |
+//     |  Modified date : 2022/10/28                                                    |
 //     |  License : MIT                                                                 |
 //     |  Source code : https://github.com/CodeMouse179/String                          |
 //     |  Doc : https://github.com/CodeMouse179/String/blob/main/Doc/README.md          |
