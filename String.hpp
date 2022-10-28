@@ -1,5 +1,5 @@
 ﻿//     +--------------------------------------------------------------------------------+
-//     |                                  String v1.3.2                                 |
+//     |                                  String v1.3.3                                 |
 //     |  Introduction : System.String in C++                                           |
 //     |  Modified date : 2022/10/28                                                    |
 //     |  License : MIT                                                                 |
@@ -19,7 +19,7 @@
 
 #define SYSTEM_STRING_VERSION_MAJOR 1
 #define SYSTEM_STRING_VERSION_MINOR 3
-#define SYSTEM_STRING_VERSION_PATCH 2
+#define SYSTEM_STRING_VERSION_PATCH 3
 #define SYSTEM_STRING_VERSION (SYSTEM_STRING_VERSION_MAJOR << 16 | SYSTEM_STRING_VERSION_MINOR << 8 | SYSTEM_STRING_VERSION_PATCH)
 
 //Windows Platform:
@@ -47,16 +47,26 @@
 #endif
 
 //CXX version define:
-#ifdef __SYSTEM_CXX_11
+#ifdef SYSTEM_WINDOWS
+#if (_MSVC_LANG >= 201103L)
 #define SYSTEM_CXX_11
 #endif
-
-#ifdef __SYSTEM_CXX_14
+#if (_MSVC_LANG >= 201402L)
 #define SYSTEM_CXX_14
 #endif
-
-#ifdef __SYSTEM_CXX_17
+#if (_MSVC_LANG >= 201703L)
 #define SYSTEM_CXX_17
+#endif
+#else
+#if (__cplusplus >= 201103L)
+#define SYSTEM_CXX_11
+#endif
+#if (__cplusplus >= 201402L)
+#define SYSTEM_CXX_14
+#endif
+#if (__cplusplus >= 201703L)
+#define SYSTEM_CXX_17
+#endif
 #endif
 
 #ifdef __cpp_char8_t
