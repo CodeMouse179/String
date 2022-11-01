@@ -1,7 +1,7 @@
 ﻿//     +--------------------------------------------------------------------------------+
-//     |                                  String v1.4.0                                 |
+//     |                                  String v1.5.0                                 |
 //     |  Introduction : System.String in C++                                           |
-//     |  Modified date : 2022/10/28                                                    |
+//     |  Modified date : 2022/11/1                                                     |
 //     |  License : MIT                                                                 |
 //     |  Source code : https://github.com/CodeMouse179/String                          |
 //     |  Doc : https://github.com/CodeMouse179/String/blob/main/Doc/README.md          |
@@ -18,7 +18,7 @@
 //Versioning refer to Semantic Versioning 2.0.0 : https://semver.org/
 
 #define SYSTEM_STRING_VERSION_MAJOR 1
-#define SYSTEM_STRING_VERSION_MINOR 4
+#define SYSTEM_STRING_VERSION_MINOR 5
 #define SYSTEM_STRING_VERSION_PATCH 0
 #define SYSTEM_STRING_VERSION (SYSTEM_STRING_VERSION_MAJOR << 16 | SYSTEM_STRING_VERSION_MINOR << 8 | SYSTEM_STRING_VERSION_PATCH)
 
@@ -169,6 +169,7 @@ namespace System
         IgnoreCase = 10,
     };
 
+    //See:https://learn.microsoft.com/en-us/windows/win32/intl/code-page-identifiers
     enum class StringEncoding
     {
         ANSI = 0,       //CP_ACP(windows)
@@ -602,16 +603,24 @@ namespace System
         }
 
     public: //extra convert function 3:
+        //return utf-8 string
         static std::string To_String(const std::wstring& s)
         {
             std::wstring_convert<std::codecvt_utf8<wchar_t>, wchar_t> conv;
             return conv.to_bytes(s);
         }
 
+        //receive utf-8 string
         static std::wstring To_Wstring(const std::string& s)
         {
             std::wstring_convert<std::codecvt_utf8<wchar_t>, wchar_t> conv;
             return conv.from_bytes(s);
+        }
+
+    public: //extra convert function 4:
+        static std::string ConvertString(const std::string& s, StringEncoding sourceEncoding, StringEncoding targetEncoding)
+        {
+            return String::WstringToString(String::StringToWstring(s, sourceEncoding), targetEncoding);
         }
 #endif
 

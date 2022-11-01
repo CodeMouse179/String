@@ -64,5 +64,7 @@ int main()
     bool isUTF8_1 = StringA::IsValidUTF8(U8("你好世界"));
     bool isUTF8_2 = StringA::IsValidUTF8("你好世界");
     int charCount = StringA::UTF8CharCount(U8("你好世界ABC123"));
+    auto zxcxz = StringA::ConvertString(U8("你好世界"), System::StringEncoding::UTF8, (System::StringEncoding)950);
+    auto xczzz = StringA::StringToWstring(zxcxz, (System::StringEncoding)950);
     return 0;
 }
