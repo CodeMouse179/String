@@ -1,7 +1,7 @@
 ﻿#include "String.hpp"
 int main()
 {
-    //String::Format, output:Anna is your Wife.
+    //String::Format, output:"Anna is your Wife."
     std::string format_str = System::String<char>::Format("{0} is your {1}.", "Anna", "Wife");
 
     //String::StringToWstring, output:L"Hello World"(on Windows) or "Hello World"(on Linux)

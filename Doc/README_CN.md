@@ -23,7 +23,7 @@ String.hpp通过单个头文件的形式分发，它使用起来非常简单：
 ### 示例
 
 ``` cpp
-    //String::Format, output:Anna is your Wife.
+    //String::Format, output:"Anna is your Wife."
     std::string format_str = System::String<char>::Format("{0} is your {1}.", "Anna", "Wife");
 
     //String::StringToWstring, output:L"Hello World"(on Windows) or "Hello World"(on Linux)
