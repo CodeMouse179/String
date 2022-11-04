@@ -1,6 +1,18 @@
 ﻿#include "String.hpp"
 int main()
 {
+    //String::Format, output:Anna is your Wife.
+    std::string format_str = System::String<char>::Format("{0} is your {1}.", "Anna", "Wife");
+
+    //String::StringToWstring, output:L"Hello World"(on Windows) or "Hello World"(on Linux)
+    System::tstring hello_world = System::String<char>::StringToWstring(U8("Hello World"), System::StringEncoding::UTF8);
+    
+    //String::WstringToString, output:"Hello World"
+    std::string hello_world2 = System::String<char>::WstringToString(T("Hello World"), System::StringEncoding::UTF8);
+    
+    //String::IsValidUTF8, output:true
+    bool is_utf8_str = System::String<char>::IsValidUTF8(U8("你好世界"));
+
     int version = SYSTEM_STRING_VERSION;
     System::tstring s = StringT::Empty();
     std::string clone = StringA::Clone("ABC123");
