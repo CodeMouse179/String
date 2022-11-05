@@ -1,5 +1,5 @@
 ﻿//     +--------------------------------------------------------------------------------+
-//     |                                  String v1.5.1                                 |
+//     |                                  String v1.6.0                                 |
 //     |  Introduction : System.String in C++                                           |
 //     |  Modified date : 2022/11/5                                                     |
 //     |  License : MIT                                                                 |
@@ -18,8 +18,8 @@
 //Versioning refer to Semantic Versioning 2.0.0 : https://semver.org/
 
 #define SYSTEM_STRING_VERSION_MAJOR 1
-#define SYSTEM_STRING_VERSION_MINOR 5
-#define SYSTEM_STRING_VERSION_PATCH 1
+#define SYSTEM_STRING_VERSION_MINOR 6
+#define SYSTEM_STRING_VERSION_PATCH 0
 #define SYSTEM_STRING_VERSION (SYSTEM_STRING_VERSION_MAJOR << 16 | SYSTEM_STRING_VERSION_MINOR << 8 | SYSTEM_STRING_VERSION_PATCH)
 
 //Windows Platform:
@@ -189,6 +189,12 @@ namespace System
     template<typename T>
     class String
     {
+    private:
+        //static class
+        String()
+        {
+        }
+
     public:
         static std::basic_string<T> Empty()
         {
@@ -376,6 +382,33 @@ namespace System
             return s.find_last_of(value);
         }
 
+        static std::basic_string<T> Replace(const std::basic_string<T>& s, const std::basic_string<T>& oldValue, const std::basic_string<T>& newValue)
+        {
+            if (oldValue.empty()) return s;
+            std::basic_string<T> str = s;
+            size_t pos = 0;
+            while ((pos = str.find(oldValue, pos)) != std::string::npos)
+            {
+                str.replace(pos, oldValue.size(), newValue);
+                pos += newValue.size();
+            }
+            return str;
+        }
+
+        static std::basic_string<T> Replace(const std::basic_string<T>& s, T oldValue, T newValue)
+        {
+            std::basic_string<T> str;
+            for (int i = 0; i < s.size(); i++)
+            {
+                if (s[i] == oldValue)
+                {
+                    if (newValue != 0) str += newValue;
+                }
+                else str += s[i];
+            }
+            return str;
+        }
+
 #ifndef SYSTEM_STRING_ONLY
         static std::basic_string<T> Slice(const std::basic_string<T>& s)
         {
@@ -460,11 +493,45 @@ namespace System
             return s.substr(startIndex, length);
         }
 
+        static std::vector<T> ToCharArray(const std::basic_string<T>& s)
+        {
+            std::vector<T> charArray;
+            for (int i = 0; i < s.size(); i++)
+            {
+                charArray.push_back(s[i]);
+            }
+            return charArray;
+        }
+
+        static std::vector<T> ToCharArray(const std::basic_string<T>& s, int startIndex, int length)
+        {
+            std::vector<T> charArray;
+            int endIndex = startIndex + length;
+            if (endIndex > s.size()) return charArray;
+            for (int i = startIndex; i < endIndex; i++)
+            {
+                charArray.push_back(s[i]);
+            }
+            return charArray;
+        }
+
         static std::basic_string<T> ToLower(const std::basic_string<T>& s)
         {
             std::basic_string<T> lower;
             for (const auto& item : s) lower += std::tolower(item);
             return lower;
+        }
+
+        static std::basic_string<T> ToString(const std::basic_string<T>& s)
+        {
+            return s;
+        }
+
+        static std::basic_string<T> ToString(T c)
+        {
+            std::basic_string<T> s;
+            s.push_back(c);
+            return s;
         }
 
         static std::basic_string<T> ToUpper(const std::basic_string<T>& s)

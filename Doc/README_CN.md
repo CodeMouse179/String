@@ -6,7 +6,7 @@
 
 System.String的C++实现
 
-版本 : 1.5.1
+版本 : 1.6.0
 
 平台 : Windows, Linux, macOS(未测试)
 

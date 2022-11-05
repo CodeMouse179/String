@@ -26,10 +26,10 @@ int main()
 
     //String::StringToWstring, output:L"Hello World"(on Windows) or "Hello World"(on Linux)
     System::tstring hello_world = System::String<char>::StringToWstring(U8("Hello World"), System::StringEncoding::UTF8);
-    
+
     //String::WstringToString, output:"Hello World"
     std::string hello_world2 = System::String<char>::WstringToString(T("Hello World"), System::StringEncoding::UTF8);
-    
+
     //String::IsValidUTF8, output:true
     bool is_utf8_str = System::String<char>::IsValidUTF8(U8("你好世界"));
 
@@ -62,6 +62,8 @@ int main()
     int index2 = StringA::IndexOf("123456", '3');
     int index3 = StringA::LastIndexOf("654321", "1");
     int index4 = StringA::LastIndexOf("654321", "1");
+    std::string replace1 = StringA::Replace("ABCD", "C", "");
+    std::string replace2 = StringA::Replace("ABCD", 'C', 0);
     std::string slice1 = StringA::Slice("123", 1);
     std::string slice2 = StringA::Slice("123", -1);
     std::string slice3 = StringA::Slice("123", 0, 2);
@@ -72,7 +74,12 @@ int main()
     bool startsWith2 = StringA::StartsWith("ABCDEFG", "ABc", System::StringComparison::IgnoreCase);
     std::string subStr1 = StringA::Substring("ABCDEFG", 1);
     std::string subStr2 = StringA::Substring("ABCDEFG", 0, 2);
+    std::vector<char> charArray1 = StringA::ToCharArray("ABCDEFG");
+    std::vector<char> charArray2 = StringA::ToCharArray("ABCDEFG", 5, 2);
     std::string lower = StringA::ToLower("ABCDEFG");
+    std::string to_string1 = StringA::ToString("你好世界");
+    std::string to_string2 = StringA::ToString('你');
+    std::wstring to_string3 = StringW::ToString(W('你'));
     std::string upper = StringA::ToUpper("abcdefg");
     std::string trimStr = StringA::Trim("111", '1');
     std::wstring _trimStr = StringW::Trim(W(" 你好世界 "));
