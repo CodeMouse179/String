@@ -1,5 +1,5 @@
 ﻿//     +--------------------------------------------------------------------------------+
-//     |                                  String v1.6.0                                 |
+//     |                                  String v1.7.0                                 |
 //     |  Introduction : System.String in C++                                           |
 //     |  Modified date : 2022/11/5                                                     |
 //     |  License : MIT                                                                 |
@@ -18,7 +18,7 @@
 //Versioning refer to Semantic Versioning 2.0.0 : https://semver.org/
 
 #define SYSTEM_STRING_VERSION_MAJOR 1
-#define SYSTEM_STRING_VERSION_MINOR 6
+#define SYSTEM_STRING_VERSION_MINOR 7
 #define SYSTEM_STRING_VERSION_PATCH 0
 #define SYSTEM_STRING_VERSION (SYSTEM_STRING_VERSION_MAJOR << 16 | SYSTEM_STRING_VERSION_MINOR << 8 | SYSTEM_STRING_VERSION_PATCH)
 
@@ -266,6 +266,12 @@ namespace System
             }
         }
 
+        static std::basic_string<T> Copy(const std::basic_string<T>& str)
+        {
+            std::basic_string<T> instance = str;
+            return instance;
+        }
+
         static bool EndsWith(const std::basic_string<T>& s, const std::basic_string<T>& value)
         {
             if (value.size() > s.size()) return false;
@@ -360,6 +366,11 @@ namespace System
             {
                 return String::GetHashCode(s);
             }
+        }
+
+        static int GetTypeCode()
+        {
+            return 18;
         }
 
         static int IndexOf(const std::basic_string<T>& s, const std::basic_string<T>& value)
@@ -532,6 +543,13 @@ namespace System
             std::basic_string<T> s;
             s.push_back(c);
             return s;
+        }
+
+        static std::basic_string<T> ToString(int value)
+        {
+            std::basic_ostringstream<T> boss;
+            boss << value;
+            return boss.str();
         }
 
         static std::basic_string<T> ToUpper(const std::basic_string<T>& s)

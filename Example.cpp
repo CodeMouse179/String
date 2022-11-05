@@ -50,6 +50,7 @@ int main()
     std::string con3 = StringA::Concat("A1", "B2", "C3", "D4", "E5", "F6", "G7");
     bool contains = StringA::Contains("ABC123", "C12");
     bool contains2 = StringA::Contains("ABC123", "c12", System::StringComparison::IgnoreCase);
+    std::string copy = StringA::Copy("ABCD你好呀");
     bool endWith1 = StringA::EndsWith("ABCDEFG", "EFg");
     bool endWith2 = StringA::EndsWith("ABCDEFG", "EFg", System::StringComparison::IgnoreCase);
     bool eq1 = StringA::Equals("abc", "ABC");
@@ -58,6 +59,7 @@ int main()
     int hash = StringA::GetHashCode("ABC123");
     int hash1 = StringA::GetHashCode("ABC123", System::StringComparison::IgnoreCase);
     int hash2 = StringA::GetHashCode("abc123", System::StringComparison::IgnoreCase);
+    int typeCode = StringA::GetTypeCode();
     int index1 = StringA::IndexOf("123456", "3");
     int index2 = StringA::IndexOf("123456", '3');
     int index3 = StringA::LastIndexOf("654321", "1");
@@ -80,6 +82,7 @@ int main()
     std::string to_string1 = StringA::ToString("你好世界");
     std::string to_string2 = StringA::ToString('你');
     std::wstring to_string3 = StringW::ToString(W('你'));
+    std::string to_string4 = StringA::ToString(999);
     std::string upper = StringA::ToUpper("abcdefg");
     std::string trimStr = StringA::Trim("111", '1');
     std::wstring _trimStr = StringW::Trim(W(" 你好世界 "));
