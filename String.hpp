@@ -1,5 +1,5 @@
 ﻿//     +--------------------------------------------------------------------------------+
-//     |                                  String v1.7.0                                 |
+//     |                                  String v1.8.0                                 |
 //     |  Introduction : System.String in C++                                           |
 //     |  Modified date : 2022/11/5                                                     |
 //     |  License : MIT                                                                 |
@@ -18,18 +18,18 @@
 //Versioning refer to Semantic Versioning 2.0.0 : https://semver.org/
 
 #define SYSTEM_STRING_VERSION_MAJOR 1
-#define SYSTEM_STRING_VERSION_MINOR 7
+#define SYSTEM_STRING_VERSION_MINOR 8
 #define SYSTEM_STRING_VERSION_PATCH 0
 #define SYSTEM_STRING_VERSION (SYSTEM_STRING_VERSION_MAJOR << 16 | SYSTEM_STRING_VERSION_MINOR << 8 | SYSTEM_STRING_VERSION_PATCH)
 
 //Windows Platform:
 #ifdef _WIN32
-#define SYSTEM_WINDOWS
+#define SYSTEM_WINDOWS 1
 #endif
 
 //Linux Platform:
 #ifdef __linux__
-#define SYSTEM_LINUX
+#define SYSTEM_LINUX 1
 #endif
 
 //Windows Headers:
@@ -49,28 +49,28 @@
 //CXX version define:
 #ifdef SYSTEM_WINDOWS
 #if (_MSVC_LANG >= 201103L)
-#define SYSTEM_CXX_11
+#define SYSTEM_CXX_11 1
 #endif
 #if (_MSVC_LANG >= 201402L)
-#define SYSTEM_CXX_14
+#define SYSTEM_CXX_14 1
 #endif
 #if (_MSVC_LANG >= 201703L)
-#define SYSTEM_CXX_17
+#define SYSTEM_CXX_17 1
 #endif
 #else
 #if (__cplusplus >= 201103L)
-#define SYSTEM_CXX_11
+#define SYSTEM_CXX_11 1
 #endif
 #if (__cplusplus >= 201402L)
-#define SYSTEM_CXX_14
+#define SYSTEM_CXX_14 1
 #endif
 #if (__cplusplus >= 201703L)
-#define SYSTEM_CXX_17
+#define SYSTEM_CXX_17 1
 #endif
 #endif
 
 #ifdef __cpp_char8_t
-#define SYSTEM_CXX_20
+#define SYSTEM_CXX_20 1
 #endif
 
 #ifdef __SYSTEM_STRING_ONLY
@@ -182,8 +182,8 @@ namespace System
     //See:https://learn.microsoft.com/en-us/windows/win32/intl/code-page-identifiers
     enum class StringEncoding
     {
-        ANSI = 0,       //CP_ACP(windows)
-        UTF8 = 65001,   //CP_UTF8(windows)
+        ANSI = 0,       //CP_ACP(Windows)
+        UTF8 = 65001,   //CP_UTF8(Windows)
     };
 
     template<typename T>
@@ -316,7 +316,6 @@ namespace System
                 }
                 return true;
 #else
-                //CXX14 and above required:
                 return std::equal(a.begin(), a.end(), b.begin(), b.end(),
                     [](T _a, T _b)
                     {
@@ -391,6 +390,33 @@ namespace System
         static int LastIndexOf(const std::basic_string<T>& s, T value)
         {
             return s.find_last_of(value);
+        }
+
+        static std::basic_string<T> Remove(const std::basic_string<T>& s, int startIndex)
+        {
+            if (startIndex <= 0) return String::Empty();
+            if (startIndex >= s.size()) return s;
+            std::basic_string<T> str;
+            for (int i = 0; i < startIndex; i++)
+            {
+                str += s[i];
+            }
+            return str;
+        }
+
+        static std::basic_string<T> Remove(const std::basic_string<T>& s, int startIndex, int count)
+        {
+            if (startIndex <= 0) return String::Empty();
+            if (startIndex >= s.size()) return s;
+            if (count == 0) return s;
+            if (startIndex + count > s.size()) return s;
+            std::basic_string<T> str;
+            for (int i = 0; i < s.size(); i++)
+            {
+                if (i >= startIndex && i < startIndex + count) continue;
+                str += s[i];
+            }
+            return str;
         }
 
         static std::basic_string<T> Replace(const std::basic_string<T>& s, const std::basic_string<T>& oldValue, const std::basic_string<T>& newValue)
@@ -533,6 +559,11 @@ namespace System
             return lower;
         }
 
+        static T ToLower(T c)
+        {
+            return std::tolower(c);
+        }
+
         static std::basic_string<T> ToString(const std::basic_string<T>& s)
         {
             return s;
@@ -557,6 +588,11 @@ namespace System
             std::basic_string<T> lower;
             for (const auto& item : s) lower += std::toupper(item);
             return lower;
+        }
+
+        static T ToUpper(T c)
+        {
+            return std::toupper(c);
         }
 
         static std::basic_string<T> Trim(const std::basic_string<T>& s, T trimChar)

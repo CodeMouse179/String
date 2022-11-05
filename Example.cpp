@@ -64,6 +64,8 @@ int main()
     int index2 = StringA::IndexOf("123456", '3');
     int index3 = StringA::LastIndexOf("654321", "1");
     int index4 = StringA::LastIndexOf("654321", "1");
+    std::string remove1 = StringA::Remove("ABCDEFG", 2);
+    std::string remove2 = StringA::Remove("ABCDEFG", 2, 3);
     std::string replace1 = StringA::Replace("ABCD", "C", "");
     std::string replace2 = StringA::Replace("ABCD", 'C', 0);
     std::string slice1 = StringA::Slice("123", 1);
@@ -79,11 +81,13 @@ int main()
     std::vector<char> charArray1 = StringA::ToCharArray("ABCDEFG");
     std::vector<char> charArray2 = StringA::ToCharArray("ABCDEFG", 5, 2);
     std::string lower = StringA::ToLower("ABCDEFG");
+    auto to_lower = StringU32::ToLower(U32('N'));
     std::string to_string1 = StringA::ToString("你好世界");
     std::string to_string2 = StringA::ToString('你');
     std::wstring to_string3 = StringW::ToString(W('你'));
     std::string to_string4 = StringA::ToString(999);
     std::string upper = StringA::ToUpper("abcdefg");
+    auto to_upper = StringU32::ToUpper(U32('n'));
     std::string trimStr = StringA::Trim("111", '1');
     std::wstring _trimStr = StringW::Trim(W(" 你好世界 "));
     std::string trimStr1 = StringA::TrimEnd(" ABC ", ' ');

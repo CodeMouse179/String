@@ -6,7 +6,7 @@
 
 System.String in C++
 
-Version : 1.6.0
+Version : 1.8.0
 
 Platform : Windows, Linux, macOS(Not tested)
 
