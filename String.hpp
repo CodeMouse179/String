@@ -4,7 +4,7 @@
 //     |  Modified date : 2022/11/5                                                     |
 //     |  License : MIT                                                                 |
 //     |  Source code : https://github.com/CodeMouse179/String                          |
-//     |  Doc : https://github.com/CodeMouse179/String/blob/main/Doc/README.md          |
+//     |  Doc : https://github.com/CodeMouse179/String/blob/main/README.md              |
 //     |                                                                                |
 //     |                             Designer : CodeMouse179                            |
 //     |  Email : codemouse179@gmail.com                                                |
