@@ -4,15 +4,17 @@
 
 System.String的C++实现
 
-版本 : 1.5.0
+版本 : 1.5.1
 
 平台 : Windows, Linux, macOS(未测试)
 
-C++最低版本要求 : C++11
+C++最低要求版本 : C++ 11
 
 ### 介绍
 
-String.hpp是用C++实现的System.String(C#)，目的是为C++程序员提供方便可靠的字符串操作函数，通过操作std::basic_string从而支持多种字符类型：char，wchar_t，char8_t，char16_t，char32_t。
+String.hpp是用C++实现的System.String(C#)，目的是为C++程序员提供方便可靠的字符串操作函数。
+
+通过操作std::basic_string从而支持多种字符类型：char，wchar_t，char8_t，char16_t，char32_t。
 
 String.hpp通过单个头文件的形式分发，它使用起来非常简单：
 
@@ -23,7 +25,7 @@ String.hpp通过单个头文件的形式分发，它使用起来非常简单：
 ### 示例1
 
 ``` cpp
-//（可选项）仅仅对Windows生效，让运行时字符串以UTF-8格式编码
+//（可选项）仅对Windows生效，让运行时字符串以UTF-8格式编码
 #define SYSTEM_STRING_SET_UTF8
 #include "String.hpp"
 int main()
