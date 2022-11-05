@@ -22,7 +22,7 @@ String.hpp is distributed as a single header file and it is very simple to use:
 
 2. #include "String.hpp"
 
-### 示例1
+### Example 1
 
 ``` cpp
 //(Optional) Only valid for Windows, let runtime strings be encoded in UTF-8 format
@@ -59,7 +59,7 @@ int main()
 }
 ```
 
-### 示例2
+### Example 2
 
 ``` cpp
     //String::Format, output:"Anna is your Wife."
