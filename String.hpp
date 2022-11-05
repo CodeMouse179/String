@@ -1,7 +1,7 @@
 ﻿//     +--------------------------------------------------------------------------------+
-//     |                                  String v1.5.0                                 |
+//     |                                  String v1.5.1                                 |
 //     |  Introduction : System.String in C++                                           |
-//     |  Modified date : 2022/11/1                                                     |
+//     |  Modified date : 2022/11/5                                                     |
 //     |  License : MIT                                                                 |
 //     |  Source code : https://github.com/CodeMouse179/String                          |
 //     |  Doc : https://github.com/CodeMouse179/String/blob/main/Doc/README.md          |
@@ -19,7 +19,7 @@
 
 #define SYSTEM_STRING_VERSION_MAJOR 1
 #define SYSTEM_STRING_VERSION_MINOR 5
-#define SYSTEM_STRING_VERSION_PATCH 0
+#define SYSTEM_STRING_VERSION_PATCH 1
 #define SYSTEM_STRING_VERSION (SYSTEM_STRING_VERSION_MAJOR << 16 | SYSTEM_STRING_VERSION_MINOR << 8 | SYSTEM_STRING_VERSION_PATCH)
 
 //Windows Platform:
@@ -85,12 +85,22 @@
 #include <vector> //std::vector
 #include <codecvt> //wstring_convert, codecvt_utf8, codecvt_utf16, codecvt_utf8_utf16
 
-//ascii System::String class
+//Ordinary character System::String class
 #define StringA System::String<char>
-//wide-char System::String class
+//Wide-character System::String class
 #define StringW System::String<wchar_t>
+//UTF-8 character System::String class
+#ifdef SYSTEM_CXX_20
+#define StringU8 System::String<char8_t>
+#else
+#define StringU8 System::String<char>
+#endif
+//UTF-16 character System::String class
+#define StringU16 System::String<char16_t>
+//UTF-32 character System::String class
+#define StringU32 System::String<char32_t>
 
-//generic System::String class
+//Generic System::String class
 #ifdef SYSTEM_WINDOWS
 #define StringT StringW
 #else

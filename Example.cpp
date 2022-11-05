@@ -1,6 +1,26 @@
 ﻿#include "String.hpp"
 int main()
 {
+    //获得char类型组成的空字符串：
+    std::string empty = System::String<char>::Empty();
+    //通过使用StringA宏，获得char类型组成的空字符串：
+    std::string emtpyA = StringA::Empty();
+
+    //获得wchar_t类型组成的空字符串：
+    std::wstring empty2 = System::String<wchar_t>::Empty();
+    //通过使用StringW宏，获得wchar_t类型组成的空字符串：
+    std::wstring empty2W = StringW::Empty();
+
+    //获得char16_t类型组成的空字符串：
+    std::u16string empty3 = System::String<char16_t>::Empty();
+    //通过使用StringU16宏，获得char16_t类型组成的空字符串：
+    std::u16string empty3U16 = StringU16::Empty();
+
+    //获得char32_t类型组成的空字符串：
+    std::u32string empty4 = System::String<char32_t>::Empty();
+    //通过使用StringU32宏，获得char32_t类型组成的空字符串：
+    std::u32string empty4U32 = StringU32::Empty();
+
     //String::Format, output:"Anna is your Wife."
     std::string format_str = System::String<char>::Format("{0} is your {1}.", "Anna", "Wife");
 
@@ -12,6 +32,9 @@ int main()
     
     //String::IsValidUTF8, output:true
     bool is_utf8_str = System::String<char>::IsValidUTF8(U8("你好世界"));
+
+    //String::UTF8CharCount, output:7
+    int count = System::String<char>::UTF8CharCount(U8("你好世界123"));
 
     int version = SYSTEM_STRING_VERSION;
     System::tstring s = StringT::Empty();
