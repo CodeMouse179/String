@@ -62,12 +62,16 @@ int main()
     int typeCode = StringA::GetTypeCode();
     int index1 = StringA::IndexOf("123456", "3");
     int index2 = StringA::IndexOf("123456", '3');
+    std::string insert_str = StringA::Insert("ABCDEFG", 4, "OPQ");
     int index3 = StringA::LastIndexOf("654321", "1");
     int index4 = StringA::LastIndexOf("654321", "1");
     std::string remove1 = StringA::Remove("ABCDEFG", 2);
     std::string remove2 = StringA::Remove("ABCDEFG", 2, 3);
     std::string replace1 = StringA::Replace("ABCD", "C", "");
     std::string replace2 = StringA::Replace("ABCD", 'C', 0);
+    auto reversed_stru16 = StringU16::Reverse(u"你好世界");
+    auto reversed_stru32 = StringU32::Reverse(U"你好世界");
+    bool isValidASCII = StringA::IsValidASCII("asdasd");
     std::string slice1 = StringA::Slice("123", 1);
     std::string slice2 = StringA::Slice("123", -1);
     std::string slice3 = StringA::Slice("123", 0, 2);

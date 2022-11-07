@@ -1,7 +1,7 @@
 ﻿//     +--------------------------------------------------------------------------------+
-//     |                                  String v1.8.0                                 |
+//     |                                  String v1.9.0                                 |
 //     |  Introduction : System.String in C++                                           |
-//     |  Modified date : 2022/11/5                                                     |
+//     |  Modified date : 2022/11/7                                                     |
 //     |  License : MIT                                                                 |
 //     |  Source code : https://github.com/CodeMouse179/String                          |
 //     |  Doc : https://github.com/CodeMouse179/String/blob/main/README.md              |
@@ -18,9 +18,10 @@
 //Versioning refer to Semantic Versioning 2.0.0 : https://semver.org/
 
 #define SYSTEM_STRING_VERSION_MAJOR 1
-#define SYSTEM_STRING_VERSION_MINOR 8
+#define SYSTEM_STRING_VERSION_MINOR 9
 #define SYSTEM_STRING_VERSION_PATCH 0
 #define SYSTEM_STRING_VERSION (SYSTEM_STRING_VERSION_MAJOR << 16 | SYSTEM_STRING_VERSION_MINOR << 8 | SYSTEM_STRING_VERSION_PATCH)
+#define SYSTEM_STRING_VERSION_STRING "1.9.0"
 
 //Windows Platform:
 #ifdef _WIN32
@@ -382,6 +383,15 @@ namespace System
             return s.find(value);
         }
 
+        static std::basic_string<T> Insert(const std::basic_string<T>& s, int startIndex, const std::basic_string<T>& value)
+        {
+            if (startIndex < 0 || startIndex > s.size()) return s;
+            if (startIndex == s.size()) return s + value;
+            std::basic_string<T> part1 = String::Substring(s, 0, startIndex);
+            std::basic_string<T> part2 = String::Substring(s, startIndex);
+            return part1 + value + part2;
+        }
+
         static int LastIndexOf(const std::basic_string<T>& s, const std::basic_string<T>& value)
         {
             return s.find_last_of(value);
@@ -447,6 +457,21 @@ namespace System
         }
 
 #ifndef SYSTEM_STRING_ONLY
+        static std::u16string Reverse(const std::u16string& s)
+        {
+            return String::To_UTF16(String::Reverse(String::To_UTF32(s)));
+        }
+
+        static std::u32string Reverse(const std::u32string& s)
+        {
+            std::u32string str;
+            for (int i = s.size() - 1; i >= 0; i--)
+            {
+                str += s[i];
+            }
+            return str;
+        }
+
         static std::basic_string<T> Slice(const std::basic_string<T>& s)
         {
             return s;
@@ -757,6 +782,15 @@ namespace System
 
 #ifndef SYSTEM_STRING_ONLY
     public: //extra support:
+        static bool IsValidASCII(const std::string& s)
+        {
+            for (int i = 0; i < s.size(); i++)
+            {
+                if (static_cast<unsigned char>(s[i]) > 127) return false;
+            }
+            return true;
+        }
+
         static bool IsValidUTF8(const std::string& s)
         {
             for (int i = 0; i < s.size(); i++)
@@ -885,9 +919,9 @@ namespace System
         template<typename Type>
         static void FormatHelper(std::basic_ostringstream<T>& boss, std::basic_string<T>& s, const Type& value)
         {
-            std::size_t openBracket = s.find('{');
+            std::size_t openBracket = s.find((T)'{');
             if (openBracket == std::string::npos) return;
-            std::size_t closeBracket = s.find('}', openBracket + 1);
+            std::size_t closeBracket = s.find((T)'}', openBracket + 1);
             if (closeBracket == std::string::npos) return;
             boss << s.substr(0, openBracket) << value;
             s = s.substr(closeBracket + 1);

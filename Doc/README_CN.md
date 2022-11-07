@@ -1,12 +1,10 @@
-# String
+# String 1.9.0
 
 [英文](https://github.com/CodeMouse179/String/blob/main/README.md)
 
 [参考](https://github.com/CodeMouse179/String/blob/main/Doc/README.md)
 
 System.String的C++实现
-
-版本 : 1.8.0
 
 平台 : Windows, Linux, macOS(未测试)
 
