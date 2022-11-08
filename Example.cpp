@@ -107,10 +107,13 @@ int main()
     std::u32string u32 = U32("你好世界");
     std::string s1 = StringA::To_UTF8(U16("你好世界"));
     std::string s2 = StringA::To_UTF8(U32("你好世界"));
+    std::string s3 = StringA::To_UTF8(W("你好世界"));
     std::u16string us1 = StringA::To_UTF16(U8("你好世界"));
     std::u16string us2 = StringA::To_UTF16(U32("你好世界"));
+    std::u16string us3 = StringA::To_UTF16(W("你好世界"));
     std::u32string Us1 = StringA::To_UTF32(U8("你好世界"));
     std::u32string Us2 = StringA::To_UTF32(U16("你好世界"));
+    std::u32string Us3 = StringA::To_UTF32(W("你好世界"));
     std::string utf8_str = StringA::To_String(W("你好世界"));
     std::wstring wide_str1 = StringA::To_Wstring(utf8_str);
     std::wstring wide_str2 = StringA::To_Wstring(U8("你好世界"));
@@ -118,6 +121,7 @@ int main()
     bool isUTF8_2 = StringA::IsValidUTF8("你好世界");
     int charCount1 = StringA::UTF8CharCount(U8("你好世界ABC123"));
     int charCount2 = StringA::UTF8CharCount(S("你好世界ABC123"));
+    auto utf8CharArray = StringA::UTF8ToCharArray(U8("你好世界"));
     auto zxcxz = StringA::ConvertString(U8("你好世界"), System::StringEncoding::UTF8, (System::StringEncoding)950);
     auto xczzz = StringA::StringToWstring(zxcxz, (System::StringEncoding)950);
     return 0;
