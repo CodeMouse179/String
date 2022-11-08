@@ -1,7 +1,7 @@
 ﻿//     +--------------------------------------------------------------------------------+
-//     |                                  String v1.9.0                                 |
+//     |                                  String v1.9.1                                 |
 //     |  Introduction : System.String in C++                                           |
-//     |  Modified date : 2022/11/7                                                     |
+//     |  Modified date : 2022/11/8                                                     |
 //     |  License : MIT                                                                 |
 //     |  Source code : https://github.com/CodeMouse179/String                          |
 //     |  Doc : https://github.com/CodeMouse179/String/blob/main/README.md              |
@@ -19,7 +19,7 @@
 
 #define SYSTEM_STRING_VERSION_MAJOR 1
 #define SYSTEM_STRING_VERSION_MINOR 9
-#define SYSTEM_STRING_VERSION_PATCH 0
+#define SYSTEM_STRING_VERSION_PATCH 1
 #define SYSTEM_STRING_VERSION (SYSTEM_STRING_VERSION_MAJOR << 16 | SYSTEM_STRING_VERSION_MINOR << 8 | SYSTEM_STRING_VERSION_PATCH)
 #define SYSTEM_STRING_VERSION_STRING "1.9.0"
 
@@ -878,7 +878,7 @@ namespace System
                     codePoint = (firstByte & 0x07);
                     length = 4;
                 }
-                else return charCount;
+                else return 0;
                 //Calculate:
                 for (int j = 1; j < length; j++)
                 {
@@ -886,7 +886,7 @@ namespace System
                     if (index < s.size())
                     {
                         unsigned char otherByte = s[index];
-                        if ((otherByte & 0xC0) != 0x80) return charCount;
+                        if ((otherByte & 0xC0) != 0x80) return 0;
                         codePoint = (codePoint << 6) | (otherByte & 0x3F);
                     }
                 }
@@ -894,7 +894,7 @@ namespace System
                 charCount++;
                 //Check CodePoint:
                 if (codePoint >= 0xD800 && codePoint <= 0xDFFF)
-                    return charCount;
+                    return 0;
                 if (codePoint >= 0x0000 && codePoint <= 0x007F && length == 1)
                     continue;
                 if (codePoint >= 0x0080 && codePoint <= 0x07FF && length == 2)
@@ -903,7 +903,7 @@ namespace System
                     continue;
                 if (codePoint >= 0x10000 && codePoint <= 0x10FFFF && length == 4)
                     continue;
-                return charCount;
+                return 0;
             }
             return charCount;
         }
