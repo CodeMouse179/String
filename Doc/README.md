@@ -1,5 +1,21 @@
 # Documentation
 
+1. Encoding
+
+    * [ASCII](https://en.wikipedia.org/wiki/ASCII)
+
+    * [Unicode](https://en.wikipedia.org/wiki/Unicode)
+
+    * [UTF-8](https://en.wikipedia.org/wiki/UTF-8)
+
+    * [UTF-16](https://en.wikipedia.org/wiki/UTF-16)
+
+    * [UTF-32](https://en.wikipedia.org/wiki/UTF-32)
+
+1. SYSTEM_STRING_VERSION
+
+    * [Semantic Versioning 2.0.0](https://semver.org/)
+
 1. S, W, U16, U32
 
     * [String and character literals (C++)](https://learn.microsoft.com/en-us/cpp/cpp/string-and-character-literals-cpp?view=msvc-170)
@@ -38,14 +54,60 @@
 
     * [Split string in C++](https://stackoverflow.com/questions/14265581/parse-split-a-string-in-c-using-string-delimiter-standard-c)
 
-1. To_UTF8, To_UTF16, To_UTF32, To_String, To_Wstring
+1. Extra Convert Function 1:
 
-    * [std::u32string conversion to/from std::string and std::u16string](https://stackoverflow.com/questions/31302506/stdu32string-conversion-to-from-stdstring-and-stdu16string)
+    * System::String::StringToWstring
 
-    * [string,wstring,u16string,u32string](https://blog.51cto.com/mingtangduyao/1759254)
+        * [MultiByteToWideChar](https://learn.microsoft.com/en-us/windows/win32/api/stringapiset/nf-stringapiset-multibytetowidechar)
 
-1. System::String::IsValidUTF8
+        * [How do I use MultiByteToWideChar?](https://stackoverflow.com/questions/6693010/how-do-i-use-multibytetowidechar)
 
-    * [How to easily detect utf8 encoding in the string?](https://stackoverflow.com/questions/28270310/how-to-easily-detect-utf8-encoding-in-the-string)
+    * System::String::WstringToString
 
-    * [UTF-8](https://en.wikipedia.org/wiki/UTF-8)
+        * [WideCharToMultiByte](https://learn.microsoft.com/en-us/windows/win32/api/stringapiset/nf-stringapiset-widechartomultibyte)
+
+        * [How do you properly use WideCharToMultiByte](https://stackoverflow.com/questions/215963/how-do-you-properly-use-widechartomultibyte)
+
+    * System::String::StringToU8string
+
+        * [C++20 with u8, char8_t and std::string](https://stackoverflow.com/questions/56833000/c20-with-u8-char8-t-and-stdstring)
+
+    * System::String::U8stringToString
+
+        * [C++20 with u8, char8_t and std::string](https://stackoverflow.com/questions/56833000/c20-with-u8-char8-t-and-stdstring)
+
+1. Extra Convert Function 2:
+
+    * System::String::To_UTF8
+
+    * System::String::To_UTF16
+
+    * System::String::To_UTF32
+
+1. Extra Convert Function 3:
+
+    * System::String::To_String
+
+    * System::String::To_Wstring
+
+1. Extra Convert Function 4:
+
+    * System::String::ConvertString
+
+1. Extra Util 1:
+
+    * System::String::IsValidASCII
+
+        * [How to find out if there is any non ASCII character in a string with a file path](https://stackoverflow.com/questions/48212992/how-to-find-out-if-there-is-any-non-ascii-character-in-a-string-with-a-file-path)
+
+        * [ASCII](https://en.wikipedia.org/wiki/ASCII)
+
+    * System::String::IsValidUTF8
+
+        * [How to easily detect utf8 encoding in the string?](https://stackoverflow.com/questions/28270310/how-to-easily-detect-utf8-encoding-in-the-string)
+
+        * [UTF-8](https://en.wikipedia.org/wiki/UTF-8)
+
+    * System::String::UTF8CharCount
+
+    * System::String::UTF8ToCharArray

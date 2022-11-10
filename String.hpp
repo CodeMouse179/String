@@ -719,7 +719,7 @@ namespace System
         }
 
 #ifndef SYSTEM_STRING_ONLY
-    public: //extra convert function 1:
+    public: //Extra Convert Function 1:
         static tstring StringToWstring(const std::string& s, StringEncoding encoding)
         {
 #ifdef SYSTEM_WINDOWS
@@ -784,7 +784,7 @@ namespace System
 #endif
         }
 
-    public: //extra convert function 2:
+    public: //Extra Convert Function 2:
         static std::string To_UTF8(const std::u16string& s)
         {
             std::wstring_convert<std::codecvt_utf8_utf16<char16_t>, char16_t> conv;
@@ -834,7 +834,7 @@ namespace System
             return To_UTF32(To_UTF8(s));
         }
 
-    public: //extra convert function 3:
+    public: //Extra Convert Function 3:
         //return utf-8 string
         static std::string To_String(const std::wstring& s)
         {
@@ -849,7 +849,7 @@ namespace System
             return conv.from_bytes(s);
         }
 
-    public: //extra convert function 4:
+    public: //Extra Convert Function 4:
         static std::string ConvertString(const std::string& s, StringEncoding sourceEncoding, StringEncoding targetEncoding)
         {
             return String::WstringToString(String::StringToWstring(s, sourceEncoding), targetEncoding);
@@ -857,7 +857,7 @@ namespace System
 #endif
 
 #ifndef SYSTEM_STRING_ONLY
-    public: //extra support:
+    public: //Extra Util 1:
         static bool IsValidASCII(const std::string& s)
         {
             for (int i = 0; i < s.size(); i++)
