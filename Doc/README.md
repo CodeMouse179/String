@@ -16,6 +16,10 @@
 
     * [Semantic Versioning 2.0.0](https://semver.org/)
 
+1. char, wchar_t, char8_t, char16_t, char32_t
+
+    * [char, wchar_t, char8_t, char16_t, char32_t](https://learn.microsoft.com/en-us/cpp/cpp/char-wchar-t-char16-t-char32-t?view=msvc-170)
+
 1. S, W, U16, U32
 
     * [String and character literals (C++)](https://learn.microsoft.com/en-us/cpp/cpp/string-and-character-literals-cpp?view=msvc-170)
