@@ -1,7 +1,7 @@
 ﻿//     +--------------------------------------------------------------------------------+
-//     |                                  String v1.11.0                                |
+//     |                                  String v1.11.1                                |
 //     |  Introduction : System.String in C++                                           |
-//     |  Modified date : 2022/11/10                                                    |
+//     |  Modified date : 2022/11/11                                                    |
 //     |  License : MIT                                                                 |
 //     |  Source code : https://github.com/CodeMouse179/String                          |
 //     |  Doc : https://github.com/CodeMouse179/String/blob/main/README.md              |
@@ -19,9 +19,9 @@
 
 #define SYSTEM_STRING_VERSION_MAJOR 1
 #define SYSTEM_STRING_VERSION_MINOR 11
-#define SYSTEM_STRING_VERSION_PATCH 0
+#define SYSTEM_STRING_VERSION_PATCH 1
 #define SYSTEM_STRING_VERSION (SYSTEM_STRING_VERSION_MAJOR << 16 | SYSTEM_STRING_VERSION_MINOR << 8 | SYSTEM_STRING_VERSION_PATCH)
-#define SYSTEM_STRING_VERSION_STRING "1.11.0"
+#define SYSTEM_STRING_VERSION_STRING "1.11.1"
 
 //Windows Platform:
 #ifdef _WIN32
@@ -488,12 +488,18 @@ namespace System
             }
             else
             {
+#ifdef SYSTEM_WINDOWS
+                std::wstring wstr = String::StringToWstring(s, StringEncoding::ANSI);
+                return String::WstringToString(String::Reverse(wstr), StringEncoding::ANSI);
+#endif
+#ifdef SYSTEM_LINUX
                 std::string str;
                 for (int i = s.size() - 1; i >= 0; i--)
                 {
                     str += s[i];
                 }
                 return str;
+#endif
             }
         }
 

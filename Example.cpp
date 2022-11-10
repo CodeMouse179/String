@@ -71,7 +71,7 @@ int main()
     std::string replace2 = StringA::Replace("ABCD", 'C', 0);
     auto reversed_stra = StringA::Reverse(U8("你好世界"));
     auto reversed_stra2w = StringA::StringToWstring(reversed_stra, System::StringEncoding::UTF8);
-    auto reversed_stra2 = StringA::Reverse(S("ABCD"));
+    auto reversed_stra2 = StringA::Reverse(S("你好世界ABCD"));
     auto reversed_stra22w = StringA::StringToWstring(reversed_stra2, System::StringEncoding::ANSI);
     auto reversed_strw = StringA::Reverse(W("你好世界"));
 #ifdef SYSTEM_CXX_20
