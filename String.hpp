@@ -1,7 +1,7 @@
 ﻿//     +--------------------------------------------------------------------------------+
-//     |                                  String v1.10.0                                |
+//     |                                  String v1.11.0                                |
 //     |  Introduction : System.String in C++                                           |
-//     |  Modified date : 2022/11/9                                                     |
+//     |  Modified date : 2022/11/10                                                    |
 //     |  License : MIT                                                                 |
 //     |  Source code : https://github.com/CodeMouse179/String                          |
 //     |  Doc : https://github.com/CodeMouse179/String/blob/main/README.md              |
@@ -18,10 +18,10 @@
 //Versioning refer to Semantic Versioning 2.0.0 : https://semver.org/
 
 #define SYSTEM_STRING_VERSION_MAJOR 1
-#define SYSTEM_STRING_VERSION_MINOR 10
+#define SYSTEM_STRING_VERSION_MINOR 11
 #define SYSTEM_STRING_VERSION_PATCH 0
 #define SYSTEM_STRING_VERSION (SYSTEM_STRING_VERSION_MAJOR << 16 | SYSTEM_STRING_VERSION_MINOR << 8 | SYSTEM_STRING_VERSION_PATCH)
-#define SYSTEM_STRING_VERSION_STRING "1.10.0"
+#define SYSTEM_STRING_VERSION_STRING "1.11.0"
 
 //Windows Platform:
 #ifdef _WIN32
@@ -116,7 +116,7 @@
 #define __W(s) L##s
 #define W(s) __W(s)
 
-//std::u8string(C++20)
+//std::string(UTF-8 Encoding)
 #ifdef SYSTEM_CXX_20
 #define __U8(s) StringA::U8stringToString(u8##s)
 #define U8(s) __U8(s)
@@ -124,6 +124,10 @@
 #define __U8(s) u8##s
 #define U8(s) __U8(s)
 #endif
+
+//std::u8string(C++20)
+#define __U8S(s) u8##s
+#define U8S(s) __U8S(s)
 
 //std::u16string
 #define __U16(s) u##s
@@ -476,6 +480,38 @@ namespace System
         }
 
 #ifndef SYSTEM_STRING_ONLY
+        static std::string Reverse(const std::string& s)
+        {
+            if (String::IsValidUTF8(s))
+            {
+                return String::To_UTF8(String::Reverse(String::To_UTF32(s)));
+            }
+            else
+            {
+                std::string str;
+                for (int i = s.size() - 1; i >= 0; i--)
+                {
+                    str += s[i];
+                }
+                return str;
+            }
+        }
+
+        static std::wstring Reverse(const std::wstring& s)
+        {
+            std::u32string u32str = String::Reverse(String::To_UTF32(s));
+            return String::To_Wstring(String::To_UTF8(u32str));
+        }
+
+#ifdef SYSTEM_CXX_20
+        static std::u8string Reverse(const std::u8string& s)
+        {
+            std::string str_utf8 = String::U8stringToString(s);
+            std::string str = String::To_UTF8(String::Reverse(String::To_UTF32(str_utf8)));
+            return String::StringToU8string(str);
+        }
+#endif
+
         static std::u16string Reverse(const std::u16string& s)
         {
             return String::To_UTF16(String::Reverse(String::To_UTF32(s)));

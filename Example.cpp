@@ -69,8 +69,16 @@ int main()
     std::string remove2 = StringA::Remove("ABCDEFG", 2, 3);
     std::string replace1 = StringA::Replace("ABCD", "C", "");
     std::string replace2 = StringA::Replace("ABCD", 'C', 0);
-    auto reversed_stru16 = StringU16::Reverse(u"你好世界");
-    auto reversed_stru32 = StringU32::Reverse(U"你好世界");
+    auto reversed_stra = StringA::Reverse(U8("你好世界"));
+    auto reversed_stra2w = StringA::StringToWstring(reversed_stra, System::StringEncoding::UTF8);
+    auto reversed_stra2 = StringA::Reverse(S("ABCD"));
+    auto reversed_stra22w = StringA::StringToWstring(reversed_stra2, System::StringEncoding::ANSI);
+    auto reversed_strw = StringA::Reverse(W("你好世界"));
+#ifdef SYSTEM_CXX_20
+    auto reversed_stru8 = StringA::Reverse(U8S("你好世界"));
+#endif
+    auto reversed_stru16 = StringA::Reverse(U16("你好世界"));
+    auto reversed_stru32 = StringA::Reverse(U32("你好世界"));
     bool isValidASCII = StringA::IsValidASCII("asdasd");
     std::string slice1 = StringA::Slice("123", 1);
     std::string slice2 = StringA::Slice("123", -1);
