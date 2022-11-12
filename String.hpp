@@ -1,7 +1,7 @@
 ﻿//     +--------------------------------------------------------------------------------+
-//     |                                  String v1.13.0                                |
+//     |                                  String v1.13.1                                |
 //     |  Introduction : System.String in C++                                           |
-//     |  Modified Date : 2022/11/12                                                    |
+//     |  Modified Date : 2022/11/13                                                    |
 //     |  License : MIT                                                                 |
 //     |  Source Code : https://github.com/CodeMouse179/String                          |
 //     |  Readme : https://github.com/CodeMouse179/String/blob/main/README.md           |
@@ -19,9 +19,9 @@
 
 #define SYSTEM_STRING_VERSION_MAJOR 1
 #define SYSTEM_STRING_VERSION_MINOR 13
-#define SYSTEM_STRING_VERSION_PATCH 0
+#define SYSTEM_STRING_VERSION_PATCH 1
 #define SYSTEM_STRING_VERSION (SYSTEM_STRING_VERSION_MAJOR << 16 | SYSTEM_STRING_VERSION_MINOR << 8 | SYSTEM_STRING_VERSION_PATCH)
-#define SYSTEM_STRING_VERSION_STRING "1.13.0"
+#define SYSTEM_STRING_VERSION_STRING "1.13.1"
 
 //Windows Platform:
 #ifdef _WIN32
@@ -708,6 +708,14 @@ namespace System
         }
 
         static std::basic_string<T> ToString(int value)
+        {
+            std::basic_ostringstream<T> boss;
+            boss << value;
+            return boss.str();
+        }
+
+        template<typename Type>
+        static std::basic_string<T> ToString(Type value)
         {
             std::basic_ostringstream<T> boss;
             boss << value;
