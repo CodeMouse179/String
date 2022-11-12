@@ -1,6 +1,6 @@
 # Documentation
 
-1. Encoding
+1. Encoding wiki
 
     * [ASCII](https://en.wikipedia.org/wiki/ASCII)
 
@@ -92,9 +92,15 @@
 
     * System::String::To_UTF8
 
+        * [std::u32string conversion to/from std::string and std::u16string](https://stackoverflow.com/questions/31302506/stdu32string-conversion-to-from-stdstring-and-stdu16string)
+
     * System::String::To_UTF16
 
+        * [std::u32string conversion to/from std::string and std::u16string](https://stackoverflow.com/questions/31302506/stdu32string-conversion-to-from-stdstring-and-stdu16string)
+
     * System::String::To_UTF32
+
+        * [std::u32string conversion to/from std::string and std::u16string](https://stackoverflow.com/questions/31302506/stdu32string-conversion-to-from-stdstring-and-stdu16string)
 
 1. Extra Convert Function 3:
 
