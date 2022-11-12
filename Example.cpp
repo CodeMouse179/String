@@ -79,7 +79,6 @@ int main()
 #endif
     auto reversed_stru16 = StringA::Reverse(U16("你好世界"));
     auto reversed_stru32 = StringA::Reverse(U32("你好世界"));
-    bool isValidASCII = StringA::IsValidASCII("asdasd");
     std::string slice1 = StringA::Slice("123", 1);
     std::string slice2 = StringA::Slice("123", -1);
     std::string slice3 = StringA::Slice("123", 0, 2);
@@ -125,12 +124,40 @@ int main()
     std::string utf8_str = StringA::To_String(W("你好世界"));
     std::wstring wide_str1 = StringA::To_Wstring(utf8_str);
     std::wstring wide_str2 = StringA::To_Wstring(U8("你好世界"));
-    bool isUTF8_1 = StringA::IsValidUTF8(U8("你好世界"));
-    bool isUTF8_2 = StringA::IsValidUTF8("你好世界");
-    int charCount1 = StringA::UTF8CharCount(U8("你好世界ABC123"));
-    int charCount2 = StringA::UTF8CharCount(S("你好世界ABC123"));
-    auto utf8CharArray = StringA::UTF8ToCharArray(U8("你好世界"));
+
     auto zxcxz = StringA::ConvertString(U8("你好世界"), System::StringEncoding::UTF8, (System::StringEncoding)950);
     auto xczzz = StringA::StringToWstring(zxcxz, (System::StringEncoding)950);
+
+    //Extra Util 1:
+    bool IsValidASCII1 = StringA::IsValidASCII(S("ABCD"));
+    bool IsValidASCII2 = StringA::IsValidASCII(S("你好世界"));
+
+    int ASCIICharCount1 = StringA::ASCIICharCount(S("ABCD"));
+    int ASCIICharCount2 = StringA::ASCIICharCount(S("你好世界"));
+
+    auto ASCIIToCharArray1 = StringA::ASCIIToCharArray(S("ABCD"));
+    auto ASCIIToCharArray2 = StringA::ASCIIToCharArray(S("你好世界"));
+
+    bool isUTF8_1 = StringA::IsValidUTF8(U8("你好世界"));
+    bool isUTF8_2 = StringA::IsValidUTF8(S("你好世界"));
+
+    int charCount1 = StringA::UTF8CharCount(U8("你好世界ABC123"));
+    int charCount2 = StringA::UTF8CharCount(S("你好世界ABC123"));
+
+    auto utf8CharArray1 = StringA::UTF8ToCharArray(U8("你好世界"));
+#ifdef SYSTEM_CXX_20
+    auto utf8CharArray2 = StringA::UTF8ToCharArray(U8S("你好世界"));
+#endif
+
+    bool IsValidUTF16_1 = StringA::IsValidUTF16(W("你好世界"));
+    bool IsValidUTF16_2 = StringA::IsValidUTF16(U16("你好世界"));
+
+    int UTF16CharCount_1 = StringA::UTF16CharCount(W("你好世界😄"));
+    int UTF16CharCount_2 = StringA::UTF16CharCount(U16("你好世界😄"));
+
+    std::u32string utf32TestChar = U32("你好世界😄");
+    auto utf16CharArray1 = StringA::UTF16ToCharArray(W("你好世界😄"));
+    auto utf16CharArray2 = StringA::UTF16ToCharArray(U16("你好世界😄"));
+
     return 0;
 }

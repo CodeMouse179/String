@@ -1,7 +1,7 @@
 ﻿//     +--------------------------------------------------------------------------------+
-//     |                                  String v1.11.1                                |
+//     |                                  String v1.12.0                                |
 //     |  Introduction : System.String in C++                                           |
-//     |  Modified date : 2022/11/11                                                    |
+//     |  Modified date : 2022/11/12                                                    |
 //     |  License : MIT                                                                 |
 //     |  Source code : https://github.com/CodeMouse179/String                          |
 //     |  Doc : https://github.com/CodeMouse179/String/blob/main/README.md              |
@@ -18,10 +18,10 @@
 //Versioning refer to Semantic Versioning 2.0.0 : https://semver.org/
 
 #define SYSTEM_STRING_VERSION_MAJOR 1
-#define SYSTEM_STRING_VERSION_MINOR 11
-#define SYSTEM_STRING_VERSION_PATCH 1
+#define SYSTEM_STRING_VERSION_MINOR 12
+#define SYSTEM_STRING_VERSION_PATCH 0
 #define SYSTEM_STRING_VERSION (SYSTEM_STRING_VERSION_MAJOR << 16 | SYSTEM_STRING_VERSION_MINOR << 8 | SYSTEM_STRING_VERSION_PATCH)
-#define SYSTEM_STRING_VERSION_STRING "1.11.1"
+#define SYSTEM_STRING_VERSION_STRING "1.12.0"
 
 //Windows Platform:
 #ifdef _WIN32
@@ -191,24 +191,28 @@ namespace System
         UTF8 = 65001,   //CP_UTF8(Windows)
     };
 
-    struct UTF8Char
+    struct UnicodeChar
     {
     public:
         int bytes;
         unsigned int codePoint;
 
-        UTF8Char()
+        UnicodeChar()
         {
             this->bytes = 0;
             this->codePoint = 0;
         }
 
-        UTF8Char(int bytes, unsigned int codePoint)
+        UnicodeChar(int bytes, unsigned int codePoint)
         {
             this->bytes = bytes;
             this->codePoint = codePoint;
         }
     };
+
+    typedef UnicodeChar ASCIIChar;
+    typedef UnicodeChar UTF8Char;
+    typedef UnicodeChar UTF16Char;
 
     template<typename T>
     class String
@@ -867,6 +871,25 @@ namespace System
             return true;
         }
 
+        //return 0 if failed.
+        static int ASCIICharCount(const std::string& s)
+        {
+            if (String::IsValidASCII(s)) return s.size();
+            return 0;
+        }
+
+        static std::vector<ASCIIChar> ASCIIToCharArray(const std::string& s)
+        {
+            std::vector<ASCIIChar> charArray;
+            for (int i = 0; i < s.size(); i++)
+            {
+                unsigned char item = static_cast<unsigned char>(s[i]);
+                if (item > 127) return std::vector<ASCIIChar>();
+                charArray.push_back(ASCIIChar(1, item));
+            }
+            return charArray;
+        }
+
         static bool IsValidUTF8(const std::string& s)
         {
             for (int i = 0; i < s.size(); i++)
@@ -923,6 +946,13 @@ namespace System
             }
             return true;
         }
+
+#ifdef SYSTEM_CXX_20
+        static bool IsValidUTF8(const std::u8string& s)
+        {
+            return String::IsValidUTF8(String::U8stringToString(s));
+        }
+#endif
 
         //return 0 if failed.
         static int UTF8CharCount(const std::string& s)
@@ -984,6 +1014,13 @@ namespace System
             return charCount;
         }
 
+#ifdef SYSTEM_CXX_20
+        static int UTF8CharCount(const std::u8string& s)
+        {
+            return String::UTF8CharCount(String::U8stringToString(s));
+        }
+#endif
+
         static std::vector<UTF8Char> UTF8ToCharArray(const std::string& s)
         {
             std::vector<UTF8Char> charArray;
@@ -1041,6 +1078,147 @@ namespace System
                 return std::vector<UTF8Char>();
             }
             return charArray;
+        }
+
+#ifdef SYSTEM_CXX_20
+        static std::vector<UTF8Char> UTF8ToCharArray(const std::u8string& s)
+        {
+            return String::UTF8ToCharArray(String::U8stringToString(s));
+        }
+#endif
+
+        static bool IsValidUTF16(const std::wstring& s)
+        {
+#ifdef SYSTEM_WINDOWS
+            return true;
+#else
+            return false;
+#endif
+        }
+
+        static bool IsValidUTF16(const std::u16string& s)
+        {
+#ifdef SYSTEM_WINDOWS
+            return true;
+#else
+            return false;
+#endif
+        }
+
+        static int UTF16CharCount(const std::wstring& s)
+        {
+#ifdef SYSTEM_WINDOWS
+            int charCount = 0;
+            for (int i = 0; i < s.size(); i++)
+            {
+                unsigned short firstTwoByte = (unsigned short)s[i];
+                if (firstTwoByte >= 0xD800 && firstTwoByte < 0xDC00)
+                {
+                    int index = i + 1;
+                    if (index < s.size())
+                    {
+                        unsigned short secondTwoByte = (unsigned short)s[index];
+                        unsigned int codePoint = ((firstTwoByte & 0x3FF) << 10) + (secondTwoByte & 0x3FF) + 0x10000;
+                        charCount++;
+                        i++;
+                    }
+                }
+                else
+                {
+                    charCount++;
+                }
+            }
+            return charCount;
+#else
+            return 0;
+#endif
+        }
+
+        static int UTF16CharCount(const std::u16string& s)
+        {
+#ifdef SYSTEM_WINDOWS
+            std::wstring str(reinterpret_cast<const wchar_t*>(s.c_str()));
+            return String::UTF16CharCount(str);
+#endif
+#ifdef SYSTEM_LINUX
+            int charCount = 0;
+            for (int i = 0; i < s.size(); i++)
+            {
+                unsigned short firstTwoByte = (unsigned short)s[i];
+                if (firstTwoByte >= 0xD800 && firstTwoByte < 0xDC00)
+                {
+                    int index = i + 1;
+                    if (index < s.size())
+                    {
+                        unsigned short secondTwoByte = (unsigned short)s[index];
+                        unsigned int codePoint = ((firstTwoByte & 0x3FF) << 10) + (secondTwoByte & 0x3FF) + 0x10000;
+                        charCount++;
+                        i++;
+                    }
+                }
+                else
+                {
+                    charCount++;
+                }
+            }
+            return charCount;
+#endif
+        }
+
+        static std::vector<UTF16Char> UTF16ToCharArray(const std::wstring& s)
+        {
+            std::vector<UTF16Char> charArray;
+            for (int i = 0; i < s.size(); i++)
+            {
+                unsigned short firstTwoByte = (unsigned short)s[i];
+                if (firstTwoByte >= 0xD800 && firstTwoByte < 0xDC00)
+                {
+                    int index = i + 1;
+                    if (index < s.size())
+                    {
+                        unsigned short secondTwoByte = (unsigned short)s[index];
+                        unsigned int codePoint = ((firstTwoByte & 0x3FF) << 10) + (secondTwoByte & 0x3FF) + 0x10000;
+                        charArray.push_back(UTF16Char(4, codePoint));
+                        i++;
+                    }
+                }
+                else
+                {
+                    charArray.push_back(UTF16Char(2, firstTwoByte));
+                }
+            }
+            return charArray;
+        }
+
+        static std::vector<UTF16Char> UTF16ToCharArray(const std::u16string& s)
+        {
+#ifdef SYSTEM_WINDOWS
+            std::wstring str(reinterpret_cast<const wchar_t*>(s.c_str()));
+            return String::UTF16ToCharArray(str);
+#endif
+#ifdef SYSTEM_LINUX
+            std::vector<UTF16Char> charArray;
+            for (int i = 0; i < s.size(); i++)
+            {
+                unsigned short firstTwoByte = (unsigned short)s[i];
+                if (firstTwoByte >= 0xD800 && firstTwoByte < 0xDC00)
+                {
+                    int index = i + 1;
+                    if (index < s.size())
+                    {
+                        unsigned short secondTwoByte = (unsigned short)s[index];
+                        unsigned int codePoint = ((firstTwoByte & 0x3FF) << 10) + (secondTwoByte & 0x3FF) + 0x10000;
+                        charArray.push_back(UTF16Char(4, codePoint));
+                        i++;
+                    }
+                }
+                else
+                {
+                    charArray.push_back(UTF16Char(2, firstTwoByte));
+                }
+            }
+            return charArray;
+#endif
         }
 #endif
 

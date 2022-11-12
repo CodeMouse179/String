@@ -12,6 +12,10 @@
 
     * [UTF-32](https://en.wikipedia.org/wiki/UTF-32)
 
+1. UTF-8, UTF-16, and UTF-32
+
+    * [UTF-8, UTF-16, and UTF-32](https://stackoverflow.com/questions/496321/utf-8-utf-16-and-utf-32)
+
 1. SYSTEM_STRING_VERSION
 
     * [Semantic Versioning 2.0.0](https://semver.org/)
@@ -106,6 +110,10 @@
 
         * [ASCII](https://en.wikipedia.org/wiki/ASCII)
 
+    * System::String::ASCIICharCount
+
+    * System::String::ASCIIToCharArray
+
     * System::String::IsValidUTF8
 
         * [How to easily detect utf8 encoding in the string?](https://stackoverflow.com/questions/28270310/how-to-easily-detect-utf8-encoding-in-the-string)
@@ -115,3 +123,17 @@
     * System::String::UTF8CharCount
 
     * System::String::UTF8ToCharArray
+
+    * System::String::IsValidUTF16
+
+    * System::String::UTF16CharCount
+
+    * System::String::UTF16ToCharArray
+
+        * [How to map Unicode codepoints from an UTF-16 file using C](https://stackoverflow.com/questions/43564445/how-to-map-unicode-codepoints-from-an-utf-16-file-using-c)
+
+        * [Are wchar_t and char16_t the same thing on Windows?](https://stackoverflow.com/questions/53293159/are-wchar-t-and-char16-t-the-same-thing-on-windows)
+
+1. Read
+
+    * [How to convert wstring into string?](https://stackoverflow.com/questions/4804298/how-to-convert-wstring-into-string)
