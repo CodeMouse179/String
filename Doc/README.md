@@ -12,6 +12,12 @@
 
     * [UTF-32](https://en.wikipedia.org/wiki/UTF-32)
 
+1. Other Implementations
+
+    * [C++ stringutils](http://www.zedwood.com/article/cpp-stringutils-function)
+
+    * [Aws::Utils::StringUtils](https://sdk.amazonaws.com/cpp/api/LATEST/class_aws_1_1_utils_1_1_string_utils.html)
+
 1. UTF-8, UTF-16, and UTF-32
 
     * [UTF-8, UTF-16, and UTF-32](https://stackoverflow.com/questions/496321/utf-8-utf-16-and-utf-32)
@@ -147,6 +153,8 @@
 1. Read
 
     * [How to convert wstring into string?](https://stackoverflow.com/questions/4804298/how-to-convert-wstring-into-string)
+
+    * [Convert between string, u16string & u32string](https://stackoverflow.com/questions/7232710/convert-between-string-u16string-u32string)
 
     * [basic_string](https://en.cppreference.com/w/cpp/string/basic_string)
 
