@@ -54,6 +54,10 @@
 
     * [BKDR Hash Function](https://byvoid.com/zhs/blog/string-hash-compare/)
 
+1. System::String::Replace
+
+    * [Replace part of a string with another string](https://stackoverflow.com/questions/3418231/replace-part-of-a-string-with-another-string)
+
 1. System::String::Slice
 
     * [Array.prototype.slice](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/slice)
@@ -137,3 +141,7 @@
 1. Read
 
     * [How to convert wstring into string?](https://stackoverflow.com/questions/4804298/how-to-convert-wstring-into-string)
+
+    * [basic_string](https://en.cppreference.com/w/cpp/string/basic_string)
+
+    * [字符编码笔记：ASCII，Unicode 和 UTF-8](https://www.ruanyifeng.com/blog/2007/10/ascii_unicode_and_utf-8.html)
