@@ -1,10 +1,10 @@
 ﻿//     +--------------------------------------------------------------------------------+
-//     |                                  String v1.12.0                                |
+//     |                                  String v1.13.0                                |
 //     |  Introduction : System.String in C++                                           |
-//     |  Modified date : 2022/11/12                                                    |
+//     |  Modified Date : 2022/11/12                                                    |
 //     |  License : MIT                                                                 |
-//     |  Source code : https://github.com/CodeMouse179/String                          |
-//     |  Doc : https://github.com/CodeMouse179/String/blob/main/README.md              |
+//     |  Source Code : https://github.com/CodeMouse179/String                          |
+//     |  Readme : https://github.com/CodeMouse179/String/blob/main/README.md           |
 //     |                                                                                |
 //     |                             Designer : CodeMouse179                            |
 //     |  Email : codemouse179@gmail.com                                                |
@@ -18,10 +18,10 @@
 //Versioning refer to Semantic Versioning 2.0.0 : https://semver.org/
 
 #define SYSTEM_STRING_VERSION_MAJOR 1
-#define SYSTEM_STRING_VERSION_MINOR 12
+#define SYSTEM_STRING_VERSION_MINOR 13
 #define SYSTEM_STRING_VERSION_PATCH 0
 #define SYSTEM_STRING_VERSION (SYSTEM_STRING_VERSION_MAJOR << 16 | SYSTEM_STRING_VERSION_MINOR << 8 | SYSTEM_STRING_VERSION_PATCH)
-#define SYSTEM_STRING_VERSION_STRING "1.12.0"
+#define SYSTEM_STRING_VERSION_STRING "1.13.0"
 
 //Windows Platform:
 #ifdef _WIN32
@@ -158,6 +158,14 @@
 #endif
 #endif
 
+#ifndef TRUE_STRING
+#define TRUE_STRING "True"
+#endif
+
+#ifndef FALSE_STRING
+#define FALSE_STRING "False"
+#endif
+
 namespace System
 {
     //generic types:
@@ -188,6 +196,11 @@ namespace System
     enum class StringEncoding
     {
         ANSI = 0,       //CP_ACP(Windows)
+        UTF16LE = 1200,
+        UTF16BE = 1201,
+        UTF32LE = 12000,
+        UTF32BE = 12001,
+        ASCII = 20127,
         UTF8 = 65001,   //CP_UTF8(Windows)
     };
 
@@ -419,6 +432,24 @@ namespace System
             return part1 + value + part2;
         }
 
+        static std::basic_string<T> Join(const std::basic_string<T>& separator, const std::vector<std::basic_string<T>>& values)
+        {
+            std::basic_string<T> str;
+            for (int i = 0; i < values.size(); i++)
+            {
+                if (i < values.size() - 1)
+                    str += (values[i] + separator);
+                else
+                    str += values[i];
+            }
+            return str;
+        }
+
+        static std::basic_string<T> Join(T separator, const std::vector<std::basic_string<T>>& values)
+        {
+            return String::Join(String::ToString(separator), values);
+        }
+
         static int LastIndexOf(const std::basic_string<T>& s, const std::basic_string<T>& value)
         {
             return s.find_last_of(value);
@@ -569,6 +600,11 @@ namespace System
         static std::vector<std::basic_string<T>> Split(const std::basic_string<T>& s, const std::basic_string<T>& separator)
         {
             std::vector<std::basic_string<T>> strings;
+            if (separator.empty())
+            {
+                strings.push_back(s);
+                return strings;
+            }
             size_t pos;
             std::basic_string<T> rest = s;
             while ((pos = rest.find(separator)) != std::string::npos)
@@ -581,6 +617,11 @@ namespace System
                 strings.push_back(rest);
             }
             return strings;
+        }
+
+        static std::vector<std::basic_string<T>> Split(const std::basic_string<T>& s, T separator)
+        {
+            return String::Split(s, String::ToString(separator));
         }
 
         static bool StartsWith(const std::basic_string<T>& s, const std::basic_string<T>& value)
@@ -1219,6 +1260,31 @@ namespace System
             }
             return charArray;
 #endif
+        }
+#endif
+
+#ifndef SYSTEM_STRING_ONLY
+    public: //Extra Function 1:
+        static std::basic_string<T> GetTrueString()
+        {
+            std::basic_string<T> s;
+            std::string str = TRUE_STRING;
+            for (int i = 0; i < str.size(); i++)
+            {
+                s.push_back((T)str[i]);
+            }
+            return s;
+        }
+
+        static std::basic_string<T> GetFalseString()
+        {
+            std::basic_string<T> s;
+            std::string str = FALSE_STRING;
+            for (int i = 0; i < str.size(); i++)
+            {
+                s.push_back((T)str[i]);
+            }
+            return s;
         }
 #endif
 

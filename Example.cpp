@@ -63,6 +63,8 @@ int main()
     int index1 = StringA::IndexOf("123456", "3");
     int index2 = StringA::IndexOf("123456", '3');
     std::string insert_str = StringA::Insert("ABCDEFG", 4, "OPQ");
+    std::string join_str1 = StringA::Join(" ", { "A", "B", "C", "D" });
+    std::string join_str2 = StringA::Join(' ', { "A", "B", "C", "D" });
     int index3 = StringA::LastIndexOf("654321", "1");
     int index4 = StringA::LastIndexOf("654321", "1");
     std::string remove1 = StringA::Remove("ABCDEFG", 2);
@@ -84,7 +86,9 @@ int main()
     std::string slice3 = StringA::Slice("123", 0, 2);
     std::string slice4 = StringA::Slice("123", 0, -1);
     std::string slice5 = StringA::Slice("123", 0, 0);
-    auto vector = StringA::Split("A B C 1 2 3", " ");
+    auto vector1 = StringA::Split("A B C 1 2 3", " ");
+    auto vector2 = StringA::Split("A B C 1 2 3", "");
+    auto vector3 = StringA::Split("A B C 1 2 3", ' ');
     bool startsWith1 = StringA::StartsWith("ABCDEFG", "ABc");
     bool startsWith2 = StringA::StartsWith("ABCDEFG", "ABc", System::StringComparison::IgnoreCase);
     std::string subStr1 = StringA::Substring("ABCDEFG", 1);
@@ -158,6 +162,20 @@ int main()
     std::u32string utf32TestChar = U32("你好世界😄");
     auto utf16CharArray1 = StringA::UTF16ToCharArray(W("你好世界😄"));
     auto utf16CharArray2 = StringA::UTF16ToCharArray(U16("你好世界😄"));
+
+    //Extra Function 1:
+
+    std::string trueStringA = StringA::GetTrueString();
+    std::string falseStringA = StringA::GetFalseString();
+
+    std::wstring trueStringW = StringW::GetTrueString();
+    std::wstring falseStringW = StringW::GetFalseString();
+
+    std::u16string trueStringU16 = StringU16::GetTrueString();
+    std::u16string falseStringU16 = StringU16::GetFalseString();
+
+    std::u32string trueStringU32 = StringU32::GetTrueString();
+    std::u32string falseStringU32 = StringU32::GetFalseString();
 
     return 0;
 }
