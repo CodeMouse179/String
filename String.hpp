@@ -1,7 +1,7 @@
 ﻿//     +--------------------------------------------------------------------------------+
-//     |                                  String v1.13.1                                |
+//     |                                  String v1.14.0                                |
 //     |  Introduction : System.String in C++                                           |
-//     |  Modified Date : 2022/11/13                                                    |
+//     |  Modified Date : 2022/11/14                                                    |
 //     |  License : MIT                                                                 |
 //     |  Source Code : https://github.com/CodeMouse179/String                          |
 //     |  Readme : https://github.com/CodeMouse179/String/blob/main/README.md           |
@@ -18,13 +18,16 @@
 //Versioning refer to Semantic Versioning 2.0.0 : https://semver.org/
 
 #define SYSTEM_STRING_VERSION_MAJOR 1
-#define SYSTEM_STRING_VERSION_MINOR 13
-#define SYSTEM_STRING_VERSION_PATCH 1
+#define SYSTEM_STRING_VERSION_MINOR 14
+#define SYSTEM_STRING_VERSION_PATCH 0
 #define SYSTEM_STRING_VERSION (SYSTEM_STRING_VERSION_MAJOR << 16 | SYSTEM_STRING_VERSION_MINOR << 8 | SYSTEM_STRING_VERSION_PATCH)
-#define SYSTEM_STRING_VERSION_STRING "1.13.1"
+#define SYSTEM_STRING_VERSION_STRING "1.14.0"
 
 //Windows Platform:
 #ifdef _WIN32
+#define SYSTEM_WINDOWS 1
+#endif
+#ifdef WIN32
 #define SYSTEM_WINDOWS 1
 #endif
 
@@ -35,6 +38,14 @@
 
 //Windows Headers:
 #ifdef SYSTEM_WINDOWS
+//Enable UNICODE:
+#ifndef UNICODE
+#define UNICODE
+#endif
+//Enable _UNICODE:
+#ifndef _UNICODE
+#define _UNICODE
+#endif
 #include <Windows.h>
 //Disable warnings for MSVC++ 20:
 #ifdef _MSC_VER
@@ -1293,6 +1304,30 @@ namespace System
                 s.push_back((T)str[i]);
             }
             return s;
+        }
+
+        static bool IsNumeric(const std::basic_string<T>& s)
+        {
+            if (s.empty()) return false;
+            for (int i = 0; i < s.size(); i++)
+            {
+                //'0' = 48, '9' = 57
+                if (s[i] < (T)'0' || s[i] > (T)'9')
+                {
+                    return false;
+                }
+            }
+            return true;
+        }
+
+        static bool IsEmptyOrWhiteSpace(const std::basic_string<T>& s)
+        {
+            if (s.empty()) return true;
+            for (int i = 0; i < s.size(); i++)
+            {
+                if (s[i] != (T)' ') return false;
+            }
+            return true;
         }
 #endif
 

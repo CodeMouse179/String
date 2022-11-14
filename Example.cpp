@@ -177,5 +177,12 @@ int main()
     std::u32string trueStringU32 = StringU32::GetTrueString();
     std::u32string falseStringU32 = StringU32::GetFalseString();
 
+    bool isNumeric1 = StringA::IsNumeric("123");
+    bool isNumeric2 = StringA::IsNumeric("123a");
+
+    bool isEmptyOrWhiteSpace1 = StringA::IsEmptyOrWhiteSpace("   ");
+    bool isEmptyOrWhiteSpace2 = StringA::IsEmptyOrWhiteSpace("");
+    bool isEmptyOrWhiteSpace3 = StringA::IsEmptyOrWhiteSpace("ABCD");
+
     return 0;
 }
