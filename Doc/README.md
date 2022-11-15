@@ -1,6 +1,8 @@
 # Documentation
 
-1. Encoding wiki
+String.hpp Current Version : 1.16.0
+
+1. Encoding wiki:
 
     * [ASCII](https://en.wikipedia.org/wiki/ASCII)
 
@@ -12,11 +14,23 @@
 
     * [UTF-32](https://en.wikipedia.org/wiki/UTF-32)
 
-1. Other Implementations
+1. Other String/StringUtils class Implementations:
 
     * [C++ stringutils](http://www.zedwood.com/article/cpp-stringutils-function)
 
     * [Aws::Utils::StringUtils](https://sdk.amazonaws.com/cpp/api/LATEST/class_aws_1_1_utils_1_1_string_utils.html)
+
+1. ICU:
+
+    * [ICU](https://icu.unicode.org/)
+
+1. Unicode Standard/Unicode Table:
+
+    * [Unicode Home](https://home.unicode.org/)
+
+    * [Unicode Standard](https://unicode.org/standard/standard.html)
+
+    * [Unicode Table](https://unicode-table.com/en/)
 
 1. UTF-8, UTF-16, and UTF-32
 
@@ -94,6 +108,10 @@
 
         * [C++20 with u8, char8_t and std::string](https://stackoverflow.com/questions/56833000/c20-with-u8-char8-t-and-stdstring)
 
+    * System::String::WstringToU16string
+
+    * System::String::U16stringToWstring
+
 1. Extra Convert Function 2:
 
     * System::String::To_UTF8
@@ -149,6 +167,26 @@
         * [How to map Unicode codepoints from an UTF-16 file using C](https://stackoverflow.com/questions/43564445/how-to-map-unicode-codepoints-from-an-utf-16-file-using-c)
 
         * [Are wchar_t and char16_t the same thing on Windows?](https://stackoverflow.com/questions/53293159/are-wchar-t-and-char16-t-the-same-thing-on-windows)
+
+1. Extra Function 1:
+
+    * System::String::GetTrueString
+
+    * System::String::GetFalseString
+
+    * System::String::IsNumeric
+
+    * System::String::IsEmptyOrWhiteSpace
+
+1. Console Function 1:
+
+    * System::String::Read
+
+    * System::String::ReadLine
+
+    * System::String::Write
+
+    * System::String::WriteLine
 
 1. Read
 
