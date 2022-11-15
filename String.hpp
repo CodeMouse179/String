@@ -1,7 +1,7 @@
 ﻿//     +--------------------------------------------------------------------------------+
-//     |                                  String v1.14.0                                |
+//     |                                  String v1.15.0                                |
 //     |  Introduction : System.String in C++                                           |
-//     |  Modified Date : 2022/11/14                                                    |
+//     |  Modified Date : 2022/11/15                                                    |
 //     |  License : MIT                                                                 |
 //     |  Source Code : https://github.com/CodeMouse179/String                          |
 //     |  Readme : https://github.com/CodeMouse179/String/blob/main/README.md           |
@@ -18,10 +18,10 @@
 //Versioning refer to Semantic Versioning 2.0.0 : https://semver.org/
 
 #define SYSTEM_STRING_VERSION_MAJOR 1
-#define SYSTEM_STRING_VERSION_MINOR 14
+#define SYSTEM_STRING_VERSION_MINOR 15
 #define SYSTEM_STRING_VERSION_PATCH 0
 #define SYSTEM_STRING_VERSION (SYSTEM_STRING_VERSION_MAJOR << 16 | SYSTEM_STRING_VERSION_MINOR << 8 | SYSTEM_STRING_VERSION_PATCH)
-#define SYSTEM_STRING_VERSION_STRING "1.14.0"
+#define SYSTEM_STRING_VERSION_STRING "1.15.0"
 
 //Windows Platform:
 #ifdef _WIN32
@@ -175,6 +175,10 @@
 
 #ifndef FALSE_STRING
 #define FALSE_STRING "False"
+#endif
+
+#ifndef SYSTEM_STRING_INPUT_BUFFER_SIZE
+#define SYSTEM_STRING_INPUT_BUFFER_SIZE 1024
 #endif
 
 namespace System
@@ -1328,6 +1332,72 @@ namespace System
                 if (s[i] != (T)' ') return false;
             }
             return true;
+        }
+#endif
+
+#ifndef SYSTEM_STRING_ONLY
+    public: //Console Function 1:
+        //return code point of next read character.
+        static int Read()
+        {
+            std::string s = String::ReadLine();
+            auto arr = String::UTF8ToCharArray(s);
+            if (arr.size() > 0)
+                return arr[0].codePoint;
+            else
+                return -1;
+        }
+
+        //return UTF-8 string.
+        static std::string ReadLine()
+        {
+            std::string str;
+#ifdef SYSTEM_WINDOWS
+            HANDLE stdInputHandle = GetStdHandle(STD_INPUT_HANDLE);
+            DWORD read;
+#if SYSTEM_STRING_INPUT_BUFFER_SIZE >= 1024
+            const int bufferSize = SYSTEM_STRING_INPUT_BUFFER_SIZE;
+#else
+            const int bufferSize = 1024;    //minimum size
+#endif
+            wchar_t buffer[bufferSize + 1]; //bufferSize + 1 because we need '\0' at end of this string.
+            buffer[bufferSize] = 0;         //add '\0' at the end.
+            BOOL success = ReadConsoleW(stdInputHandle, buffer, bufferSize, &read, NULL);
+            if (success)
+            {
+                if (read >= 2)
+                    buffer[read - 2] = 0;   //remove \r\n
+                str = String::WstringToString(std::wstring(buffer), System::StringEncoding::UTF8);
+            }
+#endif
+#ifdef SYSTEM_LINUX
+#endif
+            return str;
+        }
+
+        //std::string must be UTF-8 Encoding.
+        static bool Write(const std::string& s)
+        {
+            if (!String::IsValidUTF8(s))
+            {
+                return false;
+            }
+#ifdef SYSTEM_WINDOWS
+            HANDLE stdOutputHandle = GetStdHandle(STD_OUTPUT_HANDLE);
+            DWORD written;
+            std::wstring str = String::StringToWstring(s, StringEncoding::UTF8);
+            BOOL success = WriteConsoleW(stdOutputHandle, str.c_str(), str.size(), &written, NULL);
+            return success;
+#endif
+#ifdef SYSTEM_LINUX
+#endif
+            return false;
+        }
+
+        //std::string must be UTF-8 Encoding.
+        static bool WriteLine(const std::string& s)
+        {
+            return String::Write(s + "\n");
         }
 #endif
 

@@ -184,5 +184,11 @@ int main()
     bool isEmptyOrWhiteSpace2 = StringA::IsEmptyOrWhiteSpace("");
     bool isEmptyOrWhiteSpace3 = StringA::IsEmptyOrWhiteSpace("ABCD");
 
+    //Console Function 1:
+    bool writeSuccess1 = StringA::WriteLine("Please Input Something:");
+    std::string readLine = StringA::ReadLine();
+    bool writeSuccess2 = StringA::WriteLine(readLine);
+    int readChar = StringA::Read();
+
     return 0;
 }
