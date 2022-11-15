@@ -184,6 +184,11 @@ int main()
     bool isEmptyOrWhiteSpace2 = StringA::IsEmptyOrWhiteSpace("");
     bool isEmptyOrWhiteSpace3 = StringA::IsEmptyOrWhiteSpace("ABCD");
 
+    //Russian Test:
+    //Output:здравствуйте, Expected output:ЗДРАВСТВУЙТЕ
+    //TODO:Implement a language-independent ToUpper function
+    std::u32string upperRussian = StringU32::ToUpper(U32("здравствуйте"));
+
     //Console Function 1:
     bool writeSuccess1 = StringA::WriteLine("Please Input Something:");
     std::string readLine = StringA::ReadLine();
