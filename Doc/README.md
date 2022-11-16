@@ -14,6 +14,12 @@ String.hpp Current Version : 1.16.1
 
     * [UTF-32](https://en.wikipedia.org/wiki/UTF-32)
 
+1. System.String:
+
+    * [.Net Document](https://learn.microsoft.com/en-us/dotnet/api/system.string)
+
+    * [.NET Framework 4.8 Source Code](https://referencesource.microsoft.com/#mscorlib/system/string.cs)
+
 1. Other String/StringUtils class Implementations:
 
     * [C++ stringutils](http://www.zedwood.com/article/cpp-stringutils-function)
