@@ -1,7 +1,7 @@
 ﻿//     +--------------------------------------------------------------------------------+
-//     |                                  String v1.16.1                                |
+//     |                                  String v1.17.0                                |
 //     |  Introduction : System.String in C++                                           |
-//     |  Modified Date : 2022/11/16                                                    |
+//     |  Modified Date : 2022/11/17                                                    |
 //     |  License : MIT                                                                 |
 //     |  Source Code : https://github.com/CodeMouse179/String                          |
 //     |  Readme : https://github.com/CodeMouse179/String/blob/main/README.md           |
@@ -18,10 +18,10 @@
 //Versioning refer to Semantic Versioning 2.0.0 : https://semver.org/
 
 #define SYSTEM_STRING_VERSION_MAJOR 1
-#define SYSTEM_STRING_VERSION_MINOR 16
-#define SYSTEM_STRING_VERSION_PATCH 1
+#define SYSTEM_STRING_VERSION_MINOR 17
+#define SYSTEM_STRING_VERSION_PATCH 0
 #define SYSTEM_STRING_VERSION (SYSTEM_STRING_VERSION_MAJOR << 16 | SYSTEM_STRING_VERSION_MINOR << 8 | SYSTEM_STRING_VERSION_PATCH)
-#define SYSTEM_STRING_VERSION_STRING "1.16.1"
+#define SYSTEM_STRING_VERSION_STRING "1.17.0"
 
 //Windows Platform:
 #ifdef _WIN32
@@ -182,6 +182,10 @@
 #define SYSTEM_STRING_INPUT_BUFFER_SIZE 1024
 #endif
 
+#ifdef SYSTEM_STRING_CONSOLE
+#define ESC "\033"   //00011011 = 033 = 27 = 0x1b
+#endif
+
 namespace System
 {
     //generic types:
@@ -242,6 +246,50 @@ namespace System
     typedef UnicodeChar ASCIIChar;
     typedef UnicodeChar UTF8Char;
     typedef UnicodeChar UTF16Char;
+
+#ifdef SYSTEM_STRING_CONSOLE
+    //Singleton class
+    class BuiltInConsole
+    {
+    private:
+        BuiltInConsole()
+        {
+        }
+
+    private:
+        bool inited = false;
+        bool success = false;
+
+    public:
+        void Init()
+        {
+            if (!this->inited) this->inited = true;
+#ifdef SYSTEM_WINDOWS
+            this->success = false;
+#endif
+#ifdef SYSTEM_LINUX
+            this->success = true;
+#endif
+        }
+
+        bool IsInited()
+        {
+            return this->inited;
+        }
+
+        bool Success()
+        {
+            return this->success;
+        }
+
+    public:
+        static BuiltInConsole& Instance()
+        {
+            static BuiltInConsole instance;
+            return instance;
+        }
+    };
+#endif
 
     template<typename T>
     class String
@@ -1182,6 +1230,71 @@ namespace System
         }
 #endif
 
+        static std::string CodePointToUTF8(int codePoint)
+        {
+            //Check CodePoint:
+            if (codePoint >= 0xD800 && codePoint <= 0xDFFF)
+                return std::string();
+            //Check CodePoint:
+            if (codePoint < 0 || codePoint > 0x10FFFF)
+                return std::string();
+            //Assemble Bytes:
+            std::string str;
+            if (codePoint >= 0x0000 && codePoint <= 0x007F)
+            {
+                char firstByte = (codePoint & 0x7F);
+                str.push_back(firstByte);
+            }
+            if (codePoint >= 0x0080 && codePoint <= 0x07FF)
+            {
+                char firstByte = 0xC0 | ((codePoint >> 6) & 0x1F);
+                char secondByte = 0x80 | (codePoint & 0x3F);
+                str.push_back(firstByte);
+                str.push_back(secondByte);
+            }
+            if (codePoint >= 0x0800 && codePoint <= 0xFFFF)
+            {
+                char firstByte = 0xE0 | ((codePoint >> 12) & 0x0F);
+                char secondByte = 0x80 | ((codePoint >> 6) & 0x3F);
+                char thirdByte = 0x80 | (codePoint & 0x3F);
+                str.push_back(firstByte);
+                str.push_back(secondByte);
+                str.push_back(thirdByte);
+            }
+            if (codePoint >= 0x10000 && codePoint <= 0x10FFFF)
+            {
+                char firstByte = 0xF0 | ((codePoint >> 18) & 0x07);
+                char secondByte = 0x80 | ((codePoint >> 12) & 0x3F);
+                char thirdByte = 0x80 | ((codePoint >> 6) & 0x3F);
+                char fourthByte = 0x80 | (codePoint & 0x3F);
+                str.push_back(firstByte);
+                str.push_back(secondByte);
+                str.push_back(thirdByte);
+                str.push_back(fourthByte);
+            }
+            return str;
+        }
+
+        static std::string CodePointToUTF8(const std::vector<int> codePoints)
+        {
+            std::string str;
+            for (int i = 0; i < codePoints.size(); i++)
+            {
+                str += CodePointToUTF8(codePoints[i]);
+            }
+            return str;
+        }
+
+        static std::string CodePointToUTF8(const std::u32string& s)
+        {
+            std::string str;
+            for (int i = 0; i < s.size(); i++)
+            {
+                str += CodePointToUTF8((int)s[i]);
+            }
+            return str;
+        }
+
         static bool IsValidUTF16(const std::wstring& s)
         {
 #ifdef SYSTEM_WINDOWS
@@ -1446,7 +1559,67 @@ namespace System
         //std::string must be UTF-8 Encoding.
         static bool WriteLine(const std::string& s)
         {
-            return String::Write(s + "\n");
+            return String::Write(s + U8("\n"));
+        }
+
+    public: //Extension Console Function 1:
+        static bool Write(const std::string& s, unsigned char r, unsigned char g, unsigned char b)
+        {
+#ifdef SYSTEM_STRING_CONSOLE
+            if (!BuiltInConsole::Instance().IsInited())
+            {
+                BuiltInConsole::Instance().Init();
+            }
+            if (BuiltInConsole::Instance().Success())
+            {
+                std::string format1 = StringA::Format("{0}[{1};{2};{3};{4};{5}m", ESC, 38, 2, r, g, b);
+                std::string format2 = StringA::Format("{0}[{1}m", ESC, 0);
+                return StringA::Write(format1 + s + format2);
+            }
+            else
+            {
+                return StringA::Write(s);
+            }
+#else
+            return StringA::Write(s);
+#endif
+        }
+
+        static bool Write(const std::string& s,
+            unsigned char r1, unsigned char g1, unsigned char b1,
+            unsigned char r2, unsigned char g2, unsigned char b2)
+        {
+#ifdef SYSTEM_STRING_CONSOLE
+            if (!BuiltInConsole::Instance().IsInited())
+            {
+                BuiltInConsole::Instance().Init();
+            }
+            if (BuiltInConsole::Instance().Success())
+            {
+                std::string format1 = StringA::Format("{0}[{1};{2};{3};{4};{5}m", ESC, 38, 2, r1, g1, b1);
+                std::string format2 = StringA::Format("{0}[{1};{2};{3};{4};{5}m", ESC, 48, 2, r2, g2, b2);
+                std::string format3 = StringA::Format("{0}[{1}m", ESC, 0);
+                return StringA::Write(format1 + format2 + s + format3);
+            }
+            else
+            {
+                return StringA::Write(s);
+            }
+#else
+            return StringA::Write(s);
+#endif
+        }
+
+        static bool WriteLine(const std::string& s, unsigned char r, unsigned char g, unsigned char b)
+        {
+            return String::Write(s + U8("\n"), r, g, b);
+        }
+
+        static bool WriteLine(const std::string& s,
+            unsigned char r1, unsigned char g1, unsigned char b1,
+            unsigned char r2, unsigned char g2, unsigned char b2)
+        {
+            return String::Write(s + U8("\n"), r1, g1, b1, r2, g2, b2);
         }
 #endif
 

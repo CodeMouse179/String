@@ -1,4 +1,5 @@
-﻿#include "String.hpp"
+﻿#define SYSTEM_STRING_CONSOLE
+#include "String.hpp"
 int main()
 {
     //获得char类型组成的空字符串：
@@ -153,6 +154,13 @@ int main()
     auto utf8CharArray2 = StringA::UTF8ToCharArray(U8S("你好世界"));
 #endif
 
+    std::string codePointToUTF8String1 = StringA::CodePointToUTF8(U32('😄'));
+    auto ca = StringA::UTF8ToCharArray(codePointToUTF8String1);
+    std::vector<int> codePoints{ U32('😄') };
+    std::string codePointToUTF8String2 = StringA::CodePointToUTF8(codePoints);
+    std::string codePointToUTF8String3 = StringA::CodePointToUTF8(U32("你好世界"));
+    std::string codePointANSIString1 = StringA::ConvertString(codePointToUTF8String3, System::StringEncoding::UTF8, System::StringEncoding::ANSI);
+
     bool IsValidUTF16_1 = StringA::IsValidUTF16(W("你好世界"));
     bool IsValidUTF16_2 = StringA::IsValidUTF16(U16("你好世界"));
 
@@ -190,7 +198,8 @@ int main()
     std::u32string upperRussian = StringU32::ToUpper(U32("здравствуйте"));
 
     //Console Function 1:
-    bool writeSuccess1 = StringA::WriteLine("Please Input Something:");
+    StringA::WriteLine(U8("你好世界!"), 255, 0, 0);
+    bool writeSuccess1 = StringA::WriteLine(U8("Please Input Something:"));
     std::string readLine = StringA::ReadLine();
     bool writeSuccess2 = StringA::WriteLine(readLine);
     int readChar = StringA::Read();
