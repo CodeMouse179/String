@@ -1,5 +1,5 @@
 ﻿//     +--------------------------------------------------------------------------------+
-//     |                                  String v1.17.0                                |
+//     |                                  String v1.17.1                                |
 //     |  Introduction : System.String in C++                                           |
 //     |  Modified Date : 2022/11/17                                                    |
 //     |  License : MIT                                                                 |
@@ -19,9 +19,9 @@
 
 #define SYSTEM_STRING_VERSION_MAJOR 1
 #define SYSTEM_STRING_VERSION_MINOR 17
-#define SYSTEM_STRING_VERSION_PATCH 0
+#define SYSTEM_STRING_VERSION_PATCH 1
 #define SYSTEM_STRING_VERSION (SYSTEM_STRING_VERSION_MAJOR << 16 | SYSTEM_STRING_VERSION_MINOR << 8 | SYSTEM_STRING_VERSION_PATCH)
-#define SYSTEM_STRING_VERSION_STRING "1.17.0"
+#define SYSTEM_STRING_VERSION_STRING "1.17.1"
 
 //Windows Platform:
 #ifdef _WIN32
@@ -1572,7 +1572,7 @@ namespace System
             }
             if (BuiltInConsole::Instance().Success())
             {
-                std::string format1 = StringA::Format("{0}[{1};{2};{3};{4};{5}m", ESC, 38, 2, r, g, b);
+                std::string format1 = StringA::Format("{0}[{1};{2};{3};{4};{5}m", ESC, 38, 2, (int)r, (int)g, (int)b);
                 std::string format2 = StringA::Format("{0}[{1}m", ESC, 0);
                 return StringA::Write(format1 + s + format2);
             }
@@ -1596,8 +1596,8 @@ namespace System
             }
             if (BuiltInConsole::Instance().Success())
             {
-                std::string format1 = StringA::Format("{0}[{1};{2};{3};{4};{5}m", ESC, 38, 2, r1, g1, b1);
-                std::string format2 = StringA::Format("{0}[{1};{2};{3};{4};{5}m", ESC, 48, 2, r2, g2, b2);
+                std::string format1 = StringA::Format("{0}[{1};{2};{3};{4};{5}m", ESC, 38, 2, (int)r1, (int)g1, (int)b1);
+                std::string format2 = StringA::Format("{0}[{1};{2};{3};{4};{5}m", ESC, 48, 2, (int)r2, (int)g2, (int)b2);
                 std::string format3 = StringA::Format("{0}[{1}m", ESC, 0);
                 return StringA::Write(format1 + format2 + s + format3);
             }
