@@ -1,7 +1,7 @@
 ﻿//     +--------------------------------------------------------------------------------+
-//     |                                  String v1.16.0                                |
+//     |                                  String v1.16.1                                |
 //     |  Introduction : System.String in C++                                           |
-//     |  Modified Date : 2022/11/15                                                    |
+//     |  Modified Date : 2022/11/16                                                    |
 //     |  License : MIT                                                                 |
 //     |  Source Code : https://github.com/CodeMouse179/String                          |
 //     |  Readme : https://github.com/CodeMouse179/String/blob/main/README.md           |
@@ -19,9 +19,9 @@
 
 #define SYSTEM_STRING_VERSION_MAJOR 1
 #define SYSTEM_STRING_VERSION_MINOR 16
-#define SYSTEM_STRING_VERSION_PATCH 0
+#define SYSTEM_STRING_VERSION_PATCH 1
 #define SYSTEM_STRING_VERSION (SYSTEM_STRING_VERSION_MAJOR << 16 | SYSTEM_STRING_VERSION_MINOR << 8 | SYSTEM_STRING_VERSION_PATCH)
-#define SYSTEM_STRING_VERSION_STRING "1.16.0"
+#define SYSTEM_STRING_VERSION_STRING "1.16.1"
 
 //Windows Platform:
 #ifdef _WIN32
@@ -1193,11 +1193,7 @@ namespace System
 
         static bool IsValidUTF16(const std::u16string& s)
         {
-#ifdef SYSTEM_WINDOWS
             return true;
-#else
-            return false;
-#endif
         }
 
         static int UTF16CharCount(const std::wstring& s)
@@ -1262,6 +1258,7 @@ namespace System
 
         static std::vector<UTF16Char> UTF16ToCharArray(const std::wstring& s)
         {
+#ifdef SYSTEM_WINDOWS
             std::vector<UTF16Char> charArray;
             for (int i = 0; i < s.size(); i++)
             {
@@ -1283,6 +1280,9 @@ namespace System
                 }
             }
             return charArray;
+#else
+            return std::vector<UTF16Char>();
+#endif
         }
 
         static std::vector<UTF16Char> UTF16ToCharArray(const std::u16string& s)
