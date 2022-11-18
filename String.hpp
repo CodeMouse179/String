@@ -1578,7 +1578,7 @@ namespace System
             if (success)
             {
                 if (read >= 2)
-                    buffer[read - 2] = 0;   //remove \r\n
+                    buffer[read - 2] = 0;   //remove \r\n (NewLine in Windows)
                 str = String::WstringToString(std::wstring(buffer), System::StringEncoding::UTF8);
             }
 #endif
@@ -1594,7 +1594,7 @@ namespace System
             if (ret != -1)
             {
                 if (ret >= 1)
-                    buffer[ret - 1] = 0;    //remove \n
+                    buffer[ret - 1] = 0;    //remove \n (NewLine in Linux)
                 str = buffer;
             }
 #endif
