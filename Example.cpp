@@ -171,6 +171,10 @@ int main()
     auto utf16CharArray1 = StringA::UTF16ToCharArray(W("你好世界😄"));
     auto utf16CharArray2 = StringA::UTF16ToCharArray(U16("你好世界😄"));
 
+    std::u16string codePointToUTF16 = StringA::CodePointToUTF16(U32("你好世界"));
+    auto charArray = StringA::UTF16ToCharArray(codePointToUTF16);
+    std::u32string utf32_str1 = StringA::To_UTF32(codePointToUTF16);
+
     //Extra Function 1:
 
     std::string trueStringA = StringA::GetTrueString();

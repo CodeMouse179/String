@@ -1,7 +1,7 @@
 ﻿//     +--------------------------------------------------------------------------------+
-//     |                                  String v1.17.1                                |
+//     |                                  String v1.18.0                                |
 //     |  Introduction : System.String in C++                                           |
-//     |  Modified Date : 2022/11/17                                                    |
+//     |  Modified Date : 2022/11/18                                                    |
 //     |  License : MIT                                                                 |
 //     |  Source Code : https://github.com/CodeMouse179/String                          |
 //     |  Readme : https://github.com/CodeMouse179/String/blob/main/README.md           |
@@ -18,10 +18,10 @@
 //Versioning refer to Semantic Versioning 2.0.0 : https://semver.org/
 
 #define SYSTEM_STRING_VERSION_MAJOR 1
-#define SYSTEM_STRING_VERSION_MINOR 17
-#define SYSTEM_STRING_VERSION_PATCH 1
+#define SYSTEM_STRING_VERSION_MINOR 18
+#define SYSTEM_STRING_VERSION_PATCH 0
 #define SYSTEM_STRING_VERSION (SYSTEM_STRING_VERSION_MAJOR << 16 | SYSTEM_STRING_VERSION_MINOR << 8 | SYSTEM_STRING_VERSION_PATCH)
-#define SYSTEM_STRING_VERSION_STRING "1.17.1"
+#define SYSTEM_STRING_VERSION_STRING "1.18.0"
 
 //Windows Platform:
 #ifdef _WIN32
@@ -265,7 +265,28 @@ namespace System
         {
             if (!this->inited) this->inited = true;
 #ifdef SYSTEM_WINDOWS
-            this->success = false;
+            //Get Output Handle:
+            HANDLE stdOutputHandle = GetStdHandle(STD_OUTPUT_HANDLE);
+            if (stdOutputHandle == INVALID_HANDLE_VALUE) return;
+
+            //Get Console Mode:
+            DWORD outputMode;
+            BOOL get_output_success = GetConsoleMode(stdOutputHandle, &outputMode);
+            if (!get_output_success) return;
+
+            //turn on ENABLE_VIRTUAL_TERMINAL_PROCESSING flag:
+            outputMode |= ENABLE_VIRTUAL_TERMINAL_PROCESSING;
+
+            //Set Console Mode:
+            BOOL set_output_success = SetConsoleMode(stdOutputHandle, outputMode);
+            if (!set_output_success) return;
+
+            //Get Console Mode again and check if ENABLE_VIRTUAL_TERMINAL_PROCESSING flag is enabled:
+            get_output_success = GetConsoleMode(stdOutputHandle, &outputMode);
+            if (!get_output_success) return;
+
+            //Set success:
+            this->success = (outputMode & ENABLE_VIRTUAL_TERMINAL_PROCESSING);
 #endif
 #ifdef SYSTEM_LINUX
             this->success = true;
@@ -1275,7 +1296,7 @@ namespace System
             return str;
         }
 
-        static std::string CodePointToUTF8(const std::vector<int> codePoints)
+        static std::string CodePointToUTF8(const std::vector<int>& codePoints)
         {
             std::string str;
             for (int i = 0; i < codePoints.size(); i++)
@@ -1428,6 +1449,52 @@ namespace System
             return charArray;
 #endif
         }
+
+        static std::u16string CodePointToUTF16(int codePoint)
+        {
+            //Check CodePoint:
+            if (codePoint >= 0xD800 && codePoint <= 0xDFFF)
+                return std::u16string();
+            //Check CodePoint:
+            if (codePoint < 0 || codePoint > 0x10FFFF)
+                return std::u16string();
+            //Assemble Bytes:
+            std::u16string str;
+            if (codePoint >= 0 && codePoint <= 0xFFFF)
+            {
+                char16_t firstTwoByte = (char16_t)codePoint;
+                str.push_back(firstTwoByte);
+            }
+            else
+            {
+                int u = codePoint - 0x10000;
+                char16_t firstTwoByte = 0xD800 + ((u >> 10) & 0x3FF);
+                char16_t secondTwoByte = 0xDC00 + (u & 0x3FF);
+                str.push_back(firstTwoByte);
+                str.push_back(secondTwoByte);
+            }
+            return str;
+        }
+
+        static std::u16string CodePointToUTF16(const std::vector<int>& codePoints)
+        {
+            std::u16string str;
+            for (int i = 0; i < codePoints.size(); i++)
+            {
+                str += CodePointToUTF16(codePoints[i]);
+            }
+            return str;
+        }
+
+        static std::u16string CodePointToUTF16(const std::u32string& s)
+        {
+            std::u16string str;
+            for (int i = 0; i < s.size(); i++)
+            {
+                str += CodePointToUTF16((int)s[i]);
+            }
+            return str;
+        }
 #endif
 
 #ifndef SYSTEM_STRING_ONLY
@@ -1572,8 +1639,8 @@ namespace System
             }
             if (BuiltInConsole::Instance().Success())
             {
-                std::string format1 = StringA::Format("{0}[{1};{2};{3};{4};{5}m", ESC, 38, 2, (int)r, (int)g, (int)b);
-                std::string format2 = StringA::Format("{0}[{1}m", ESC, 0);
+                std::string format1 = StringA::Format(U8("{0}[{1};{2};{3};{4};{5}m"), U8(ESC), 38, 2, (int)r, (int)g, (int)b);
+                std::string format2 = StringA::Format(U8("{0}[{1}m"), U8(ESC), 0);
                 return StringA::Write(format1 + s + format2);
             }
             else
@@ -1596,9 +1663,9 @@ namespace System
             }
             if (BuiltInConsole::Instance().Success())
             {
-                std::string format1 = StringA::Format("{0}[{1};{2};{3};{4};{5}m", ESC, 38, 2, (int)r1, (int)g1, (int)b1);
-                std::string format2 = StringA::Format("{0}[{1};{2};{3};{4};{5}m", ESC, 48, 2, (int)r2, (int)g2, (int)b2);
-                std::string format3 = StringA::Format("{0}[{1}m", ESC, 0);
+                std::string format1 = StringA::Format(U8("{0}[{1};{2};{3};{4};{5}m"), U8(ESC), 38, 2, (int)r1, (int)g1, (int)b1);
+                std::string format2 = StringA::Format(U8("{0}[{1};{2};{3};{4};{5}m"), U8(ESC), 48, 2, (int)r2, (int)g2, (int)b2);
+                std::string format3 = StringA::Format(U8("{0}[{1}m"), U8(ESC), 0);
                 return StringA::Write(format1 + format2 + s + format3);
             }
             else
