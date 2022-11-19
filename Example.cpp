@@ -161,6 +161,8 @@ int main()
     std::string codePointToUTF8String3 = StringA::CodePointToUTF8(U32("你好世界"));
     std::string codePointANSIString1 = StringA::ConvertString(codePointToUTF8String3, System::StringEncoding::UTF8, System::StringEncoding::ANSI);
 
+    std::string codePointToUTF8String4 = StringA::CodePointToUTF8(utf8CharArray1);
+
     bool IsValidUTF16_1 = StringA::IsValidUTF16(W("你好世界"));
     bool IsValidUTF16_2 = StringA::IsValidUTF16(U16("你好世界"));
 
@@ -171,9 +173,17 @@ int main()
     auto utf16CharArray1 = StringA::UTF16ToCharArray(W("你好世界😄"));
     auto utf16CharArray2 = StringA::UTF16ToCharArray(U16("你好世界😄"));
 
-    std::u16string codePointToUTF16 = StringA::CodePointToUTF16(U32("你好世界"));
-    auto charArray = StringA::UTF16ToCharArray(codePointToUTF16);
-    std::u32string utf32_str1 = StringA::To_UTF32(codePointToUTF16);
+    std::u16string codePointToUTF16_1 = StringA::CodePointToUTF16(U32("你好世界"));
+    auto charArray = StringA::UTF16ToCharArray(codePointToUTF16_1);
+    std::u32string utf32_str1 = StringA::To_UTF32(codePointToUTF16_1);
+
+    std::u16string codePointToUTF16_2 = StringA::CodePointToUTF16(utf16CharArray1);
+
+    //Extra Util 2:
+    std::string UTF16String1 = StringA::UTF16ToUTF16String(U16("你好世界"));
+    bool IsValidUTF16String1 = StringA::IsValidUTF16String(UTF16String1);
+    int UTF16StringCharCount1 = StringA::UTF16StringCharCount(UTF16String1);
+    auto UTF16StringToCharArray1 = StringA::UTF16StringToCharArray(UTF16String1);
 
     //Extra Function 1:
 

@@ -1,7 +1,7 @@
 ﻿//     +--------------------------------------------------------------------------------+
-//     |                                  String v1.18.0                                |
+//     |                                  String v1.19.0                                |
 //     |  Introduction : System.String in C++                                           |
-//     |  Modified Date : 2022/11/18                                                    |
+//     |  Modified Date : 2022/11/20                                                    |
 //     |  License : MIT                                                                 |
 //     |  Source Code : https://github.com/CodeMouse179/String                          |
 //     |  Readme : https://github.com/CodeMouse179/String/blob/main/README.md           |
@@ -18,10 +18,10 @@
 //Versioning refer to Semantic Versioning 2.0.0 : https://semver.org/
 
 #define SYSTEM_STRING_VERSION_MAJOR 1
-#define SYSTEM_STRING_VERSION_MINOR 18
+#define SYSTEM_STRING_VERSION_MINOR 19
 #define SYSTEM_STRING_VERSION_PATCH 0
 #define SYSTEM_STRING_VERSION (SYSTEM_STRING_VERSION_MAJOR << 16 | SYSTEM_STRING_VERSION_MINOR << 8 | SYSTEM_STRING_VERSION_PATCH)
-#define SYSTEM_STRING_VERSION_STRING "1.18.0"
+#define SYSTEM_STRING_VERSION_STRING "1.19.0"
 
 //Windows Platform:
 #ifdef _WIN32
@@ -70,7 +70,8 @@
 #if (_MSVC_LANG >= 201703L)
 #define SYSTEM_CXX_17 1
 #endif
-#else
+#endif
+#ifdef SYSTEM_LINUX
 #if (__cplusplus >= 201103L)
 #define SYSTEM_CXX_11 1
 #endif
@@ -116,7 +117,8 @@
 //Generic System::String class
 #ifdef SYSTEM_WINDOWS
 #define StringT StringW
-#else
+#endif
+#ifdef SYSTEM_LINUX
 #define StringT StringA
 #endif
 
@@ -152,14 +154,16 @@
 //Windows:wchar_t, Linux:char
 #ifdef SYSTEM_WINDOWS
 #define T(s) W(s)
-#else
+#endif
+#ifdef SYSTEM_LINUX
 #define T(s) s
 #endif
 
 //Windows:char/char8_t(C++20), Linux:char
 #ifdef SYSTEM_WINDOWS
 #define T8(s) U8(s)
-#else
+#endif
+#ifdef SYSTEM_LINUX
 #define T8(s) s
 #endif
 
@@ -192,7 +196,8 @@ namespace System
 #ifdef SYSTEM_WINDOWS
     typedef std::wstring tstring;
     typedef wchar_t tchar;
-#else
+#endif
+#ifdef SYSTEM_LINUX
     typedef std::string tstring;
     typedef char tchar;
 #endif
@@ -858,7 +863,7 @@ namespace System
 
 #ifndef SYSTEM_STRING_ONLY
     public: //Extra Convert Function 1:
-        static tstring StringToWstring(const std::string& s, StringEncoding encoding)
+        static System::tstring StringToWstring(const std::string& s, StringEncoding encoding)
         {
 #ifdef SYSTEM_WINDOWS
             std::wstring result;
@@ -881,7 +886,7 @@ namespace System
 #endif
         }
 
-        static std::string WstringToString(const tstring& s, StringEncoding encoding)
+        static std::string WstringToString(const System::tstring& s, StringEncoding encoding)
         {
 #ifdef SYSTEM_WINDOWS
             std::string result;
@@ -927,7 +932,8 @@ namespace System
 #ifdef SYSTEM_WINDOWS
             std::u16string str(reinterpret_cast<const char16_t*>(s.c_str()));
             return str;
-#else
+#endif
+#ifdef SYSTEM_LINUX
             return String::To_UTF16(s);
 #endif
         }
@@ -937,7 +943,8 @@ namespace System
 #ifdef SYSTEM_WINDOWS
             std::wstring str(reinterpret_cast<const wchar_t*>(s.c_str()));
             return str;
-#else
+#endif
+#ifdef SYSTEM_LINUX
             return String::To_Wstring(s);
 #endif
         }
@@ -1316,12 +1323,23 @@ namespace System
             return str;
         }
 
-        static bool IsValidUTF16(const std::wstring& s)
+        static std::string CodePointToUTF8(const std::vector<UTF8Char>& codePoints)
+        {
+            std::string str;
+            for (int i = 0; i < codePoints.size(); i++)
+            {
+                str += CodePointToUTF8(codePoints[i].codePoint);
+            }
+            return str;
+        }
+
+        static bool IsValidUTF16(const System::tstring& s)
         {
 #ifdef SYSTEM_WINDOWS
             return true;
-#else
-            return false;
+#endif
+#ifdef SYSTEM_LINUX
+            return String::IsValidUTF16String(s);
 #endif
         }
 
@@ -1330,7 +1348,7 @@ namespace System
             return true;
         }
 
-        static int UTF16CharCount(const std::wstring& s)
+        static int UTF16CharCount(const System::tstring& s)
         {
 #ifdef SYSTEM_WINDOWS
             int charCount = 0;
@@ -1354,8 +1372,9 @@ namespace System
                 }
             }
             return charCount;
-#else
-            return 0;
+#endif
+#ifdef SYSTEM_LINUX
+            return String::UTF16StringCharCount(s);
 #endif
         }
 
@@ -1390,7 +1409,7 @@ namespace System
 #endif
         }
 
-        static std::vector<UTF16Char> UTF16ToCharArray(const std::wstring& s)
+        static std::vector<UTF16Char> UTF16ToCharArray(const System::tstring& s)
         {
 #ifdef SYSTEM_WINDOWS
             std::vector<UTF16Char> charArray;
@@ -1414,8 +1433,9 @@ namespace System
                 }
             }
             return charArray;
-#else
-            return std::vector<UTF16Char>();
+#endif
+#ifdef SYSTEM_LINUX
+            return String::UTF16StringToCharArray(s);
 #endif
         }
 
@@ -1494,6 +1514,136 @@ namespace System
                 str += CodePointToUTF16((int)s[i]);
             }
             return str;
+        }
+
+        static std::u16string CodePointToUTF16(const std::vector<UTF16Char>& codePoints)
+        {
+            std::u16string str;
+            for (int i = 0; i < codePoints.size(); i++)
+            {
+                str += CodePointToUTF16(codePoints[i].codePoint);
+            }
+            return str;
+        }
+#endif
+
+#ifndef SYSTEM_STRING_ONLY
+    public: //Extra Util 2:
+        static std::string UTF16ToUTF16String(const std::u16string& s)
+        {
+            std::string str;
+            for (int i = 0; i < s.size(); i++)
+            {
+                unsigned short twoByte = s[i];
+                str += ((twoByte >> 8) & 0xFF);
+                str += (twoByte & 0xFF);
+            }
+            return str;
+        }
+
+        static bool IsValidUTF16String(const std::string& s)
+        {
+            if (s.size() < 2) return false;
+            if (s.size() % 2 != 0)  return false;
+            for (int i = 0; i < s.size(); i += 2)
+            {
+                unsigned short firstByte = (unsigned short)s[i];                        //char => ushort
+                unsigned short secondByte = (unsigned short)s[i + 1];                   //char => ushort
+                unsigned short firstTwoByte = ((firstByte << 8) | secondByte);          //combine
+                if (firstTwoByte >= 0xD800 && firstTwoByte < 0xDC00)
+                {
+                    int index1 = i + 2;
+                    int index2 = i + 3;
+                    if (index1 < s.size() && index2 < s.size())
+                    {
+                        unsigned short thirdByte = (unsigned short)s[index1];           //char => ushort
+                        unsigned short fourthByte = (unsigned short)s[index2];          //char => ushort
+                        unsigned short secondTwoByte = ((thirdByte << 8) | fourthByte); //combine
+                        //combine codePoint:
+                        unsigned int codePoint = ((firstTwoByte & 0x3FF) << 10) + (secondTwoByte & 0x3FF) + 0x10000;
+                        i += 2;
+                    }
+                    else //error: missing next part
+                    {
+                        return false;
+                    }
+                }
+            }
+            return true;
+        }
+
+        static int UTF16StringCharCount(const std::string& s)
+        {
+            if (s.size() < 2) return 0;
+            if (s.size() % 2 != 0)  return 0;
+            int charCount = 0;
+            for (int i = 0; i < s.size(); i += 2)
+            {
+                unsigned short firstByte = (unsigned short)s[i];                        //char => ushort
+                unsigned short secondByte = (unsigned short)s[i + 1];                   //char => ushort
+                unsigned short firstTwoByte = ((firstByte << 8) | secondByte);          //combine
+                if (firstTwoByte >= 0xD800 && firstTwoByte < 0xDC00)
+                {
+                    int index1 = i + 2;
+                    int index2 = i + 3;
+                    if (index1 < s.size() && index2 < s.size())
+                    {
+                        unsigned short thirdByte = (unsigned short)s[index1];           //char => ushort
+                        unsigned short fourthByte = (unsigned short)s[index2];          //char => ushort
+                        unsigned short secondTwoByte = ((thirdByte << 8) | fourthByte); //combine
+                        //combine codePoint:
+                        unsigned int codePoint = ((firstTwoByte & 0x3FF) << 10) + (secondTwoByte & 0x3FF) + 0x10000;
+                        charCount++;
+                        i += 2;
+                    }
+                    else //error: missing next part
+                    {
+                        return 0;
+                    }
+                }
+                else
+                {
+                    charCount++;
+                }
+            }
+            return charCount;
+        }
+
+        static std::vector<UTF16Char> UTF16StringToCharArray(const std::string& s)
+        {
+            if (s.size() < 2) return std::vector<UTF16Char>();
+            if (s.size() % 2 != 0)  return std::vector<UTF16Char>();
+            std::vector<UTF16Char> charArray;
+            for (int i = 0; i < s.size(); i += 2)
+            {
+                unsigned short firstByte = (unsigned short)s[i];                        //char => ushort
+                unsigned short secondByte = (unsigned short)s[i + 1];                   //char => ushort
+                unsigned short firstTwoByte = ((firstByte << 8) | secondByte);          //combine
+                if (firstTwoByte >= 0xD800 && firstTwoByte < 0xDC00)
+                {
+                    int index1 = i + 2;
+                    int index2 = i + 3;
+                    if (index1 < s.size() && index2 < s.size())
+                    {
+                        unsigned short thirdByte = (unsigned short)s[index1];           //char => ushort
+                        unsigned short fourthByte = (unsigned short)s[index2];          //char => ushort
+                        unsigned short secondTwoByte = ((thirdByte << 8) | fourthByte); //combine
+                        //combine codePoint:
+                        unsigned int codePoint = ((firstTwoByte & 0x3FF) << 10) + (secondTwoByte & 0x3FF) + 0x10000;
+                        charArray.push_back(UTF16Char(4, codePoint));
+                        i += 2;
+                    }
+                    else //error: missing next part
+                    {
+                        return std::vector<UTF16Char>();
+                    }
+                }
+                else
+                {
+                    charArray.push_back(UTF16Char(2, firstTwoByte));
+                }
+            }
+            return charArray;
         }
 #endif
 
