@@ -215,7 +215,7 @@ int main()
     std::u32string upperRussian = StringU32::ToUpper(U32("здравствуйте"));
 
     //Linux Test 1:
-    std::wstring linuxTestWstring1 = StringA::StringToWstring("Linux, 你好!");
+    std::wstring linuxTestWstring1 = StringA::StringToWstring(U8("Linux, 你好!"));
     std::string linuxTestString1 = StringA::WstringToString(linuxTestWstring1);
     StringA::WriteLine(linuxTestString1, 0, 255, 0);
 
