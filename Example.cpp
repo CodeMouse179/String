@@ -143,6 +143,9 @@ int main()
     auto ASCIIToCharArray1 = StringA::ASCIIToCharArray(S("ABCD"));
     auto ASCIIToCharArray2 = StringA::ASCIIToCharArray(S("你好世界"));
 
+    std::string codePointToASCII1 = StringA::CodePointToASCII(ASCIIToCharArray1);
+    std::string codePointToASCII2 = StringA::CodePointToASCII(ASCIIToCharArray2);
+
     bool isUTF8_1 = StringA::IsValidUTF8(U8("你好世界"));
     bool isUTF8_2 = StringA::IsValidUTF8(S("你好世界"));
 
@@ -210,6 +213,17 @@ int main()
     //Output:здравствуйте, Expected output:ЗДРАВСТВУЙТЕ
     //TODO:Implement a language-independent ToUpper function
     std::u32string upperRussian = StringU32::ToUpper(U32("здравствуйте"));
+
+    //Linux Test 1:
+    std::wstring linuxTestWstring1 = StringA::StringToWstring("Linux, 你好!");
+    std::string linuxTestString1 = StringA::WstringToString(linuxTestWstring1);
+    StringA::WriteLine(linuxTestString1, 0, 255, 0);
+
+    //Linux Test 2:
+    std::u32string linuxTestU32string1 = StringA::WstringToU32string(W("Linux, 你还好吗?"));
+    std::wstring linuxTestWstring2 = StringA::U32stringToWstring(linuxTestU32string1);
+    std::string linuxTestString2 = StringA::WstringToString(linuxTestWstring2);
+    StringA::WriteLine(linuxTestString2, 33, 33, 192);
 
     //Console Function 1:
     StringA::WriteLine(U8("你好世界!"), 255, 0, 0);

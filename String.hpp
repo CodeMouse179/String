@@ -1,5 +1,5 @@
 ﻿//     +--------------------------------------------------------------------------------+
-//     |                                  String v1.19.0                                |
+//     |                                  String v1.20.0                                |
 //     |  Introduction : System.String in C++                                           |
 //     |  Modified Date : 2022/11/20                                                    |
 //     |  License : MIT                                                                 |
@@ -18,10 +18,10 @@
 //Versioning refer to Semantic Versioning 2.0.0 : https://semver.org/
 
 #define SYSTEM_STRING_VERSION_MAJOR 1
-#define SYSTEM_STRING_VERSION_MINOR 19
+#define SYSTEM_STRING_VERSION_MINOR 20
 #define SYSTEM_STRING_VERSION_PATCH 0
 #define SYSTEM_STRING_VERSION (SYSTEM_STRING_VERSION_MAJOR << 16 | SYSTEM_STRING_VERSION_MINOR << 8 | SYSTEM_STRING_VERSION_PATCH)
-#define SYSTEM_STRING_VERSION_STRING "1.19.0"
+#define SYSTEM_STRING_VERSION_STRING "1.20.0"
 
 //Windows Platform:
 #ifdef _WIN32
@@ -251,6 +251,7 @@ namespace System
     typedef UnicodeChar ASCIIChar;
     typedef UnicodeChar UTF8Char;
     typedef UnicodeChar UTF16Char;
+    typedef UnicodeChar UTF32Char;
 
 #ifdef SYSTEM_STRING_CONSOLE
     //Singleton class
@@ -909,6 +910,16 @@ namespace System
 #endif
         }
 
+        static std::wstring StringToWstring(const std::string& s)
+        {
+            return String::To_Wstring(s);
+        }
+
+        static std::string WstringToString(const std::wstring& s)
+        {
+            return String::To_String(s);
+        }
+
         static u8str StringToU8string(const std::string& s)
         {
 #ifdef SYSTEM_CXX_20
@@ -946,6 +957,28 @@ namespace System
 #endif
 #ifdef SYSTEM_LINUX
             return String::To_Wstring(s);
+#endif
+        }
+
+        static std::u32string WstringToU32string(const std::wstring& s)
+        {
+#ifdef SYSTEM_WINDOWS
+            return String::To_UTF32(s);
+#endif
+#ifdef SYSTEM_LINUX
+            std::u32string str(reinterpret_cast<const char32_t*>(s.c_str()));
+            return str;
+#endif
+        }
+
+        static std::wstring U32stringToWstring(const std::u32string& s)
+        {
+#ifdef SYSTEM_WINDOWS
+            return String::To_Wstring(s);
+#endif
+#ifdef SYSTEM_LINUX
+            std::wstring str(reinterpret_cast<const wchar_t*>(s.c_str()));
+            return str;
 #endif
         }
 
@@ -1059,6 +1092,56 @@ namespace System
                 charArray.push_back(ASCIIChar(1, item));
             }
             return charArray;
+        }
+
+        static std::string CodePointToASCII(const std::vector<ASCIIChar>& codePoints)
+        {
+            std::string str;
+            for (int i = 0; i < codePoints.size(); i++)
+            {
+                if (static_cast<unsigned char>(codePoints[i].codePoint) > 127) return std::string();
+                str += codePoints[i].codePoint;
+            }
+            return str;
+        }
+
+        static bool IsValidUTF32(const std::u32string& s)
+        {
+            for (int i = 0; i < s.size(); i++)
+            {
+                int codePoint = (int)s[i];
+                if (codePoint < 0 || codePoint > 0x10FFFF) return false;
+            }
+            return true;
+        }
+
+        static int UTF32CharCount(const std::u32string& s)
+        {
+            if (String::IsValidUTF32(s)) return s.size();
+            return 0;
+        }
+
+        static std::vector<UTF32Char> UTF32ToCharArray(const std::u32string& s)
+        {
+            std::vector<UTF32Char> charArray;
+            for (int i = 0; i < s.size(); i++)
+            {
+                int codePoint = (int)s[i];
+                if (codePoint < 0 || codePoint > 0x10FFFF) return std::vector<UTF32Char>();
+                charArray.push_back(UTF32Char(4, (unsigned int)codePoint));
+            }
+            return charArray;
+        }
+
+        static std::u32string CodePointToUTF32(const std::vector<UTF32Char>& codePoints)
+        {
+            std::u32string str;
+            for (int i = 0; i < codePoints.size(); i++)
+            {
+                if (codePoints[i].codePoint < 0 || codePoints[i].codePoint>0x10FFFF) return std::u32string();
+                str += codePoints[i].codePoint;
+            }
+            return str;
         }
 
         static bool IsValidUTF8(const std::string& s)
