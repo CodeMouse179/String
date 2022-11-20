@@ -223,7 +223,7 @@ int main()
     std::u32string linuxTestU32string1 = StringA::WstringToU32string(W("Linux, 你还好吗?"));
     std::wstring linuxTestWstring2 = StringA::U32stringToWstring(linuxTestU32string1);
     std::string linuxTestString2 = StringA::WstringToString(linuxTestWstring2);
-    StringA::WriteLine(linuxTestString2, 33, 33, 192);
+    StringA::WriteLine(linuxTestString2, 133, 133, 192);
 
     //Console Function 1:
     StringA::WriteLine(U8("你好世界!"), 255, 0, 0);
