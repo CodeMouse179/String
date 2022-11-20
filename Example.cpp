@@ -166,14 +166,14 @@ int main()
 
     std::string codePointToUTF8String4 = StringA::CodePointToUTF8(utf8CharArray1);
 
-    bool IsValidUTF16_1 = StringA::IsValidUTF16(W("你好世界"));
+    bool IsValidUTF16_1 = StringA::IsValidUTF16(T("你好世界"));
     bool IsValidUTF16_2 = StringA::IsValidUTF16(U16("你好世界"));
 
-    int UTF16CharCount_1 = StringA::UTF16CharCount(W("你好世界😄"));
+    int UTF16CharCount_1 = StringA::UTF16CharCount(T("你好世界😄"));
     int UTF16CharCount_2 = StringA::UTF16CharCount(U16("你好世界😄"));
 
     std::u32string utf32TestChar = U32("你好世界😄");
-    auto utf16CharArray1 = StringA::UTF16ToCharArray(W("你好世界😄"));
+    auto utf16CharArray1 = StringA::UTF16ToCharArray(T("你好世界😄"));
     auto utf16CharArray2 = StringA::UTF16ToCharArray(U16("你好世界😄"));
 
     std::u16string codePointToUTF16_1 = StringA::CodePointToUTF16(U32("你好世界"));
