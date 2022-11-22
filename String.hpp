@@ -1,7 +1,7 @@
 ﻿//     +--------------------------------------------------------------------------------+
-//     |                                  String v1.20.0                                |
+//     |                                  String v1.20.1                                |
 //     |  Introduction : System.String in C++                                           |
-//     |  Modified Date : 2022/11/20                                                    |
+//     |  Modified Date : 2022/11/22                                                    |
 //     |  License : MIT                                                                 |
 //     |  Source Code : https://github.com/CodeMouse179/String                          |
 //     |  Readme : https://github.com/CodeMouse179/String/blob/main/README.md           |
@@ -19,9 +19,9 @@
 
 #define SYSTEM_STRING_VERSION_MAJOR 1
 #define SYSTEM_STRING_VERSION_MINOR 20
-#define SYSTEM_STRING_VERSION_PATCH 0
+#define SYSTEM_STRING_VERSION_PATCH 1
 #define SYSTEM_STRING_VERSION (SYSTEM_STRING_VERSION_MAJOR << 16 | SYSTEM_STRING_VERSION_MINOR << 8 | SYSTEM_STRING_VERSION_PATCH)
-#define SYSTEM_STRING_VERSION_STRING "1.20.0"
+#define SYSTEM_STRING_VERSION_STRING "1.20.1"
 
 //Windows Platform:
 #ifdef _WIN32
@@ -280,7 +280,7 @@ namespace System
             BOOL get_output_success = GetConsoleMode(stdOutputHandle, &outputMode);
             if (!get_output_success) return;
 
-            //turn on ENABLE_VIRTUAL_TERMINAL_PROCESSING flag:
+            //Turn on ENABLE_VIRTUAL_TERMINAL_PROCESSING flag:
             outputMode |= ENABLE_VIRTUAL_TERMINAL_PROCESSING;
 
             //Set Console Mode:
@@ -867,6 +867,7 @@ namespace System
         static System::tstring StringToWstring(const std::string& s, StringEncoding encoding)
         {
 #ifdef SYSTEM_WINDOWS
+            if (s.empty()) return std::wstring();
             std::wstring result;
             int len = MultiByteToWideChar((UINT)encoding, 0, s.c_str(), -1, NULL, 0);
             if (len == 0) return result;
@@ -890,6 +891,7 @@ namespace System
         static std::string WstringToString(const System::tstring& s, StringEncoding encoding)
         {
 #ifdef SYSTEM_WINDOWS
+            if (s.empty()) return std::string();
             std::string result;
             int len = WideCharToMultiByte((UINT)encoding, 0, s.c_str(), -1, NULL, 0, NULL, NULL);
             if (len == 0) return result;
