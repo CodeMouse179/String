@@ -225,6 +225,22 @@ int main()
     std::string linuxTestString2 = StringA::WstringToString(linuxTestWstring2);
     StringA::WriteLine(linuxTestString2, 133, 133, 192);
 
+    //StringToWstring/WstringToString Testing:
+    //Output:"你好世界"
+    std::string errorTest_1 = StringA::WstringToString(W("你好世界"), System::StringEncoding::ANSI);
+    //Output:"????"
+    std::string errorTest_2 = StringA::WstringToString(W("你好世界"), System::StringEncoding::ASCII);
+    //Output:"浣犲ソ涓栫晫"
+    std::string errorTest_3 = StringA::WstringToString(W("你好世界"), System::StringEncoding::UTF8);
+    //Output:""
+    std::string errorTest_4 = StringA::WstringToString(W("你好世界"), System::StringEncoding::UTF16LE);
+    //Output:""
+    std::string errorTest_5 = StringA::WstringToString(W("你好世界"), System::StringEncoding::UTF16BE);
+    //Output:""
+    std::string errorTest_6 = StringA::WstringToString(W("你好世界"), System::StringEncoding::UTF32LE);
+    //Output:""
+    std::string errorTest_7 = StringA::WstringToString(W("你好世界"), System::StringEncoding::UTF32BE);
+
     //Console Function 1:
     StringA::WriteLine(U8("你好世界!"), 255, 0, 0);
     bool writeSuccess1 = StringA::WriteLine(U8("Please Input Something:"));
