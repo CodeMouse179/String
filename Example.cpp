@@ -3,9 +3,36 @@
 #include <assert.h> //assert
 int main()
 {
+    //测试修改不同字符串的字符:
+    char utf8Buf[100] = U8("你好世界");
+    utf8Buf[0] = U8('a');                  //修改之后字符串已经损坏，不可读取
+    wchar_t buf[10] = L"你好世界";          //L"你好世界"
+    buf[0] = L'a';                         //L"a好世界"
+
+    //不同字符串的遍历与转换:
+    std::u32string nihaoshijieU32 = U"ABCD你好世界!";
+    std::wstring nihaoshijieW;
+    for (int i = 0; i < nihaoshijieU32.size(); i++)
+    {
+        nihaoshijieW.push_back((wchar_t)nihaoshijieU32[i]);
+    }
+    std::string nihaoshijieU8 = StringA::To_UTF8(nihaoshijieW);
+    StringA::WriteLine(nihaoshijieU8, 255, 140, 0);
+
     //char, wchar_t, char16_t, char32_t Testing:
     //不同类型的char储存ASCII以外的字符时，只要不发生数值越界，其值相同。
     //注意：不要使用char类型储存ASCII字符以外的文字。
+
+    char ascii1 = 'a';           //value:97
+    wchar_t ascii2 = L'a';       //value:97
+    char16_t ascii3 = u'a';      //value:97
+    char32_t ascii4 = U'a';      //value:97
+    int asciiInt1 = 97;          //value:97
+
+    assert(ascii1 == ascii2);    //OK!
+    assert(ascii2 == ascii3);    //OK!
+    assert(ascii3 == ascii4);    //OK!
+    assert(ascii4 == asciiInt1); //OK!
 
     char ch1 = '你';             //data value overflow!
     wchar_t ch2 = L'你';         //Unicode value:20320
@@ -272,9 +299,9 @@ int main()
 
     //Console Function 1:
     StringA::WriteLine(U8("你好世界!"), 255, 0, 0);
-    bool writeSuccess1 = StringA::WriteLine(U8("Please Input Something:"));
+    bool writeSuccess1 = StringA::WriteLine(U8("Please Input Something:"), 255, 255, 255);
     std::string readLine = StringA::ReadLine();
-    bool writeSuccess2 = StringA::WriteLine(readLine);
+    bool writeSuccess2 = StringA::WriteLine(readLine, 255, 255, 255);
     int readChar = StringA::Read();
 
     return 0;
