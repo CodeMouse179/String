@@ -1,7 +1,35 @@
 ﻿#define SYSTEM_STRING_CONSOLE
 #include "String.hpp"
+#include <assert.h> //assert
 int main()
 {
+    //char, wchar_t, char16_t, char32_t Testing:
+    //不同类型的char储存ASCII以外的字符时，只要不发生数值越界，其值相同。
+    //注意：不要使用char类型储存ASCII字符以外的文字。
+
+    char ch1 = '你';             //data value overflow!
+    wchar_t ch2 = L'你';         //Unicode value:20320
+    char16_t ch3 = u'你';        //Unicode value:20320
+    char32_t ch4 = U'你';        //Unicode value:20320
+    int ni1 = 20320;             //value:20320
+
+    //assert(ch1 == ch2);       //assert error!
+    assert(ch2 == ch3);         //OK!
+    assert(ch3 == ch4);         //OK!
+    assert(ch4 == ni1);         //OK!
+
+    char _ch1 = '🧐';            //data value overflow!
+    wchar_t _ch2 = L'🧐';        //data value overflow!
+    //char16_t _ch3 = u'🧐';     //compile error!
+    char32_t _ch4 = U'🧐';       //Unicode value:129488
+    int wen1 = 129488;           //value:129488
+
+    //assert(_ch1 == _ch2);     //assert error!
+#ifdef SYSTEM_LINUX
+    assert(_ch2 == _ch4);       //Windows assert error, Linux OK!
+#endif
+    assert(_ch4 == wen1);       //OK!
+
     //获得char类型组成的空字符串：
     std::string empty = System::String<char>::Empty();
     //通过使用StringA宏，获得char类型组成的空字符串：
