@@ -240,6 +240,7 @@ int main()
     //Russian Test:
     //Output:здравствуйте, Expected output:ЗДРАВСТВУЙТЕ
     //TODO:Implement a language-independent ToUpper function
+    //不依赖C++提供的函数:toupper与tolower
     std::u32string upperRussian = StringU32::ToUpper(U32("здравствуйте"));
 
     //Linux Test 1:
