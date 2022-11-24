@@ -3,6 +3,19 @@
 #include <assert.h> //assert
 int main()
 {
+    //String Equals Testing:
+    std::string ansi_latin = "ABCD";
+    std::string utf8_latin = U8("ABCD");
+    bool latin_equals1 = StringA::Equals(ansi_latin, utf8_latin);
+
+    std::string ansi_chinese = "你好世界";
+    std::string utf8_chinese = U8("你好世界");
+    std::string ansi_utf8_chinese = StringA::ConvertString(ansi_chinese, System::StringEncoding::ANSI, System::StringEncoding::UTF8);
+    std::string wide_char_utf8_chinese = StringA::WstringToString(T("你好世界"), System::StringEncoding::UTF8);
+    bool chinese_equals1 = StringA::Equals(ansi_chinese, utf8_chinese);
+    bool chinese_equals2 = StringA::Equals(ansi_utf8_chinese, utf8_chinese);
+    bool chinese_equals3 = StringA::Equals(wide_char_utf8_chinese, utf8_chinese);
+
     //测试修改不同字符串的字符:
     char utf8Buf[100] = U8("你好世界");
     utf8Buf[0] = U8('a');                  //修改之后字符串已经损坏，不可读取
