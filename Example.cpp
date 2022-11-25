@@ -20,7 +20,11 @@ int main()
     //测试修改不同字符串的字符:
     const char* utf8ConstBuf = U8s("你好世界");
     char utf8Buf[100] = { 0 };
+#ifdef SYSTEM_WINDOWS
     strcpy_s(utf8Buf, U8s("你好世界"));          //使用C语言的方式给字符串数组赋值
+#else
+    strcpy(utf8Buf, U8s("你好世界"));            //使用C语言的方式给字符串数组赋值
+#endif
     utf8Buf[0] = 'a';                           //修改UTF-8字符串, 修改之后字符串已经损坏，不可读取
     wchar_t buf[10] = L"你好世界";               //L"你好世界"
     buf[0] = L'a';                              //L"a好世界"
