@@ -1,6 +1,7 @@
 ﻿#define SYSTEM_STRING_CONSOLE
 #include "String.hpp"
 #include <assert.h> //assert
+#include <string.h> //strcpy_s
 int main()
 {
     //String Equals Testing:
