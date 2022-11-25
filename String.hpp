@@ -122,7 +122,7 @@
 #define StringT StringA
 #endif
 
-//std::string
+//std::string(Windows Default:ANSI Encoding, Linux Default:UTF-8 Encoding)
 #define __S(s) s
 #define S(s) __S(s)
 
