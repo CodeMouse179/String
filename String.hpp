@@ -1,7 +1,7 @@
 ﻿//     +--------------------------------------------------------------------------------+
-//     |                                  String v1.20.1                                |
+//     |                                  String v1.21.0                                |
 //     |  Introduction : System.String in C++                                           |
-//     |  Modified Date : 2022/11/22                                                    |
+//     |  Modified Date : 2022/11/26                                                    |
 //     |  License : MIT                                                                 |
 //     |  Source Code : https://github.com/CodeMouse179/String                          |
 //     |  Readme : https://github.com/CodeMouse179/String/blob/main/README.md           |
@@ -18,10 +18,10 @@
 //Versioning refer to Semantic Versioning 2.0.0 : https://semver.org/
 
 #define SYSTEM_STRING_VERSION_MAJOR 1
-#define SYSTEM_STRING_VERSION_MINOR 20
-#define SYSTEM_STRING_VERSION_PATCH 1
+#define SYSTEM_STRING_VERSION_MINOR 21
+#define SYSTEM_STRING_VERSION_PATCH 0
 #define SYSTEM_STRING_VERSION (SYSTEM_STRING_VERSION_MAJOR << 16 | SYSTEM_STRING_VERSION_MINOR << 8 | SYSTEM_STRING_VERSION_PATCH)
-#define SYSTEM_STRING_VERSION_STRING "1.20.1"
+#define SYSTEM_STRING_VERSION_STRING "1.21.0"
 
 //Windows Platform:
 #ifdef _WIN32
@@ -129,6 +129,15 @@
 //std::wstring
 #define __W(s) L##s
 #define W(s) __W(s)
+
+//const char* str(UTF-8 Encoding)
+#ifdef SYSTEM_CXX_20
+#define __U8s(s) (reinterpret_cast<const char*>(u8##s))
+#define U8s(s) __U8s(s)
+#else
+#define __U8s(s) u8##s
+#define U8s(s) __U8s(s)
+#endif
 
 //std::string(UTF-8 Encoding)
 #ifdef SYSTEM_CXX_20

@@ -17,10 +17,12 @@ int main()
     bool chinese_equals3 = StringA::Equals(wide_char_utf8_chinese, utf8_chinese);
 
     //测试修改不同字符串的字符:
-    char utf8Buf[100] = U8("你好世界");
-    utf8Buf[0] = U8('a');                  //修改之后字符串已经损坏，不可读取
-    wchar_t buf[10] = L"你好世界";          //L"你好世界"
-    buf[0] = L'a';                         //L"a好世界"
+    const char* utf8ConstBuf = U8s("你好世界");
+    char utf8Buf[100] = { 0 };
+    strcpy_s(utf8Buf, U8s("你好世界"));          //使用C语言的方式给字符串数组赋值
+    utf8Buf[0] = 'a';                           //修改UTF-8字符串, 修改之后字符串已经损坏，不可读取
+    wchar_t buf[10] = L"你好世界";               //L"你好世界"
+    buf[0] = L'a';                              //L"a好世界"
 
     //不同字符串的遍历与转换:
     std::u32string nihaoshijieU32 = U"ABCD你好世界!";
