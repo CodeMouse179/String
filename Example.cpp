@@ -4,6 +4,12 @@
 #include <string.h> //strcpy_s
 int main()
 {
+    //U8c Test:
+    char u8c = U8c('a');
+#ifdef SYSTEM_CXX_20
+    char8_t u8cc = U8c('b');
+#endif
+
     //String Equals Testing:
     std::string ansi_latin = "ABCD";
     std::string utf8_latin = U8("ABCD");

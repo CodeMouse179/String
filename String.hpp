@@ -1,7 +1,7 @@
 ﻿//     +--------------------------------------------------------------------------------+
-//     |                                  String v1.21.0                                |
+//     |                                  String v1.21.1                                |
 //     |  Introduction : System.String in C++                                           |
-//     |  Modified Date : 2022/11/26                                                    |
+//     |  Modified Date : 2022/11/27                                                    |
 //     |  License : MIT                                                                 |
 //     |  Source Code : https://github.com/CodeMouse179/String                          |
 //     |  Readme : https://github.com/CodeMouse179/String/blob/main/README.md           |
@@ -19,9 +19,9 @@
 
 #define SYSTEM_STRING_VERSION_MAJOR 1
 #define SYSTEM_STRING_VERSION_MINOR 21
-#define SYSTEM_STRING_VERSION_PATCH 0
+#define SYSTEM_STRING_VERSION_PATCH 1
 #define SYSTEM_STRING_VERSION (SYSTEM_STRING_VERSION_MAJOR << 16 | SYSTEM_STRING_VERSION_MINOR << 8 | SYSTEM_STRING_VERSION_PATCH)
-#define SYSTEM_STRING_VERSION_STRING "1.21.0"
+#define SYSTEM_STRING_VERSION_STRING "1.21.1"
 
 //Windows Platform:
 #ifdef _WIN32
@@ -129,6 +129,16 @@
 //std::wstring
 #define __W(s) L##s
 #define W(s) __W(s)
+
+//char/char8_t
+#ifdef SYSTEM_WINDOWS
+#define __U8c(c) u8##c
+#define U8c(c) __U8c(c)
+#endif
+#ifdef SYSTEM_LINUX
+#define __U8c(c) c
+#define U8c(c) __U8c(c)
+#endif
 
 //const char* str(UTF-8 Encoding)
 #ifdef SYSTEM_CXX_20
@@ -430,7 +440,7 @@ namespace System
                 if (value.size() > s.size()) return false;
                 for (int i = s.size() - value.size(), j = 0; j < value.size(); i++, j++)
                 {
-                    if (std::tolower(s[i]) != std::tolower(value[j])) return false;
+                    if (String::ToLower(s[i]) != String::ToLower(value[j])) return false;
                 }
                 return true;
             }
@@ -453,14 +463,14 @@ namespace System
                 if (a.length() != b.length()) return false;
                 for (int i = 0; i < a.size(); i++)
                 {
-                    if (std::tolower(a[i]) != std::tolower(b[i])) return false;
+                    if (String::ToLower(a[i]) != String::ToLower(b[i])) return false;
                 }
                 return true;
 #else
                 return std::equal(a.begin(), a.end(), b.begin(), b.end(),
                     [](T _a, T _b)
                     {
-                        return std::tolower(_a) == std::tolower(_b);
+                        return String::ToLower(_a) == String::ToLower(_b);
                     }
                 );
 #endif
@@ -741,7 +751,7 @@ namespace System
                 if (value.size() > s.size()) return false;
                 for (int i = 0; i < value.size(); i++)
                 {
-                    if (std::tolower(s[i]) != std::tolower(value[i])) return false;
+                    if (String::ToLower(s[i]) != String::ToLower(value[i])) return false;
                 }
                 return true;
             }
@@ -786,7 +796,7 @@ namespace System
         static std::basic_string<T> ToLower(const std::basic_string<T>& s)
         {
             std::basic_string<T> lower;
-            for (const auto& item : s) lower += std::tolower(item);
+            for (const auto& item : s) lower += String::ToLower(item);
             return lower;
         }
 
@@ -825,7 +835,7 @@ namespace System
         static std::basic_string<T> ToUpper(const std::basic_string<T>& s)
         {
             std::basic_string<T> lower;
-            for (const auto& item : s) lower += std::toupper(item);
+            for (const auto& item : s) lower += String::ToUpper(item);
             return lower;
         }
 
