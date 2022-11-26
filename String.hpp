@@ -136,8 +136,13 @@
 #define U8c(c) __U8c(c)
 #endif
 #ifdef SYSTEM_LINUX
+#ifdef SYSTEM_CXX_17
+#define __U8c(c) u8##c
+#define U8c(c) __U8c(c)
+#else
 #define __U8c(c) c
 #define U8c(c) __U8c(c)
+#endif
 #endif
 
 //const char* str(UTF-8 Encoding)
