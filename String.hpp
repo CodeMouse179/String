@@ -136,6 +136,7 @@
 #define U8c(c) __U8c(c)
 #endif
 #ifdef SYSTEM_LINUX
+//g++ cannot compile u8'c' normally in C++14, requires C++17 or above
 #ifdef SYSTEM_CXX_17
 #define __U8c(c) u8##c
 #define U8c(c) __U8c(c)
@@ -936,11 +937,13 @@ namespace System
 #endif
         }
 
+        //receive utf-8 string
         static std::wstring StringToWstring(const std::string& s)
         {
             return String::To_Wstring(s);
         }
 
+        //return utf-8 string
         static std::string WstringToString(const std::wstring& s)
         {
             return String::To_String(s);
