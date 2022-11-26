@@ -1,6 +1,6 @@
 # Documentation
 
-String.hpp Current Version : 1.16.1
+String.hpp Current Version : 1.21.0
 
 1. Encoding wiki:
 
@@ -66,133 +66,219 @@ String.hpp Current Version : 1.16.1
 
     * [/utf-8 (Set source and execution character sets to UTF-8)](https://learn.microsoft.com/en-us/cpp/build/reference/utf-8-set-source-and-executable-character-sets-to-utf-8?view=msvc-170)
 
-1. System::String::Equals
+1. System::String class Functions:
 
-    * [Case-insensitive string comparison in C++](https://stackoverflow.com/questions/11635/case-insensitive-string-comparison-in-c)
+    1. System::String::Empty
 
-1. System::String::Format
+    1. System::String::Clone
 
-    * [Implementation in C++17 : Fold-expression version](https://codereview.stackexchange.com/questions/269425/implementing-stdformat)
+    1. System::String::Compare
 
-    * [Implementation in C++11](https://www.cnblogs.com/qicosmos/p/4325949.html)
+        * [compare](https://cplusplus.com/reference/string/string/compare/)
 
-1. System::String::GetHashCode
+    1. System::String::Concat
 
-    * [BKDR Hash Function](https://byvoid.com/zhs/blog/string-hash-compare/)
+    1. System::String::Contains
 
-1. System::String::Replace
+        * [find](https://cplusplus.com/reference/string/string/find/)
 
-    * [Replace part of a string with another string](https://stackoverflow.com/questions/3418231/replace-part-of-a-string-with-another-string)
+    1. System::String::Copy
 
-1. System::String::Slice
+    1. System::String::EndsWith
 
-    * [Array.prototype.slice](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/slice)
+    1. System::String::Equals
 
-1. System::String::Split
+        * [Case-insensitive string comparison in C++](https://stackoverflow.com/questions/11635/case-insensitive-string-comparison-in-c)
 
-    * [Split string in C++](https://stackoverflow.com/questions/14265581/parse-split-a-string-in-c-using-string-delimiter-standard-c)
+    1. System::String::Format
 
-1. Extra Convert Function 1:
+        * [Implementation in C++17 : Fold-expression version](https://codereview.stackexchange.com/questions/269425/implementing-stdformat)
 
-    * System::String::StringToWstring
+        * [Implementation in C++11](https://www.cnblogs.com/qicosmos/p/4325949.html)
 
-        * [MultiByteToWideChar](https://learn.microsoft.com/en-us/windows/win32/api/stringapiset/nf-stringapiset-multibytetowidechar)
+    1. System::String::GetHashCode
 
-        * [How do I use MultiByteToWideChar?](https://stackoverflow.com/questions/6693010/how-do-i-use-multibytetowidechar)
+        * [BKDR Hash Function](https://byvoid.com/zhs/blog/string-hash-compare/)
 
-    * System::String::WstringToString
+    1. System::String::GetTypeCode
 
-        * [WideCharToMultiByte](https://learn.microsoft.com/en-us/windows/win32/api/stringapiset/nf-stringapiset-widechartomultibyte)
+    1. System::String::IndexOf
 
-        * [How do you properly use WideCharToMultiByte](https://stackoverflow.com/questions/215963/how-do-you-properly-use-widechartomultibyte)
+    1. System::String::Insert
 
-    * System::String::StringToU8string
+    1. System::String::Join
 
-        * [C++20 with u8, char8_t and std::string](https://stackoverflow.com/questions/56833000/c20-with-u8-char8-t-and-stdstring)
+    1. System::String::LastIndexOf
 
-    * System::String::U8stringToString
+    1. System::String::Remove
 
-        * [C++20 with u8, char8_t and std::string](https://stackoverflow.com/questions/56833000/c20-with-u8-char8-t-and-stdstring)
+    1. System::String::Replace
 
-    * System::String::WstringToU16string
+        * [Replace part of a string with another string](https://stackoverflow.com/questions/3418231/replace-part-of-a-string-with-another-string)
 
-    * System::String::U16stringToWstring
+    1. System::String::Reverse
 
-1. Extra Convert Function 2:
+    1. System::String::Slice
 
-    * System::String::To_UTF8
+        * [Array.prototype.slice](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/slice)
 
-        * [std::u32string conversion to/from std::string and std::u16string](https://stackoverflow.com/questions/31302506/stdu32string-conversion-to-from-stdstring-and-stdu16string)
+    1. System::String::Split
 
-    * System::String::To_UTF16
+        * [Split string in C++](https://stackoverflow.com/questions/14265581/parse-split-a-string-in-c-using-string-delimiter-standard-c)
 
-        * [std::u32string conversion to/from std::string and std::u16string](https://stackoverflow.com/questions/31302506/stdu32string-conversion-to-from-stdstring-and-stdu16string)
+    1. System::String::StartsWith
 
-    * System::String::To_UTF32
+    1. System::String::Substring
 
-        * [std::u32string conversion to/from std::string and std::u16string](https://stackoverflow.com/questions/31302506/stdu32string-conversion-to-from-stdstring-and-stdu16string)
+    1. System::String::ToCharArray
 
-1. Extra Convert Function 3:
+    1. System::String::ToLower
 
-    * System::String::To_String
+    1. System::String::ToString
 
-    * System::String::To_Wstring
+    1. System::String::ToUpper
 
-1. Extra Convert Function 4:
+    1. System::String::Trim
 
-    * System::String::ConvertString
+    1. System::String::TrimEnd
 
-1. Extra Util 1:
+    1. System::String::TrimStart
 
-    * System::String::IsValidASCII
+    1. Extra Convert Function 1:
 
-        * [How to find out if there is any non ASCII character in a string with a file path](https://stackoverflow.com/questions/48212992/how-to-find-out-if-there-is-any-non-ascii-character-in-a-string-with-a-file-path)
+        * System::String::StringToWstring
 
-        * [ASCII](https://en.wikipedia.org/wiki/ASCII)
+            * [MultiByteToWideChar](https://learn.microsoft.com/en-us/windows/win32/api/stringapiset/nf-stringapiset-multibytetowidechar)
 
-    * System::String::ASCIICharCount
+            * [How do I use MultiByteToWideChar?](https://stackoverflow.com/questions/6693010/how-do-i-use-multibytetowidechar)
 
-    * System::String::ASCIIToCharArray
+        * System::String::WstringToString
 
-    * System::String::IsValidUTF8
+            * [WideCharToMultiByte](https://learn.microsoft.com/en-us/windows/win32/api/stringapiset/nf-stringapiset-widechartomultibyte)
 
-        * [How to easily detect utf8 encoding in the string?](https://stackoverflow.com/questions/28270310/how-to-easily-detect-utf8-encoding-in-the-string)
+            * [How do you properly use WideCharToMultiByte](https://stackoverflow.com/questions/215963/how-do-you-properly-use-widechartomultibyte)
 
-        * [UTF-8](https://en.wikipedia.org/wiki/UTF-8)
+        * System::String::StringToU8string
 
-    * System::String::UTF8CharCount
+            * [C++20 with u8, char8_t and std::string](https://stackoverflow.com/questions/56833000/c20-with-u8-char8-t-and-stdstring)
 
-    * System::String::UTF8ToCharArray
+        * System::String::U8stringToString
 
-    * System::String::IsValidUTF16
+            * [C++20 with u8, char8_t and std::string](https://stackoverflow.com/questions/56833000/c20-with-u8-char8-t-and-stdstring)
 
-    * System::String::UTF16CharCount
+        * System::String::WstringToU16string
 
-    * System::String::UTF16ToCharArray
+        * System::String::U16stringToWstring
 
-        * [How to map Unicode codepoints from an UTF-16 file using C](https://stackoverflow.com/questions/43564445/how-to-map-unicode-codepoints-from-an-utf-16-file-using-c)
+        * System::String::WstringToU32string
 
-        * [Are wchar_t and char16_t the same thing on Windows?](https://stackoverflow.com/questions/53293159/are-wchar-t-and-char16-t-the-same-thing-on-windows)
+        * System::String::U32stringToWstring
 
-1. Extra Function 1:
+    1. Extra Convert Function 2:
 
-    * System::String::GetTrueString
+        * System::String::To_UTF8
 
-    * System::String::GetFalseString
+            * [std::u32string conversion to/from std::string and std::u16string](https://stackoverflow.com/questions/31302506/stdu32string-conversion-to-from-stdstring-and-stdu16string)
 
-    * System::String::IsNumeric
+        * System::String::To_UTF16
 
-    * System::String::IsEmptyOrWhiteSpace
+            * [std::u32string conversion to/from std::string and std::u16string](https://stackoverflow.com/questions/31302506/stdu32string-conversion-to-from-stdstring-and-stdu16string)
 
-1. Console Function 1:
+        * System::String::To_UTF32
 
-    * System::String::Read
+            * [std::u32string conversion to/from std::string and std::u16string](https://stackoverflow.com/questions/31302506/stdu32string-conversion-to-from-stdstring-and-stdu16string)
 
-    * System::String::ReadLine
+    1. Extra Convert Function 3:
 
-    * System::String::Write
+        * System::String::To_String
 
-    * System::String::WriteLine
+        * System::String::To_Wstring
+
+    1. Extra Convert Function 4:
+
+        * System::String::ConvertString
+
+    1. Extra Util 1:
+
+        * System::String::IsValidASCII
+
+            * [How to find out if there is any non ASCII character in a string with a file path](https://stackoverflow.com/questions/48212992/how-to-find-out-if-there-is-any-non-ascii-character-in-a-string-with-a-file-path)
+
+            * [ASCII](https://en.wikipedia.org/wiki/ASCII)
+
+        * System::String::ASCIICharCount
+
+        * System::String::ASCIIToCharArray
+
+        * System::String::CodePointToASCII
+
+        * System::String::IsValidUTF32
+
+        * System::String::UTF32CharCount
+
+        * System::String::UTF32ToCharArray
+
+        * System::String::CodePointToUTF32
+
+        * System::String::IsValidUTF8
+
+            * [How to easily detect utf8 encoding in the string?](https://stackoverflow.com/questions/28270310/how-to-easily-detect-utf8-encoding-in-the-string)
+
+            * [UTF-8](https://en.wikipedia.org/wiki/UTF-8)
+
+        * System::String::UTF8CharCount
+
+        * System::String::UTF8ToCharArray
+
+        * System::String::CodePointToUTF8
+
+        * System::String::IsValidUTF16
+
+        * System::String::UTF16CharCount
+
+        * System::String::UTF16ToCharArray
+
+            * [How to map Unicode codepoints from an UTF-16 file using C](https://stackoverflow.com/questions/43564445/how-to-map-unicode-codepoints-from-an-utf-16-file-using-c)
+
+            * [Are wchar_t and char16_t the same thing on Windows?](https://stackoverflow.com/questions/53293159/are-wchar-t-and-char16-t-the-same-thing-on-windows)
+
+        * System::String::CodePointToUTF16
+
+    1. Extra Util 2:
+
+        * System::String::UTF16ToUTF16String
+
+        * System::String::IsValidUTF16String
+
+        * System::String::UTF16StringCharCount
+
+        * System::String::UTF16StringToCharArray
+
+    1. Extra Function 1:
+
+        * System::String::GetTrueString
+
+        * System::String::GetFalseString
+
+        * System::String::IsNumeric
+
+        * System::String::IsEmptyOrWhiteSpace
+
+    1. Console Function 1:
+
+        * System::String::Read
+
+        * System::String::ReadLine
+
+        * System::String::Write
+
+        * System::String::WriteLine
+
+    1. Extension Console Function 1:
+
+        * System::String::Write
+
+        * System::String::WriteLine
 
 1. Read
 
