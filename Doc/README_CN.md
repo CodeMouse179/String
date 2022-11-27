@@ -22,6 +22,31 @@ String.hpp通过单个头文件的形式分发，它使用起来非常简单：
 
 2. #include "String.hpp"
 
+### API 教程
+
+Include String.hpp:
+
+``` cpp
+#include "String.hpp"
+using namespace System; //optional
+```
+
+String::Format example:
+
+``` cpp
+//output: a:2:3
+std::string format1 = StringA::Format("{0}:{1}:{2}", (char)97, 2, 3);
+//output: 97:2:3
+std::string format2 = StringA::Format("{0}:{1}:{2}", 97, 2, 3);
+```
+
+String::Split example:
+
+``` cpp
+//vector values:1,2,3
+std::vector<std::string> split1 = StringA::Split("1 2 3", ' ');
+```
+
 ### 示例1
 
 ``` cpp

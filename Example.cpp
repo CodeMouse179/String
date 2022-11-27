@@ -2,8 +2,30 @@
 #include "String.hpp"
 #include <assert.h> //assert
 #include <string.h> //strcpy_s
+
+int format_tutorial()
+{
+    //output: a:2:3
+    std::string format1 = StringA::Format("{0}:{1}:{2}", (char)97, 2, 3);
+    //output: 97:2:3
+    std::string format2 = StringA::Format("{0}:{1}:{2}", 97, 2, 3);
+    return 0;
+}
+
+int split_tutorial()
+{
+    //vector values:1,2,3
+    std::vector<std::string> split1 = StringA::Split("1 2 3", ' ');
+    return 0;
+}
+
 int main()
 {
+    //tutorials:
+    int r1 = format_tutorial();
+
+    int r2 = split_tutorial();
+
     //U8c Test:
     char u8c = U8c('a');
 #ifdef SYSTEM_CXX_20
@@ -200,7 +222,7 @@ int main()
     std::string trimStrS1 = StringA::Trim("你好世界你", "你");
     std::string trimStr = StringA::Trim("111", '1');
     std::wstring _trimStr = StringW::Trim(W(" 你好世界 "));
-    std::string trimStrS2 = StringA::TrimEnd("你好世界你","你");
+    std::string trimStrS2 = StringA::TrimEnd("你好世界你", "你");
     std::string trimStr1 = StringA::TrimEnd(" ABC ", ' ');
     std::wstring _trimStr1 = StringW::TrimEnd(W(" 你好世界 "));
     std::string trimStrS3 = StringA::TrimStart("你好世界你", "你");
