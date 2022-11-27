@@ -270,6 +270,9 @@ int main()
     int charCount1 = StringA::UTF8CharCount(U8("你好世界ABC123"));
     int charCount2 = StringA::UTF8CharCount(S("你好世界ABC123"));
 
+    //UTF-8 Emoji Test:
+    auto utf8CharArray_Vector = StringA::UTF8ToCharArray(U8("😄🙅🦠🤢")); //128516,128581,129440,129314
+
     auto utf8CharArray1 = StringA::UTF8ToCharArray(U8("你好世界"));
 #ifdef SYSTEM_CXX_20
     auto utf8CharArray2 = StringA::UTF8ToCharArray(U8S("你好世界"));
