@@ -1,6 +1,6 @@
 # Documentation
 
-String.hpp Current Version : 1.21.1
+String.hpp Current Version : 1.22.0
 
 1. Encoding wiki:
 

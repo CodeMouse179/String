@@ -1,5 +1,5 @@
 ﻿//     +--------------------------------------------------------------------------------+
-//     |                                  String v1.21.1                                |
+//     |                                  String v1.22.0                                |
 //     |  Introduction : System.String in C++                                           |
 //     |  Modified Date : 2022/11/27                                                    |
 //     |  License : MIT                                                                 |
@@ -18,10 +18,10 @@
 //Versioning refer to Semantic Versioning 2.0.0 : https://semver.org/
 
 #define SYSTEM_STRING_VERSION_MAJOR 1
-#define SYSTEM_STRING_VERSION_MINOR 21
-#define SYSTEM_STRING_VERSION_PATCH 1
+#define SYSTEM_STRING_VERSION_MINOR 22
+#define SYSTEM_STRING_VERSION_PATCH 0
 #define SYSTEM_STRING_VERSION (SYSTEM_STRING_VERSION_MAJOR << 16 | SYSTEM_STRING_VERSION_MINOR << 8 | SYSTEM_STRING_VERSION_PATCH)
-#define SYSTEM_STRING_VERSION_STRING "1.21.1"
+#define SYSTEM_STRING_VERSION_STRING "1.22.0"
 
 //Windows Platform:
 #ifdef _WIN32
@@ -534,9 +534,33 @@ namespace System
             return s.find(value);
         }
 
+        static int IndexOf(const std::basic_string<T>& s, const std::basic_string<T>& value, StringComparison comparisonType)
+        {
+            if (comparisonType == StringComparison::IgnoreCase)
+            {
+                return String::IndexOf(String::ToLower(s), String::ToLower(value));
+            }
+            else
+            {
+                return String::IndexOf(s, value);
+            }
+        }
+
         static int IndexOf(const std::basic_string<T>& s, T value)
         {
             return s.find(value);
+        }
+
+        static int IndexOf(const std::basic_string<T>& s, T value, StringComparison comparisonType)
+        {
+            if (comparisonType == StringComparison::IgnoreCase)
+            {
+                return String::IndexOf(String::ToLower(s), String::ToLower(value));
+            }
+            else
+            {
+                return String::IndexOf(s, value);
+            }
         }
 
         static std::basic_string<T> Insert(const std::basic_string<T>& s, int startIndex, const std::basic_string<T>& value)
@@ -571,9 +595,33 @@ namespace System
             return s.find_last_of(value);
         }
 
+        static int LastIndexOf(const std::basic_string<T>& s, const std::basic_string<T>& value, StringComparison comparisonType)
+        {
+            if (comparisonType == StringComparison::IgnoreCase)
+            {
+                return String::LastIndexOf(String::ToLower(s), String::ToLower(value));
+            }
+            else
+            {
+                return String::LastIndexOf(s, value);
+            }
+        }
+
         static int LastIndexOf(const std::basic_string<T>& s, T value)
         {
             return s.find_last_of(value);
+        }
+
+        static int LastIndexOf(const std::basic_string<T>& s, T value, StringComparison comparisonType)
+        {
+            if (comparisonType == StringComparison::IgnoreCase)
+            {
+                return String::LastIndexOf(String::ToLower(s), String::ToLower(value));
+            }
+            else
+            {
+                return String::LastIndexOf(s, value);
+            }
         }
 
         static std::basic_string<T> Remove(const std::basic_string<T>& s, int startIndex)
@@ -616,6 +664,26 @@ namespace System
             return str;
         }
 
+        static std::basic_string<T> Replace(const std::basic_string<T>& s, const std::basic_string<T>& oldValue, const std::basic_string<T>& newValue, StringComparison comparisonType)
+        {
+            if (comparisonType == StringComparison::IgnoreCase)
+            {
+                if (oldValue.empty()) return s;
+                std::basic_string<T> str = s;
+                size_t pos = 0;
+                while ((pos = String::ToLower(str).find(String::ToLower(oldValue), pos)) != std::string::npos)
+                {
+                    str.replace(pos, oldValue.size(), newValue);
+                    pos += newValue.size();
+                }
+                return str;
+            }
+            else
+            {
+                return String::Replace(s, oldValue, newValue);
+            }
+        }
+
         static std::basic_string<T> Replace(const std::basic_string<T>& s, T oldValue, T newValue)
         {
             std::basic_string<T> str;
@@ -628,6 +696,27 @@ namespace System
                 else str += s[i];
             }
             return str;
+        }
+
+        static std::basic_string<T> Replace(const std::basic_string<T>& s, T oldValue, T newValue, StringComparison comparisonType)
+        {
+            if (comparisonType == StringComparison::IgnoreCase)
+            {
+                std::basic_string<T> str;
+                for (int i = 0; i < s.size(); i++)
+                {
+                    if (String::ToLower(s[i]) == String::ToLower(oldValue))
+                    {
+                        if (newValue != 0) str += newValue;
+                    }
+                    else str += s[i];
+                }
+                return str;
+            }
+            else
+            {
+                return String::Replace(s, oldValue, newValue);
+            }
         }
 
 #ifndef SYSTEM_STRING_ONLY
@@ -850,6 +939,15 @@ namespace System
             return std::toupper(c);
         }
 
+        //注意:trimString仅应该存放单个字符
+        static std::basic_string<T> Trim(const std::basic_string<T>& s, const std::basic_string<T>& trimString)
+        {
+            size_t indexOfFirstNonTrimChar = s.find_first_not_of(trimString);
+            if (indexOfFirstNonTrimChar == std::string::npos) return String::Empty();
+            size_t indexOfLastNonTrimChar = s.find_last_not_of(trimString);
+            return s.substr(indexOfFirstNonTrimChar, indexOfLastNonTrimChar - indexOfFirstNonTrimChar + 1);
+        }
+
         static std::basic_string<T> Trim(const std::basic_string<T>& s, T trimChar)
         {
             size_t indexOfFirstNonTrimChar = s.find_first_not_of(trimChar);
@@ -863,6 +961,14 @@ namespace System
             return String::Trim(s, (T)' ');
         }
 
+        //注意:trimString仅应该存放单个字符
+        static std::basic_string<T> TrimEnd(const std::basic_string<T>& s, const std::basic_string<T>& trimString)
+        {
+            size_t indexOfLastNonTrimChar = s.find_last_not_of(trimString);
+            if (indexOfLastNonTrimChar == std::string::npos) return String::Empty();
+            return s.substr(0, indexOfLastNonTrimChar + 1);
+        }
+
         static std::basic_string<T> TrimEnd(const std::basic_string<T>& s, T trimChar)
         {
             size_t indexOfLastNonTrimChar = s.find_last_not_of(trimChar);
@@ -873,6 +979,14 @@ namespace System
         static std::basic_string<T> TrimEnd(const std::basic_string<T>& s)
         {
             return String::TrimEnd(s, (T)' ');
+        }
+
+        //注意:trimString仅应该存放单个字符
+        static std::basic_string<T> TrimStart(const std::basic_string<T>& s, const std::basic_string<T>& trimString)
+        {
+            size_t indexOfFirstNonTrimChar = s.find_first_not_of(trimString);
+            if (indexOfFirstNonTrimChar == std::string::npos) return String::Empty();
+            return s.substr(indexOfFirstNonTrimChar);
         }
 
         static std::basic_string<T> TrimStart(const std::basic_string<T>& s, T trimChar)
