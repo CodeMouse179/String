@@ -22,6 +22,12 @@ String.hpp通过单个头文件的形式分发，它使用起来非常简单：
 
 2. #include "String.hpp"
 
+### 编译并运行示例
+
+Windows：用VisualStudio打开String.sln，点击本地Windows调试器即可
+
+Linux：cmake . && make && ./ss
+
 ### API 教程
 
 Include String.hpp:

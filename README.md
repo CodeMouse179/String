@@ -22,6 +22,12 @@ String.hpp is distributed as a single header file and it is very simple to use:
 
 2. #include "String.hpp"
 
+### Compile and Run Example
+
+Windows : Open String.sln with VisualStudio and click Windows Debugger
+
+Linux : cmake . && make && ./ss
+
 ### API Tutorial
 
 Include String.hpp:
