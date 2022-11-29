@@ -2,6 +2,8 @@
 #include "String.hpp"
 #include <assert.h> //assert
 #include <string.h> //strcpy_s
+#include <iostream> //std::cin, std::cout, std::wcout
+#include <locale.h> //setlocale(ONLY FOR TUTORIAL, NEVER USE SETLOCALE IN ANY WHERE!!!)
 
 int format_tutorial()
 {
@@ -19,12 +21,36 @@ int split_tutorial()
     return 0;
 }
 
+int str_to_wstr_tutorial()
+{
+    System::tstring ts = StringA::StringToWstring("----- 你好世界 -----", System::StringEncoding::ANSI);
+#ifdef SYSTEM_WINDOWS
+    setlocale(LC_ALL, ""); //This is required in Windows if you will invoke std::wcout
+    std::wcout << ts << L"\n";
+#endif
+#ifdef SYSTEM_LINUX
+    std::cout << ts << "\n";
+#endif
+    return 0;
+}
+
+int wstr_to_str_tutorial()
+{
+    std::string s = StringA::WstringToString(T("----- 世界你好 -----"), System::StringEncoding::ANSI);
+    std::cout << s << "\n"; //Output ANSI Encoding string by default
+    return 0;
+}
+
 int main()
 {
     //tutorials:
     int r1 = format_tutorial();
 
     int r2 = split_tutorial();
+
+    int r3 = str_to_wstr_tutorial();
+
+    int r4 = wstr_to_str_tutorial();
 
     //U8c Test:
     char u8c = U8c('a');
