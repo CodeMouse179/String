@@ -1,7 +1,7 @@
 ﻿//     +--------------------------------------------------------------------------------+
-//     |                                  String v1.22.0                                |
+//     |                                  String v1.23.0                                |
 //     |  Introduction : System.String in C++                                           |
-//     |  Modified Date : 2022/11/27                                                    |
+//     |  Modified Date : 2022/12/4                                                     |
 //     |  License : MIT                                                                 |
 //     |  Source Code : https://github.com/CodeMouse179/String                          |
 //     |  Readme : https://github.com/CodeMouse179/String/blob/main/README.md           |
@@ -18,10 +18,10 @@
 //Versioning refer to Semantic Versioning 2.0.0 : https://semver.org/
 
 #define SYSTEM_STRING_VERSION_MAJOR 1
-#define SYSTEM_STRING_VERSION_MINOR 22
+#define SYSTEM_STRING_VERSION_MINOR 23
 #define SYSTEM_STRING_VERSION_PATCH 0
 #define SYSTEM_STRING_VERSION (SYSTEM_STRING_VERSION_MAJOR << 16 | SYSTEM_STRING_VERSION_MINOR << 8 | SYSTEM_STRING_VERSION_PATCH)
-#define SYSTEM_STRING_VERSION_STRING "1.22.0"
+#define SYSTEM_STRING_VERSION_STRING "1.23.0"
 
 //Windows Platform:
 #ifdef _WIN32
@@ -1045,6 +1045,37 @@ namespace System
             result = str;
             delete[] str;
             return result;
+#endif
+#ifdef SYSTEM_LINUX
+            return s;
+#endif
+        }
+
+        //receive utf-8/ansi string
+        static System::tstring StringToWstring2(const std::string& s)
+        {
+#ifdef SYSTEM_WINDOWS
+            std::wstring result;
+            if (String::IsValidUTF8(s))
+            {
+                result = String::StringToWstring(s, StringEncoding::UTF8);
+            }
+            else
+            {
+                result = String::StringToWstring(s, StringEncoding::ANSI);
+            }
+            return result;
+#endif
+#ifdef SYSTEM_LINUX
+            return s;
+#endif
+        }
+
+        //return utf-8 string
+        static std::string WstringToString2(const System::tstring& s)
+        {
+#ifdef SYSTEM_WINDOWS
+            return String::WstringToString(s, StringEncoding::UTF8);
 #endif
 #ifdef SYSTEM_LINUX
             return s;

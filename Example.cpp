@@ -258,6 +258,10 @@ int main()
     System::tstring wstr2 = StringA::StringToWstring(U8("你好世界"), System::StringEncoding::UTF8);
     std::string str1 = StringA::WstringToString(T("你好世界"), System::StringEncoding::ANSI);
     std::string str2temp = StringA::WstringToString(T("你好世界"), System::StringEncoding::UTF8);
+    System::tstring wstr3 = StringA::StringToWstring2("你好世界😄");
+    System::tstring wstr4 = StringA::StringToWstring2(U8("你好世界😄"));
+    std::string str3 = StringA::WstringToString2(T("你好世界😄"));
+    System::tstring wstr5 = StringA::StringToWstring2(str3);
     System::u8str str2 = StringA::StringToU8string(str2temp);
     std::u16string u16 = U16("你好世界");
     std::u32string u32 = U32("你好世界");
