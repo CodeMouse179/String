@@ -1,7 +1,7 @@
 ﻿//     +--------------------------------------------------------------------------------+
-//     |                                  String v1.23.0                                |
+//     |                                  String v1.24.0                                |
 //     |  Introduction : System.String in C++                                           |
-//     |  Modified Date : 2022/12/4                                                     |
+//     |  Modified Date : 2022/12/9                                                     |
 //     |  License : MIT                                                                 |
 //     |  Source Code : https://github.com/CodeMouse179/String                          |
 //     |  Readme : https://github.com/CodeMouse179/String/blob/main/README.md           |
@@ -18,10 +18,10 @@
 //Versioning refer to Semantic Versioning 2.0.0 : https://semver.org/
 
 #define SYSTEM_STRING_VERSION_MAJOR 1
-#define SYSTEM_STRING_VERSION_MINOR 23
+#define SYSTEM_STRING_VERSION_MINOR 24
 #define SYSTEM_STRING_VERSION_PATCH 0
 #define SYSTEM_STRING_VERSION (SYSTEM_STRING_VERSION_MAJOR << 16 | SYSTEM_STRING_VERSION_MINOR << 8 | SYSTEM_STRING_VERSION_PATCH)
-#define SYSTEM_STRING_VERSION_STRING "1.23.0"
+#define SYSTEM_STRING_VERSION_STRING "1.24.0"
 
 //Windows Platform:
 #ifdef _WIN32
@@ -1899,6 +1899,62 @@ namespace System
                 {
                     charArray.push_back(UTF16Char(2, firstTwoByte));
                 }
+            }
+            return charArray;
+        }
+#endif
+
+#ifndef SYSTEM_STRING_ONLY
+    public: //Extra Util 3:
+        static std::string UTF32ToUTF32String(const std::u32string& s)
+        {
+            std::string str;
+            for (int i = 0; i < s.size(); i++)
+            {
+                unsigned int fourBytes = s[i];
+                str += ((fourBytes >> 24) & 0xFF);
+                str += ((fourBytes >> 16) & 0xFF);
+                str += ((fourBytes >> 8) & 0xFF);
+                str += (fourBytes & 0xFF);
+            }
+            return str;
+        }
+
+        static bool IsValidUTF32String(const std::string& s)
+        {
+            auto charArray = String::UTF32StringToCharArray(s);
+            for (int i = 0; i < charArray.size(); i++)
+            {
+                int codePoint = charArray[i].codePoint;
+                if (codePoint < 0 || codePoint > 0x10FFFF) return false;
+            }
+            return true;
+        }
+
+        static int UTF32StringCharCount(const std::string& s)
+        {
+            auto charArray = String::UTF32StringToCharArray(s);
+            for (int i = 0; i < charArray.size(); i++)
+            {
+                int codePoint = charArray[i].codePoint;
+                if (codePoint < 0 || codePoint > 0x10FFFF) return 0;
+            }
+            return charArray.size();
+        }
+
+        static std::vector<UTF32Char> UTF32StringToCharArray(const std::string& s)
+        {
+            if (s.size() < 4) return std::vector<UTF32Char>();
+            if (s.size() % 4 != 0)  return std::vector<UTF32Char>();
+            std::vector<UTF32Char> charArray;
+            for (int i = 0; i < s.size(); i += 4)
+            {
+                unsigned char firstByte = s[i];
+                unsigned char secondByte = s[i + 1];
+                unsigned char thirdByte = s[i + 2];
+                unsigned char fourthByte = s[i + 3];
+                unsigned int codePoint = (firstByte << 24) | (secondByte << 16) | (thirdByte << 8) | fourthByte;
+                charArray.push_back(UTF32Char(4, codePoint));
             }
             return charArray;
         }

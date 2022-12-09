@@ -339,6 +339,13 @@ int main()
     int UTF16StringCharCount1 = StringA::UTF16StringCharCount(UTF16String1);
     auto UTF16StringToCharArray1 = StringA::UTF16StringToCharArray(UTF16String1);
 
+    //Extra Util 3:
+    std::string UTF32String1 = StringA::UTF32ToUTF32String(U32("你好世界"));
+    bool IsValidUTF32String1 = StringA::IsValidUTF32String(UTF32String1);
+    int UTF32StringCharCount1 = StringA::UTF32StringCharCount(UTF32String1);
+    auto UTF32StringToCharArray1 = StringA::UTF32StringToCharArray(UTF32String1);
+    std::u32string codePointToUTF321 = StringA::CodePointToUTF32(UTF32StringToCharArray1);
+
     //Extra Function 1:
 
     std::string trueStringA = StringA::GetTrueString();
