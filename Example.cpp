@@ -41,6 +41,15 @@ int wstr_to_str_tutorial()
     return 0;
 }
 
+int readline_ex_tutorial()
+{
+    StringA::WriteLine(U8("请输入你的名字(Please input your name):"));
+    std::string readLineExString1 = StringA::ReadLineEx();
+    StringA::WriteLine(U8("你好!") + readLineExString1);
+    //System::tstring readLineExTstring1 = StringA::StringToWstring(readLineExString1, System::StringEncoding::UTF8);
+    return 0;
+}
+
 int main()
 {
     //tutorials:
@@ -403,9 +412,8 @@ int main()
     //Emoji Test:
     StringA::WriteLine(U8("😄😄😄😆😆😆"));
 
-    //StringA::ReadLineEx:
-    std::string readLineExString1 = StringA::ReadLineEx();
-    System::tstring readLineExTstring1 = StringA::StringToWstring(readLineExString1, System::StringEncoding::UTF8);
+    //Tutorial:
+    readline_ex_tutorial();
 
     //Console Function 1:
     StringA::WriteLine(U8("你好世界!"), 255, 0, 0);
