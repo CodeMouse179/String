@@ -1,7 +1,7 @@
 ﻿//     +--------------------------------------------------------------------------------+
-//     |                                  String v1.24.0                                |
+//     |                                  String v1.25.0                                |
 //     |  Introduction : System.String in C++                                           |
-//     |  Modified Date : 2022/12/9                                                     |
+//     |  Modified Date : 2022/12/10                                                    |
 //     |  License : MIT                                                                 |
 //     |  Source Code : https://github.com/CodeMouse179/String                          |
 //     |  Readme : https://github.com/CodeMouse179/String/blob/main/README.md           |
@@ -18,10 +18,10 @@
 //Versioning refer to Semantic Versioning 2.0.0 : https://semver.org/
 
 #define SYSTEM_STRING_VERSION_MAJOR 1
-#define SYSTEM_STRING_VERSION_MINOR 24
+#define SYSTEM_STRING_VERSION_MINOR 25
 #define SYSTEM_STRING_VERSION_PATCH 0
 #define SYSTEM_STRING_VERSION (SYSTEM_STRING_VERSION_MAJOR << 16 | SYSTEM_STRING_VERSION_MINOR << 8 | SYSTEM_STRING_VERSION_PATCH)
-#define SYSTEM_STRING_VERSION_STRING "1.24.0"
+#define SYSTEM_STRING_VERSION_STRING "1.25.0"
 
 //Windows Platform:
 #ifdef _WIN32
@@ -92,9 +92,9 @@
 #endif
 
 //C++ Headers:
-#include <string>       //std::string, std::wstring, std::basic_string
+#include <string>       //std::basic_string, std::string, std::wstring, std::u8string, std::u16string, std::u32string
 #include <algorithm>    //std::equal
-#include <cctype>       //std::tolower
+#include <cctype>       //std::tolower, std::toupper
 #include <sstream>      //std::basic_ostringstream
 #include <vector>       //std::vector
 #include <codecvt>      //wstring_convert, codecvt_utf8, codecvt_utf16, codecvt_utf8_utf16
@@ -292,6 +292,9 @@ namespace System
         bool success = false;
 
     public:
+        wchar_t TempChar = 0; //For UTF-16 Character
+
+    public:
         void Init()
         {
             if (!this->inited) this->inited = true;
@@ -334,6 +337,12 @@ namespace System
             return this->success;
         }
 
+        bool NoProblem()
+        {
+            if (!IsInited()) Init();
+            return Success();
+        }
+
     public:
         static BuiltInConsole& Instance()
         {
@@ -341,6 +350,15 @@ namespace System
             return instance;
         }
     };
+
+    //System::ConsoleKeyInfo
+    struct BuiltInConsoleKey
+    {
+    public:
+        int CodePoint;
+    };
+
+    typedef unsigned char color;
 #endif
 
     template<typename T>
@@ -2009,7 +2027,7 @@ namespace System
         }
 #endif
 
-#ifndef SYSTEM_STRING_ONLY
+#ifdef SYSTEM_STRING_CONSOLE
     public: //Console Function 1:
         //return code point of next read character.
         static int Read()
@@ -2022,12 +2040,107 @@ namespace System
                 return -1;
         }
 
+        static BuiltInConsoleKey ReadKey()
+        {
+            return String::ReadKey(false);
+        }
+
+        static BuiltInConsoleKey ReadKey(bool intercept)
+        {
+            BuiltInConsoleKey key{ 0 };
+#ifdef SYSTEM_WINDOWS
+            HANDLE stdInputHandle = GetStdHandle(STD_INPUT_HANDLE);
+            if (stdInputHandle == NULL) return key;
+            if (stdInputHandle == INVALID_HANDLE_VALUE) return key;
+            //While loop(because ReadConsoleInputW will read not only key event, but we need only key event)
+            while (true)
+            {
+                //Read one event(ReadConsoleInputW will block the thread)
+                INPUT_RECORD inputRecord;
+                DWORD read;
+                BOOL readSuccess = ReadConsoleInputW(stdInputHandle, &inputRecord, 1, &read);
+                //Read failed:
+                if (!readSuccess || read == 0) return key;
+                //Discard non-key events:
+                if (inputRecord.EventType != KEY_EVENT) continue;
+                //Only Key Down:
+                if (!inputRecord.Event.KeyEvent.bKeyDown) continue;
+                //Unicode char:
+                wchar_t firstTwoBytes = inputRecord.Event.KeyEvent.uChar.UnicodeChar;
+                //For now, we skip all 0 value. In the future, we will consider more complex situations.
+                if (firstTwoBytes == 0)
+                {
+                    continue;
+                }
+                //Try to combine UTF-16:
+                if (BuiltInConsole::Instance().TempChar == 0)
+                {
+                    //high surrogate(leading surrogate):
+                    if (firstTwoBytes >= 0xD800 && firstTwoBytes <= 0xDBFF)
+                    {
+                        BuiltInConsole::Instance().TempChar = firstTwoBytes;
+                        continue;
+                    }
+                    //normal wchar_t:
+                    else
+                    {
+                        //Notice!!!
+                        //Generally press Enter key will generate \r\n on Windows.
+                        //But ReadConsoleInputW only return \r.
+                        key.CodePoint = (int)firstTwoBytes;
+                        break;
+                    }
+                }
+                else
+                {
+                    //low surrogate(trailing surrogate):
+                    if (firstTwoBytes >= 0xDC00 && firstTwoBytes <= 0xDFFF)
+                    {
+                        std::wstring tempU16;
+                        tempU16.push_back(BuiltInConsole::Instance().TempChar);
+                        tempU16.push_back(firstTwoBytes);
+                        auto charArray = String::UTF16ToCharArray(tempU16);
+                        key.CodePoint = charArray[0].codePoint;
+                        //reset cache:
+                        BuiltInConsole::Instance().TempChar = 0;
+                        break;
+                    }
+                    else
+                    {
+                        throw "String::ReadKey ERROR!!!";
+                    }
+                }
+            }
+            //\r => \n:
+            if (key.CodePoint == '\r')
+            {
+                key.CodePoint = '\n';
+            }
+            //Echo character:
+            if (!intercept)
+            {
+                std::string u8string = String::CodePointToUTF8(key.CodePoint);
+                //Handle backspace:
+                if (key.CodePoint == '\b')
+                {
+                    String::Write(U8("\b \b"));
+                }
+                else
+                {
+                    String::Write(u8string);
+                }
+            }
+#endif
+            return key;
+        }
+
         //return UTF-8 string.
         static std::string ReadLine()
         {
             std::string str;
 #ifdef SYSTEM_WINDOWS
             HANDLE stdInputHandle = GetStdHandle(STD_INPUT_HANDLE);
+            if (stdInputHandle == NULL) return str;
             if (stdInputHandle == INVALID_HANDLE_VALUE) return str;
             DWORD read;
 #if SYSTEM_STRING_INPUT_BUFFER_SIZE >= 1024
@@ -2064,18 +2177,45 @@ namespace System
             return str;
         }
 
+        //return UTF-8 string.
+        static std::string ReadLineEx()
+        {
+            std::vector<UnicodeChar> charArray;
+            while (true)
+            {
+                BuiltInConsoleKey key = String::ReadKey();
+                //backspace:
+                if (key.CodePoint == '\b')
+                {
+                    if (charArray.size() > 0)
+                    {
+                        charArray.pop_back();
+                        continue;
+                    }
+                }
+                //finish readline:
+                if (key.CodePoint == '\r' || key.CodePoint == '\n')
+                {
+                    break;
+                }
+                charArray.push_back(UnicodeChar(4, key.CodePoint));
+            }
+            if (charArray.size() > 0) return String::CodePointToUTF8(charArray);
+            return StringA::Empty();
+        }
+
         //std::string must be UTF-8 Encoding.
         static bool Write(const std::string& s)
         {
-            if (!String::IsValidUTF8(s))
-            {
-                return false;
-            }
+            if (s.empty()) return false;
+            if (!String::IsValidUTF8(s)) return false;
 #ifdef SYSTEM_WINDOWS
+            std::wstring str = String::StringToWstring(s, StringEncoding::UTF8);
+            if (str.empty()) return false;
             HANDLE stdOutputHandle = GetStdHandle(STD_OUTPUT_HANDLE);
+            if (stdOutputHandle == NULL) return false;
             if (stdOutputHandle == INVALID_HANDLE_VALUE) return false;
             DWORD written;
-            std::wstring str = String::StringToWstring(s, StringEncoding::UTF8);
             BOOL success = WriteConsoleW(stdOutputHandle, str.c_str(), str.size(), &written, NULL);
             return success;
 #endif
@@ -2093,14 +2233,9 @@ namespace System
         }
 
     public: //Extension Console Function 1:
-        static bool Write(const std::string& s, unsigned char r, unsigned char g, unsigned char b)
+        static bool Write(const std::string& s, color r, color g, color b)
         {
-#ifdef SYSTEM_STRING_CONSOLE
-            if (!BuiltInConsole::Instance().IsInited())
-            {
-                BuiltInConsole::Instance().Init();
-            }
-            if (BuiltInConsole::Instance().Success())
+            if (BuiltInConsole::Instance().NoProblem())
             {
                 std::string format1 = StringA::Format(U8("{0}[{1};{2};{3};{4};{5}m"), U8(ESC), 38, 2, (int)r, (int)g, (int)b);
                 std::string format2 = StringA::Format(U8("{0}[{1}m"), U8(ESC), 0);
@@ -2110,21 +2245,11 @@ namespace System
             {
                 return StringA::Write(s);
             }
-#else
-            return StringA::Write(s);
-#endif
         }
 
-        static bool Write(const std::string& s,
-            unsigned char r1, unsigned char g1, unsigned char b1,
-            unsigned char r2, unsigned char g2, unsigned char b2)
+        static bool Write(const std::string& s, color r1, color g1, color b1, color r2, color g2, color b2)
         {
-#ifdef SYSTEM_STRING_CONSOLE
-            if (!BuiltInConsole::Instance().IsInited())
-            {
-                BuiltInConsole::Instance().Init();
-            }
-            if (BuiltInConsole::Instance().Success())
+            if (BuiltInConsole::Instance().NoProblem())
             {
                 std::string format1 = StringA::Format(U8("{0}[{1};{2};{3};{4};{5}m"), U8(ESC), 38, 2, (int)r1, (int)g1, (int)b1);
                 std::string format2 = StringA::Format(U8("{0}[{1};{2};{3};{4};{5}m"), U8(ESC), 48, 2, (int)r2, (int)g2, (int)b2);
@@ -2135,19 +2260,14 @@ namespace System
             {
                 return StringA::Write(s);
             }
-#else
-            return StringA::Write(s);
-#endif
         }
 
-        static bool WriteLine(const std::string& s, unsigned char r, unsigned char g, unsigned char b)
+        static bool WriteLine(const std::string& s, color r, color g, color b)
         {
             return String::Write(s + U8("\n"), r, g, b);
         }
 
-        static bool WriteLine(const std::string& s,
-            unsigned char r1, unsigned char g1, unsigned char b1,
-            unsigned char r2, unsigned char g2, unsigned char b2)
+        static bool WriteLine(const std::string& s, color r1, color g1, color b1, color r2, color g2, color b2)
         {
             return String::Write(s + U8("\n"), r1, g1, b1, r2, g2, b2);
         }

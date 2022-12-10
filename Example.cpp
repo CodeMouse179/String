@@ -403,6 +403,10 @@ int main()
     //Emoji Test:
     StringA::WriteLine(U8("😄😄😄😆😆😆"));
 
+    //StringA::ReadLineEx:
+    std::string readLineExString1 = StringA::ReadLineEx();
+    System::tstring readLineExTstring1 = StringA::StringToWstring(readLineExString1, System::StringEncoding::UTF8);
+
     //Console Function 1:
     StringA::WriteLine(U8("你好世界!"), 255, 0, 0);
     bool writeSuccess1 = StringA::WriteLine(U8("Please Input Something:"), 255, 255, 255);
