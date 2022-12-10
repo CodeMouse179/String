@@ -1,5 +1,5 @@
 ﻿//     +--------------------------------------------------------------------------------+
-//     |                                  String v1.25.0                                |
+//     |                                  String v1.25.1                                |
 //     |  Introduction : System.String in C++                                           |
 //     |  Modified Date : 2022/12/10                                                    |
 //     |  License : MIT                                                                 |
@@ -19,9 +19,9 @@
 
 #define SYSTEM_STRING_VERSION_MAJOR 1
 #define SYSTEM_STRING_VERSION_MINOR 25
-#define SYSTEM_STRING_VERSION_PATCH 0
+#define SYSTEM_STRING_VERSION_PATCH 1
 #define SYSTEM_STRING_VERSION (SYSTEM_STRING_VERSION_MAJOR << 16 | SYSTEM_STRING_VERSION_MINOR << 8 | SYSTEM_STRING_VERSION_PATCH)
-#define SYSTEM_STRING_VERSION_STRING "1.25.0"
+#define SYSTEM_STRING_VERSION_STRING "1.25.1"
 
 //Windows Platform:
 #ifdef _WIN32
@@ -356,6 +356,11 @@ namespace System
     {
     public:
         int CodePoint;
+
+        BuiltInConsoleKey()
+        {
+            this->CodePoint = 0;
+        }
     };
 
     typedef unsigned char color;
@@ -2047,7 +2052,7 @@ namespace System
 
         static BuiltInConsoleKey ReadKey(bool intercept)
         {
-            BuiltInConsoleKey key{ 0 };
+            BuiltInConsoleKey key;
 #ifdef SYSTEM_WINDOWS
             HANDLE stdInputHandle = GetStdHandle(STD_INPUT_HANDLE);
             if (stdInputHandle == NULL) return key;
@@ -2131,6 +2136,9 @@ namespace System
                 }
             }
 #endif
+#ifdef SYSTEM_LINUX
+            key.CodePoint = -1;
+#endif
             return key;
         }
 
@@ -2184,7 +2192,12 @@ namespace System
             while (true)
             {
                 BuiltInConsoleKey key = String::ReadKey();
-                //backspace:
+                //Failed:
+                if (key.CodePoint == -1)
+                {
+                    break;
+                }
+                //Backspace:
                 if (key.CodePoint == '\b')
                 {
                     if (charArray.size() > 0)
@@ -2193,7 +2206,7 @@ namespace System
                         continue;
                     }
                 }
-                //finish readline:
+                //Finish:
                 if (key.CodePoint == '\r' || key.CodePoint == '\n')
                 {
                     break;
