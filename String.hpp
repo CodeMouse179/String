@@ -298,6 +298,11 @@ namespace System
         bool inited = false;
         bool success = false;
 
+#ifdef SYSTEM_LINUX
+    private:
+        termios oldInput;
+#endif
+
     public:
         wchar_t TempChar = 0; //For UTF-16 Character
 
@@ -330,6 +335,11 @@ namespace System
             this->success = (outputMode & ENABLE_VIRTUAL_TERMINAL_PROCESSING);
 #endif
 #ifdef SYSTEM_LINUX
+            int getRet = tcgetattr(STDIN_FILENO, &oldInput);
+            if (getRet == -1)
+            {
+                return;
+            }
             this->success = true;
 #endif
         }
@@ -348,6 +358,15 @@ namespace System
         {
             if (!IsInited()) Init();
             return Success();
+        }
+
+        void ResetInput()
+        {
+#ifdef SYSTEM_WINDOWS
+#endif
+#ifdef SYSTEM_LINUX
+            int setRet = tcsetattr(STDIN_FILENO, TCSANOW, &oldInput);
+#endif
         }
 
     public:
@@ -2080,29 +2099,21 @@ namespace System
             }
 #endif
 #ifdef SYSTEM_LINUX
-            //cleanup local function:
-            auto cleanup = [](termios& io)
-            {
-                //Reset terminal I/O setting:
-                tcsetattr(STDIN_FILENO, TCSANOW, &io);
-            };
-            //static vars:
-            static termios old, current;
+            termios io;
             //Get terminal I/O setting:
-            int getRet = tcgetattr(STDIN_FILENO, &old);
+            int getRet = tcgetattr(STDIN_FILENO, &io);
             if (getRet == -1)
             {
                 return false;
             }
-            current = old;
             //Modify terminal I/O setting:
-            current.c_lflag &= ~ICANON; //Non Blocking
-            current.c_lflag &= ~ECHO;   //No Echo
+            io.c_lflag &= ~ICANON; //Non Blocking
+            io.c_lflag &= ~ECHO;   //No Echo
             //Set terminal I/O setting:
-            int setRet = tcsetattr(STDIN_FILENO, TCSANOW, &current);
+            int setRet = tcsetattr(STDIN_FILENO, TCSANOW, &io);
             if (setRet == -1)
             {
-                cleanup(old);
+                BuiltInConsole::Instance().ResetInput();
                 return false;
             }
             //ioctl:
@@ -2110,11 +2121,10 @@ namespace System
             int ret = ioctl(STDIN_FILENO, FIONREAD, &byteswaiting);
             if (ret == -1)
             {
-                cleanup(old);
+                BuiltInConsole::Instance().ResetInput();
                 return false;
             }
-            //Reset terminal I/O setting:
-            setRet = tcsetattr(STDIN_FILENO, TCSANOW, &old);
+            //Dont reset terminal I/O setting here, we should invoke ReadKey after this function.
             return byteswaiting > 0;
 #endif
         }
@@ -2223,29 +2233,21 @@ namespace System
             }
 #endif
 #ifdef SYSTEM_LINUX
-            //cleanup local function:
-            auto cleanup = [](termios& io)
-            {
-                //Reset terminal I/O setting:
-                tcsetattr(STDIN_FILENO, TCSANOW, &io);
-            };
-            //static vars:
-            static termios old, current;
+            termios io;
             //Get terminal I/O setting:
-            int getRet = tcgetattr(STDIN_FILENO, &old);
+            int getRet = tcgetattr(STDIN_FILENO, &io);
             if (getRet == -1)
             {
                 return key;
             }
-            current = old;
             //Modify terminal I/O setting:
-            current.c_lflag &= ~ICANON; //Non Blocking
-            current.c_lflag &= ~ECHO;   //No Echo
+            io.c_lflag &= ~ICANON; //Non Blocking
+            io.c_lflag &= ~ECHO;   //No Echo
             //Set terminal I/O setting:
-            int setRet = tcsetattr(STDIN_FILENO, TCSANOW, &current);
+            int setRet = tcsetattr(STDIN_FILENO, TCSANOW, &io);
             if (setRet == -1)
             {
-                cleanup(old);
+                BuiltInConsole::Instance().ResetInput();
                 return key;
             }
             //Alloc buffer:
@@ -2256,7 +2258,7 @@ namespace System
             ssize_t readRet = read(STDIN_FILENO, buffer, bufferSize);
             if (readRet == -1)
             {
-                cleanup(old);
+                BuiltInConsole::Instance().ResetInput();
                 return key;
             }
             //buffer => CodePoint:
@@ -2265,12 +2267,12 @@ namespace System
             auto charArray = String::UTF8ToCharArray(temp);
             if (charArray.size() == 0)
             {
-                cleanup(old);
+                BuiltInConsole::Instance().ResetInput();
                 return key;
             }
             key.CodePoint = charArray[0].codePoint;
             //Reset terminal I/O setting:
-            setRet = tcsetattr(STDIN_FILENO, TCSANOW, &old);
+            BuiltInConsole::Instance().ResetInput();
             //Echo character:
             if (!intercept)
             {
