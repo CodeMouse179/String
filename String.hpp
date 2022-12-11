@@ -1,5 +1,5 @@
 ﻿//     +--------------------------------------------------------------------------------+
-//     |                                  String v1.26.1                                |
+//     |                                  String v1.26.2                                |
 //     |  Introduction : System.String in C++                                           |
 //     |  Modified Date : 2022/12/11                                                    |
 //     |  License : MIT                                                                 |
@@ -19,9 +19,9 @@
 
 #define SYSTEM_STRING_VERSION_MAJOR 1
 #define SYSTEM_STRING_VERSION_MINOR 26
-#define SYSTEM_STRING_VERSION_PATCH 1
+#define SYSTEM_STRING_VERSION_PATCH 2
 #define SYSTEM_STRING_VERSION (SYSTEM_STRING_VERSION_MAJOR << 16 | SYSTEM_STRING_VERSION_MINOR << 8 | SYSTEM_STRING_VERSION_PATCH)
-#define SYSTEM_STRING_VERSION_STRING "1.26.1"
+#define SYSTEM_STRING_VERSION_STRING "1.26.2"
 
 //Windows Platform:
 #ifdef _WIN32
