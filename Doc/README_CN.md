@@ -1,4 +1,4 @@
-# String 1.26.2
+# String 1.26.3
 
 [英文](https://github.com/CodeMouse179/String/blob/main/README.md)
 

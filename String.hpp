@@ -1,5 +1,5 @@
 ﻿//     +--------------------------------------------------------------------------------+
-//     |                                  String v1.26.2                                |
+//     |                                  String v1.26.3                                |
 //     |  Introduction : System.String in C++                                           |
 //     |  Modified Date : 2022/12/11                                                    |
 //     |  License : MIT                                                                 |
@@ -19,9 +19,9 @@
 
 #define SYSTEM_STRING_VERSION_MAJOR 1
 #define SYSTEM_STRING_VERSION_MINOR 26
-#define SYSTEM_STRING_VERSION_PATCH 2
+#define SYSTEM_STRING_VERSION_PATCH 3
 #define SYSTEM_STRING_VERSION (SYSTEM_STRING_VERSION_MAJOR << 16 | SYSTEM_STRING_VERSION_MINOR << 8 | SYSTEM_STRING_VERSION_PATCH)
-#define SYSTEM_STRING_VERSION_STRING "1.26.2"
+#define SYSTEM_STRING_VERSION_STRING "1.26.3"
 
 //Windows Platform:
 #ifdef _WIN32
@@ -419,9 +419,9 @@ namespace System
             return strA.compare(strB);
         }
 
-        static int Compare(const std::basic_string<T>& strA, const std::basic_string<T>& strB, StringComparison comparisonType)
+        static int Compare(const std::basic_string<T>& strA, const std::basic_string<T>& strB, System::StringComparison comparisonType)
         {
-            if (comparisonType == StringComparison::IgnoreCase)
+            if (comparisonType == System::StringComparison::IgnoreCase)
             {
                 return String::Compare(String::ToLower(strA), String::ToLower(strB));
             }
@@ -460,9 +460,9 @@ namespace System
             return s.find(value) != std::string::npos;
         }
 
-        static bool Contains(const std::basic_string<T>& s, const std::basic_string<T>& value, StringComparison comparisonType)
+        static bool Contains(const std::basic_string<T>& s, const std::basic_string<T>& value, System::StringComparison comparisonType)
         {
-            if (comparisonType == StringComparison::IgnoreCase)
+            if (comparisonType == System::StringComparison::IgnoreCase)
             {
                 return String::Contains(String::ToLower(s), String::ToLower(value));
             }
@@ -488,9 +488,9 @@ namespace System
             return true;
         }
 
-        static bool EndsWith(const std::basic_string<T>& s, const std::basic_string<T>& value, StringComparison comparisonType)
+        static bool EndsWith(const std::basic_string<T>& s, const std::basic_string<T>& value, System::StringComparison comparisonType)
         {
-            if (comparisonType == StringComparison::IgnoreCase)
+            if (comparisonType == System::StringComparison::IgnoreCase)
             {
                 if (value.size() > s.size()) return false;
                 for (int i = s.size() - value.size(), j = 0; j < value.size(); i++, j++)
@@ -510,9 +510,9 @@ namespace System
             return a.compare(b) == 0;
         }
 
-        static bool Equals(const std::basic_string<T>& a, const std::basic_string<T>& b, StringComparison comparisonType)
+        static bool Equals(const std::basic_string<T>& a, const std::basic_string<T>& b, System::StringComparison comparisonType)
         {
-            if (comparisonType == StringComparison::IgnoreCase)
+            if (comparisonType == System::StringComparison::IgnoreCase)
             {
 #ifndef SYSTEM_CXX_14
                 if (a.length() != b.length()) return false;
@@ -561,9 +561,9 @@ namespace System
             return (hash & 0x7FFFFFFF);
         }
 
-        static int GetHashCode(const std::basic_string<T>& s, StringComparison comparisonType)
+        static int GetHashCode(const std::basic_string<T>& s, System::StringComparison comparisonType)
         {
-            if (comparisonType == StringComparison::IgnoreCase)
+            if (comparisonType == System::StringComparison::IgnoreCase)
             {
                 return String::GetHashCode(String::ToLower(s));
             }
@@ -583,9 +583,9 @@ namespace System
             return s.find(value);
         }
 
-        static int IndexOf(const std::basic_string<T>& s, const std::basic_string<T>& value, StringComparison comparisonType)
+        static int IndexOf(const std::basic_string<T>& s, const std::basic_string<T>& value, System::StringComparison comparisonType)
         {
-            if (comparisonType == StringComparison::IgnoreCase)
+            if (comparisonType == System::StringComparison::IgnoreCase)
             {
                 return String::IndexOf(String::ToLower(s), String::ToLower(value));
             }
@@ -600,9 +600,9 @@ namespace System
             return s.find(value);
         }
 
-        static int IndexOf(const std::basic_string<T>& s, T value, StringComparison comparisonType)
+        static int IndexOf(const std::basic_string<T>& s, T value, System::StringComparison comparisonType)
         {
-            if (comparisonType == StringComparison::IgnoreCase)
+            if (comparisonType == System::StringComparison::IgnoreCase)
             {
                 return String::IndexOf(String::ToLower(s), String::ToLower(value));
             }
@@ -644,9 +644,9 @@ namespace System
             return s.find_last_of(value);
         }
 
-        static int LastIndexOf(const std::basic_string<T>& s, const std::basic_string<T>& value, StringComparison comparisonType)
+        static int LastIndexOf(const std::basic_string<T>& s, const std::basic_string<T>& value, System::StringComparison comparisonType)
         {
-            if (comparisonType == StringComparison::IgnoreCase)
+            if (comparisonType == System::StringComparison::IgnoreCase)
             {
                 return String::LastIndexOf(String::ToLower(s), String::ToLower(value));
             }
@@ -661,9 +661,9 @@ namespace System
             return s.find_last_of(value);
         }
 
-        static int LastIndexOf(const std::basic_string<T>& s, T value, StringComparison comparisonType)
+        static int LastIndexOf(const std::basic_string<T>& s, T value, System::StringComparison comparisonType)
         {
-            if (comparisonType == StringComparison::IgnoreCase)
+            if (comparisonType == System::StringComparison::IgnoreCase)
             {
                 return String::LastIndexOf(String::ToLower(s), String::ToLower(value));
             }
@@ -713,9 +713,9 @@ namespace System
             return str;
         }
 
-        static std::basic_string<T> Replace(const std::basic_string<T>& s, const std::basic_string<T>& oldValue, const std::basic_string<T>& newValue, StringComparison comparisonType)
+        static std::basic_string<T> Replace(const std::basic_string<T>& s, const std::basic_string<T>& oldValue, const std::basic_string<T>& newValue, System::StringComparison comparisonType)
         {
-            if (comparisonType == StringComparison::IgnoreCase)
+            if (comparisonType == System::StringComparison::IgnoreCase)
             {
                 if (oldValue.empty()) return s;
                 std::basic_string<T> str = s;
@@ -747,9 +747,9 @@ namespace System
             return str;
         }
 
-        static std::basic_string<T> Replace(const std::basic_string<T>& s, T oldValue, T newValue, StringComparison comparisonType)
+        static std::basic_string<T> Replace(const std::basic_string<T>& s, T oldValue, T newValue, System::StringComparison comparisonType)
         {
-            if (comparisonType == StringComparison::IgnoreCase)
+            if (comparisonType == System::StringComparison::IgnoreCase)
             {
                 std::basic_string<T> str;
                 for (int i = 0; i < s.size(); i++)
@@ -888,9 +888,9 @@ namespace System
             return true;
         }
 
-        static bool StartsWith(const std::basic_string<T>& s, const std::basic_string<T>& value, StringComparison comparisonType)
+        static bool StartsWith(const std::basic_string<T>& s, const std::basic_string<T>& value, System::StringComparison comparisonType)
         {
-            if (comparisonType == StringComparison::IgnoreCase)
+            if (comparisonType == System::StringComparison::IgnoreCase)
             {
                 if (value.size() > s.size()) return false;
                 for (int i = 0; i < value.size(); i++)
