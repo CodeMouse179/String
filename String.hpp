@@ -2161,17 +2161,17 @@ namespace System
             current.c_lflag &= ~ECHO;   //No Echo
             //Set terminal I/O setting:
             int setRet = tcsetattr(STDIN_FILENO, TCSANOW, &current);
-            if (setRet == -1) return key;
+            if (setRet == -1) goto cleanup;
             //Alloc buffer:
             const int bufferSize = 8;
             char buffer[bufferSize + 1];    //bufferSize + 1 because we need '\0' at end of this string.
             buffer[bufferSize] = 0;         //add '\0' at the end.
             //Read terminal:
             ssize_t readRet = read(STDIN_FILENO, buffer, bufferSize);
-            if (readRet == -1) return key;
+            if (readRet == -1) goto cleanup;
             std::string temp = buffer;
             auto charArray = String::UTF8ToCharArray(temp);
-            if (charArray.size() == 0) return key;
+            if (charArray.size() == 0) goto cleanup;
             key.CodePoint = charArray[0].codePoint;
             //Reset terminal I/O setting:
             setRet = tcsetattr(STDIN_FILENO, TCSANOW, &old);
@@ -2187,6 +2187,13 @@ namespace System
                 {
                     String::Write(temp);
                 }
+            }
+
+        cleanup:
+            {
+                //Reset terminal I/O setting:
+                setRet = tcsetattr(STDIN_FILENO, TCSANOW, &old);
+                return key;
             }
 #endif
             return key;
