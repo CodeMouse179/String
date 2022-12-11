@@ -2151,10 +2151,10 @@ namespace System
 #endif
 #ifdef SYSTEM_LINUX
             //cleanup local function:
-            auto cleanup = [termios& old]
+            auto cleanup = [](termios& io)
             {
                 //Reset terminal I/O setting:
-                tcsetattr(STDIN_FILENO, TCSANOW, &old);
+                tcsetattr(STDIN_FILENO, TCSANOW, &io);
             };
             //static vars:
             static termios old, current;
