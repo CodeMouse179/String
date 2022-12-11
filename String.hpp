@@ -2150,6 +2150,12 @@ namespace System
             }
 #endif
 #ifdef SYSTEM_LINUX
+            //cleanup local function:
+            auto cleanup = [termios& old]
+            {
+                //Reset terminal I/O setting:
+                tcsetattr(STDIN_FILENO, TCSANOW, &old);
+            };
             //static vars:
             static termios old, current;
             //Get terminal I/O setting:
@@ -2161,17 +2167,29 @@ namespace System
             current.c_lflag &= ~ECHO;   //No Echo
             //Set terminal I/O setting:
             int setRet = tcsetattr(STDIN_FILENO, TCSANOW, &current);
-            if (setRet == -1) goto cleanup;
+            if (setRet == -1)
+            {
+                cleanup(old);
+                return key;
+            }
             //Alloc buffer:
             const int bufferSize = 8;
             char buffer[bufferSize + 1];    //bufferSize + 1 because we need '\0' at end of this string.
             buffer[bufferSize] = 0;         //add '\0' at the end.
             //Read terminal:
             ssize_t readRet = read(STDIN_FILENO, buffer, bufferSize);
-            if (readRet == -1) goto cleanup;
+            if (readRet == -1)
+            {
+                cleanup(old);
+                return key;
+            }
             std::string temp = buffer;
             auto charArray = String::UTF8ToCharArray(temp);
-            if (charArray.size() == 0) goto cleanup;
+            if (charArray.size() == 0)
+            {
+                cleanup(old);
+                return key;
+            }
             key.CodePoint = charArray[0].codePoint;
             //Reset terminal I/O setting:
             setRet = tcsetattr(STDIN_FILENO, TCSANOW, &old);
@@ -2187,13 +2205,6 @@ namespace System
                 {
                     String::Write(temp);
                 }
-            }
-
-        cleanup:
-            {
-                //Reset terminal I/O setting:
-                setRet = tcsetattr(STDIN_FILENO, TCSANOW, &old);
-                return key;
             }
 #endif
             return key;
