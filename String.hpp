@@ -1,5 +1,5 @@
 ﻿//     +--------------------------------------------------------------------------------+
-//     |                                  String v1.26.0                                |
+//     |                                  String v1.26.1                                |
 //     |  Introduction : System.String in C++                                           |
 //     |  Modified Date : 2022/12/11                                                    |
 //     |  License : MIT                                                                 |
@@ -19,9 +19,9 @@
 
 #define SYSTEM_STRING_VERSION_MAJOR 1
 #define SYSTEM_STRING_VERSION_MINOR 26
-#define SYSTEM_STRING_VERSION_PATCH 0
+#define SYSTEM_STRING_VERSION_PATCH 1
 #define SYSTEM_STRING_VERSION (SYSTEM_STRING_VERSION_MAJOR << 16 | SYSTEM_STRING_VERSION_MINOR << 8 | SYSTEM_STRING_VERSION_PATCH)
-#define SYSTEM_STRING_VERSION_STRING "1.26.0"
+#define SYSTEM_STRING_VERSION_STRING "1.26.1"
 
 //Windows Platform:
 #ifdef _WIN32
@@ -63,6 +63,7 @@
 #include <locale>       //std::wstring_convert
 #include <unistd.h>     //read, write, STDIN_FILENO, STDOUT_FILENO
 #include <termio.h>     //tcgetattr, tcsetattr, termios
+#include <sys/ioctl.h>  //ioctl
 #endif
 
 //CXX version define:
@@ -2043,7 +2044,79 @@ namespace System
 
         static bool KeyAvailable()
         {
-            return false;
+#ifdef SYSTEM_WINDOWS
+            auto IsModKey = [](WORD virtualKey)
+            {
+                if (virtualKey == VK_SHIFT ||
+                    virtualKey == VK_CONTROL ||
+                    virtualKey == VK_MENU ||
+                    virtualKey == VK_CAPITAL ||
+                    virtualKey == VK_NUMLOCK ||
+                    virtualKey == VK_SCROLL)
+                {
+                    return true;
+                }
+                return false;
+            };
+            HANDLE stdInputHandle = GetStdHandle(STD_INPUT_HANDLE);
+            if (stdInputHandle == NULL) return false;
+            if (stdInputHandle == INVALID_HANDLE_VALUE) return false;
+            INPUT_RECORD inputRecord;
+            DWORD read;
+            while (true)
+            {
+                BOOL peekSuccess = PeekConsoleInputW(stdInputHandle, &inputRecord, 1, &read);
+                if (!peekSuccess || read == 0) return false;
+                if (inputRecord.EventType == KEY_EVENT && inputRecord.Event.KeyEvent.bKeyDown &&
+                    !IsModKey(inputRecord.Event.KeyEvent.wVirtualKeyCode))
+                {
+                    return true;
+                }
+                else
+                {
+                    BOOL readSuccess = ReadConsoleInputW(stdInputHandle, &inputRecord, 1, &read);
+                    if (!readSuccess || read == 0) return false;
+                }
+            }
+#endif
+#ifdef SYSTEM_LINUX
+            //cleanup local function:
+            auto cleanup = [](termios& io)
+            {
+                //Reset terminal I/O setting:
+                tcsetattr(STDIN_FILENO, TCSANOW, &io);
+            };
+            //static vars:
+            static termios old, current;
+            //Get terminal I/O setting:
+            int getRet = tcgetattr(STDIN_FILENO, &old);
+            if (getRet == -1)
+            {
+                return false;
+            }
+            current = old;
+            //Modify terminal I/O setting:
+            current.c_lflag &= ~ICANON; //Non Blocking
+            current.c_lflag &= ~ECHO;   //No Echo
+            //Set terminal I/O setting:
+            int setRet = tcsetattr(STDIN_FILENO, TCSANOW, &current);
+            if (setRet == -1)
+            {
+                cleanup(old);
+                return false;
+            }
+            //ioctl:
+            int byteswaiting;
+            int ret = ioctl(STDIN_FILENO, FIONREAD, &byteswaiting);
+            if (ret == -1)
+            {
+                cleanup(old);
+                return false;
+            }
+            //Reset terminal I/O setting:
+            setRet = tcsetattr(STDIN_FILENO, TCSANOW, &old);
+            return byteswaiting > 0;
+#endif
         }
 
         //return code point of next read character.

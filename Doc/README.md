@@ -1,6 +1,6 @@
 # Documentation
 
-String.hpp Current Version : 1.26.0
+String.hpp Current Version : 1.26.1
 
 1. Encoding wiki:
 
@@ -281,6 +281,10 @@ String.hpp Current Version : 1.26.0
     1. Console Function 1:
 
         * System::String::KeyAvailable
+
+            * [Virtual-Key Codes](https://learn.microsoft.com/en-us/windows/win32/inputdev/virtual-key-codes)
+
+            * [Using kbhit() and getch() on Linux](https://stackoverflow.com/questions/29335758/using-kbhit-and-getch-on-linux)
 
         * System::String::Read
 

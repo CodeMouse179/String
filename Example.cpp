@@ -50,6 +50,19 @@ int readline_ex_tutorial()
     return 0;
 }
 
+int key_available_tutorial()
+{
+    while (true)
+    {
+        if (StringA::KeyAvailable())
+        {
+            StringA::ReadKey();
+        }
+        Sleep(50);
+    }
+    return 0;
+}
+
 int main()
 {
     //tutorials:
@@ -414,6 +427,9 @@ int main()
 
     //Tutorial:
     readline_ex_tutorial();
+
+    //Tutorial:
+    //key_available_tutorial();
 
     //Console Function 1:
     StringA::WriteLine(U8("你好世界!"), 255, 0, 0);
