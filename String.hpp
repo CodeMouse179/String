@@ -2099,8 +2099,8 @@ namespace System
             }
 #endif
 #ifdef SYSTEM_LINUX
-            termios io;
             //Get terminal I/O setting:
+            termios io;
             int getRet = tcgetattr(STDIN_FILENO, &io);
             if (getRet == -1)
             {
@@ -2233,8 +2233,8 @@ namespace System
             }
 #endif
 #ifdef SYSTEM_LINUX
-            termios io;
             //Get terminal I/O setting:
+            termios io;
             int getRet = tcgetattr(STDIN_FILENO, &io);
             if (getRet == -1)
             {
