@@ -52,13 +52,19 @@ int readline_ex_tutorial()
 
 int key_available_tutorial()
 {
+    const float sec = 0.05f;
     while (true)
     {
         if (StringA::KeyAvailable())
         {
             StringA::ReadKey();
         }
-        Sleep(50);
+#ifdef SYSTEM_WINDOWS
+        Sleep(sec * 1000);
+#endif
+#ifdef SYSTEM_LINUX
+        usleep(sec * 1000 * 1000);
+#endif
     }
     return 0;
 }
