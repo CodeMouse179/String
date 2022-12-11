@@ -432,10 +432,10 @@ int main()
     StringA::WriteLine(U8("😄😄😄😆😆😆"));
 
     //Tutorial:
-    readline_ex_tutorial();
+    //readline_ex_tutorial();
 
     //Tutorial:
-    //key_available_tutorial();
+    key_available_tutorial();
 
     //Console Function 1:
     StringA::WriteLine(U8("你好世界!"), 255, 0, 0);
