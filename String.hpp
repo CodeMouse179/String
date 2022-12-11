@@ -2160,7 +2160,10 @@ namespace System
             static termios old, current;
             //Get terminal I/O setting:
             int getRet = tcgetattr(STDIN_FILENO, &old);
-            if (getRet == -1) return key;
+            if (getRet == -1)
+            {
+                return key;
+            }
             current = old;
             //Modify terminal I/O setting:
             current.c_lflag &= ~ICANON; //Non Blocking
@@ -2183,6 +2186,8 @@ namespace System
                 cleanup(old);
                 return key;
             }
+            //buffer => CodePoint:
+            buffer[readRet] = 0;            //add '\0' at the end.
             std::string temp = buffer;
             auto charArray = String::UTF8ToCharArray(temp);
             if (charArray.size() == 0)
