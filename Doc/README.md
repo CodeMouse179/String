@@ -1,6 +1,6 @@
 # Documentation
 
-String.hpp Current Version : 1.22.0
+String.hpp Current Version : 1.26.0
 
 1. Encoding wiki:
 
@@ -158,6 +158,10 @@ String.hpp Current Version : 1.22.0
 
             * [How do you properly use WideCharToMultiByte](https://stackoverflow.com/questions/215963/how-do-you-properly-use-widechartomultibyte)
 
+        * System::String::StringToWstring2
+
+        * System::String::WstringToString2
+
         * System::String::StringToU8string
 
             * [C++20 with u8, char8_t and std::string](https://stackoverflow.com/questions/56833000/c20-with-u8-char8-t-and-stdstring)
@@ -254,6 +258,16 @@ String.hpp Current Version : 1.22.0
 
         * System::String::UTF16StringToCharArray
 
+    1. Extra Util 3:
+
+        * System::String::UTF32ToUTF32String
+
+        * System::String::IsValidUTF32String
+
+        * System::String::UTF32StringCharCount
+
+        * System::String::UTF32StringToCharArray
+
     1. Extra Function 1:
 
         * System::String::GetTrueString
@@ -266,9 +280,17 @@ String.hpp Current Version : 1.22.0
 
     1. Console Function 1:
 
+        * System::String::KeyAvailable
+
         * System::String::Read
 
+        * System::String::ReadKey
+
+            * [What is the equivalent to getch() & getche() in Linux?](https://stackoverflow.com/questions/7469139/what-is-the-equivalent-to-getch-getche-in-linux)
+
         * System::String::ReadLine
+
+        * System::String::ReadLineEx
 
         * System::String::Write
 

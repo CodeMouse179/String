@@ -1,7 +1,7 @@
 ﻿//     +--------------------------------------------------------------------------------+
-//     |                                  String v1.25.1                                |
+//     |                                  String v1.26.0                                |
 //     |  Introduction : System.String in C++                                           |
-//     |  Modified Date : 2022/12/10                                                    |
+//     |  Modified Date : 2022/12/11                                                    |
 //     |  License : MIT                                                                 |
 //     |  Source Code : https://github.com/CodeMouse179/String                          |
 //     |  Readme : https://github.com/CodeMouse179/String/blob/main/README.md           |
@@ -18,10 +18,10 @@
 //Versioning refer to Semantic Versioning 2.0.0 : https://semver.org/
 
 #define SYSTEM_STRING_VERSION_MAJOR 1
-#define SYSTEM_STRING_VERSION_MINOR 25
-#define SYSTEM_STRING_VERSION_PATCH 1
+#define SYSTEM_STRING_VERSION_MINOR 26
+#define SYSTEM_STRING_VERSION_PATCH 0
 #define SYSTEM_STRING_VERSION (SYSTEM_STRING_VERSION_MAJOR << 16 | SYSTEM_STRING_VERSION_MINOR << 8 | SYSTEM_STRING_VERSION_PATCH)
-#define SYSTEM_STRING_VERSION_STRING "1.25.1"
+#define SYSTEM_STRING_VERSION_STRING "1.26.0"
 
 //Windows Platform:
 #ifdef _WIN32
@@ -34,6 +34,11 @@
 //Linux Platform:
 #ifdef __linux__
 #define SYSTEM_LINUX 1
+#endif
+
+//C++ Language:
+#ifdef __cplusplus
+#define SYSTEM_CXX 1
 #endif
 
 //Windows Headers:
@@ -57,6 +62,7 @@
 #ifdef SYSTEM_LINUX
 #include <locale>       //std::wstring_convert
 #include <unistd.h>     //read, write, STDIN_FILENO, STDOUT_FILENO
+#include <termio.h>     //tcgetattr, tcsetattr, termios
 #endif
 
 //CXX version define:
@@ -2034,6 +2040,12 @@ namespace System
 
 #ifdef SYSTEM_STRING_CONSOLE
     public: //Console Function 1:
+
+        static bool KeyAvailable()
+        {
+            return false;
+        }
+
         //return code point of next read character.
         static int Read()
         {
@@ -2053,6 +2065,7 @@ namespace System
         static BuiltInConsoleKey ReadKey(bool intercept)
         {
             BuiltInConsoleKey key;
+            key.CodePoint = -1;
 #ifdef SYSTEM_WINDOWS
             HANDLE stdInputHandle = GetStdHandle(STD_INPUT_HANDLE);
             if (stdInputHandle == NULL) return key;
@@ -2137,7 +2150,44 @@ namespace System
             }
 #endif
 #ifdef SYSTEM_LINUX
-            key.CodePoint = -1;
+            //static vars:
+            static termios old, current;
+            //Get terminal I/O setting:
+            int getRet = tcgetattr(STDIN_FILENO, &old);
+            if (getRet == -1) return key;
+            current = old;
+            //Modify terminal I/O setting:
+            current.c_lflag &= ~ICANON; //Non Blocking
+            current.c_lflag &= ~ECHO;   //No Echo
+            //Set terminal I/O setting:
+            int setRet = tcsetattr(STDIN_FILENO, TCSANOW, &current);
+            if (setRet == -1) return key;
+            //Alloc buffer:
+            const int bufferSize = 8;
+            char buffer[bufferSize + 1];    //bufferSize + 1 because we need '\0' at end of this string.
+            buffer[bufferSize] = 0;         //add '\0' at the end.
+            //Read terminal:
+            ssize_t readRet = read(STDIN_FILENO, buffer, bufferSize);
+            if (readRet == -1) return key;
+            std::string temp = buffer;
+            auto charArray = String::UTF8ToCharArray(temp);
+            if (charArray.size() == 0) return key;
+            key.CodePoint = charArray[0].codePoint;
+            //Reset terminal I/O setting:
+            setRet = tcsetattr(STDIN_FILENO, TCSANOW, &old);
+            //Echo character:
+            if (!intercept)
+            {
+                //Handle backspace:
+                if (key.CodePoint == '\b')
+                {
+                    String::Write(U8("\b \b"));
+                }
+                else
+                {
+                    String::Write(temp);
+                }
+            }
 #endif
             return key;
         }
