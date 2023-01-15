@@ -1,6 +1,6 @@
 # Documentation
 
-String.hpp Current Version : 1.26.1
+String.hpp Current Version : 1.27.0
 
 1. Encoding wiki:
 
@@ -130,7 +130,11 @@ String.hpp Current Version : 1.26.1
 
     1. System::String::Substring
 
+    1. System::String::ToBoolean
+
     1. System::String::ToCharArray
+
+    1. System::String::ToInt32
 
     1. System::String::ToLower
 

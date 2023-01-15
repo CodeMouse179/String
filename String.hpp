@@ -1,7 +1,7 @@
 ﻿//     +--------------------------------------------------------------------------------+
-//     |                                  String v1.26.3                                |
+//     |                                  String v1.27.0                                |
 //     |  Introduction : System.String in C++                                           |
-//     |  Modified Date : 2022/12/11                                                    |
+//     |  Modified Date : 2023/1/15                                                     |
 //     |  License : MIT                                                                 |
 //     |  Source Code : https://github.com/CodeMouse179/String                          |
 //     |  Readme : https://github.com/CodeMouse179/String/blob/main/README.md           |
@@ -18,10 +18,10 @@
 //Versioning refer to Semantic Versioning 2.0.0 : https://semver.org/
 
 #define SYSTEM_STRING_VERSION_MAJOR 1
-#define SYSTEM_STRING_VERSION_MINOR 26
-#define SYSTEM_STRING_VERSION_PATCH 3
+#define SYSTEM_STRING_VERSION_MINOR 27
+#define SYSTEM_STRING_VERSION_PATCH 0
 #define SYSTEM_STRING_VERSION (SYSTEM_STRING_VERSION_MAJOR << 16 | SYSTEM_STRING_VERSION_MINOR << 8 | SYSTEM_STRING_VERSION_PATCH)
-#define SYSTEM_STRING_VERSION_STRING "1.26.3"
+#define SYSTEM_STRING_VERSION_STRING "1.27.0"
 
 //Windows Platform:
 #ifdef _WIN32
@@ -915,6 +915,34 @@ namespace System
             return s.substr(startIndex, length);
         }
 
+#ifndef SYSTEM_STRING_ONLY
+        static bool ToBoolean(const std::basic_string<T>& s)
+        {
+            return String::ToBoolean(s, System::StringComparison::None);
+        }
+
+        static bool ToBoolean(const std::basic_string<T>& s, System::StringComparison comparisonType)
+        {
+            std::string normalString;
+            for (int i = 0; i < s.size(); i++)
+            {
+                normalString += (char)s[i];
+            }
+            if (String::Equals(normalString, TRUE_STRING, comparisonType))
+            {
+                return true;
+            }
+            else if (String::Equals(normalString, FALSE_STRING, comparisonType))
+            {
+                return false;
+            }
+            else
+            {
+                throw "ToBoolean Exception";
+            }
+        }
+#endif
+
         static std::vector<T> ToCharArray(const std::basic_string<T>& s)
         {
             std::vector<T> charArray;
@@ -937,6 +965,18 @@ namespace System
             return charArray;
         }
 
+#ifndef SYSTEM_STRING_ONLY
+        static int ToInt32(const std::basic_string<T>& s)
+        {
+            std::string normalString;
+            for (int i = 0; i < s.size(); i++)
+            {
+                normalString += (char)s[i];
+            }
+            return std::stoi(normalString);
+        }
+#endif
+
         static std::basic_string<T> ToLower(const std::basic_string<T>& s)
         {
             std::basic_string<T> lower;
@@ -958,6 +998,26 @@ namespace System
         {
             std::basic_string<T> s;
             s.push_back(c);
+            return s;
+        }
+
+        static std::basic_string<T> ToString(bool value)
+        {
+            std::basic_string<T> s;
+            if (value)
+            {
+                for (int i = 0; i < strlen(TRUE_STRING); i++)
+                {
+                    s.push_back((T)TRUE_STRING[i]);
+                }
+            }
+            else
+            {
+                for (int i = 0; i < strlen(FALSE_STRING); i++)
+                {
+                    s.push_back((T)FALSE_STRING[i]);
+                }
+            }
             return s;
         }
 
@@ -1076,6 +1136,12 @@ namespace System
 #endif
         }
 
+        //receive utf-8 string
+        static std::wstring StringToWstring(const std::string& s)
+        {
+            return String::To_Wstring(s);
+        }
+
         static std::string WstringToString(const System::tstring& s, StringEncoding encoding)
         {
 #ifdef SYSTEM_WINDOWS
@@ -1098,6 +1164,12 @@ namespace System
 #ifdef SYSTEM_LINUX
             return s;
 #endif
+        }
+
+        //return utf-8 string
+        static std::string WstringToString(const std::wstring& s)
+        {
+            return String::To_String(s);
         }
 
         //receive utf-8/ansi string
@@ -1129,18 +1201,6 @@ namespace System
 #ifdef SYSTEM_LINUX
             return s;
 #endif
-        }
-
-        //receive utf-8 string
-        static std::wstring StringToWstring(const std::string& s)
-        {
-            return String::To_Wstring(s);
-        }
-
-        //return utf-8 string
-        static std::string WstringToString(const std::wstring& s)
-        {
-            return String::To_String(s);
         }
 
         static u8str StringToU8string(const std::string& s)
