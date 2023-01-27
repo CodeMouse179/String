@@ -26,7 +26,7 @@ String.hpp is distributed as a single header file and it is very simple to use:
 
 Windows : Open String.sln with VisualStudio and click Windows Debugger
 
-Linux : cmake . && make && ./ss
+Linux, macOS : cmake . && make && ./ss
 
 ### API Tutorial
 
