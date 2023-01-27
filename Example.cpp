@@ -136,7 +136,10 @@ int main()
     assert(ascii3 == ascii4);    //OK!
     assert(ascii4 == asciiInt1); //OK!
 
+#ifndef SYSTEM_MACOS
     char ch1 = '你';             //data value overflow!
+#endif
+
     wchar_t ch2 = L'你';         //Unicode value:20320
     char16_t ch3 = u'你';        //Unicode value:20320
     char32_t ch4 = U'你';        //Unicode value:20320
@@ -147,7 +150,10 @@ int main()
     assert(ch3 == ch4);         //OK!
     assert(ch4 == ni1);         //OK!
 
+#ifndef SYSTEM_MACOS
     char _ch1 = '🧐';            //data value overflow!
+#endif
+
     wchar_t _ch2 = L'🧐';        //data value overflow!
     //char16_t _ch3 = u'🧐';     //compile error!
     char32_t _ch4 = U'🧐';       //Unicode value:129488
@@ -271,7 +277,9 @@ int main()
     std::string lower = StringA::ToLower("ABCDEFG");
     auto to_lower = StringU32::ToLower(U32('N'));
     std::string to_string1 = StringA::ToString("你好世界");
+#ifndef SYSTEM_MACOS
     std::string to_string2 = StringA::ToString('你');
+#endif
     std::wstring to_string3 = StringW::ToString(W('你'));
     std::string to_string4 = StringA::ToString(999);
     auto to_string5 = StringW::ToString(false);
@@ -436,10 +444,10 @@ int main()
     StringA::WriteLine(U8("😄😄😄😆😆😆"));
 
     //Tutorial:
-    //readline_ex_tutorial();
+    readline_ex_tutorial();
 
     //Tutorial:
-    key_available_tutorial();
+    //key_available_tutorial();
 
     //Console Function 1:
     StringA::WriteLine(U8("你好世界!"), 255, 0, 0);

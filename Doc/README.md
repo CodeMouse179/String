@@ -1,6 +1,4 @@
-# Documentation
-
-String.hpp Current Version : 1.27.0
+# String 1.28.0 Documentation
 
 1. Encoding wiki:
 
@@ -14,7 +12,7 @@ String.hpp Current Version : 1.27.0
 
     * [UTF-32](https://en.wikipedia.org/wiki/UTF-32)
 
-1. System.String:
+1. C# System.String:
 
     * [.Net Document](https://learn.microsoft.com/en-us/dotnet/api/system.string)
 
@@ -42,9 +40,27 @@ String.hpp Current Version : 1.27.0
 
     * [UTF-8, UTF-16, and UTF-32](https://stackoverflow.com/questions/496321/utf-8-utf-16-and-utf-32)
 
+1. SYSTEM_STRING_HPP
+
+    * [include guard](https://en.wikipedia.org/wiki/Include_guard)
+
 1. SYSTEM_STRING_VERSION
 
     * [Semantic Versioning 2.0.0](https://semver.org/)
+
+1. SYSTEM_WINDOWS, SYSTEM_LINUX, SYSTEM_MACOS
+
+    * [WIN32, _WIN32](https://stackoverflow.com/questions/662084/whats-the-difference-between-the-win32-and-win32-defines-in-c)
+
+    * [Platform macros](https://stackoverflow.com/questions/4605842/how-to-identify-platform-compiler-from-preprocessor-macros)
+
+    * [macOS macros](https://stackoverflow.com/questions/2166483/which-macro-to-wrap-mac-os-x-specific-code-in-c-c)
+
+1. C++ version definition on Windows, Linux, macOS:
+
+    * [_MSVC_LANG](https://stackoverflow.com/questions/43639122/which-values-can-msvc-lang-have)
+
+    * [__cplusplus](https://stackoverflow.com/questions/2324658/how-to-determine-the-version-of-the-c-standard-used-by-the-compiler)
 
 1. char, wchar_t, char8_t, char16_t, char32_t
 

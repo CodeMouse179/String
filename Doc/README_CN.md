@@ -1,4 +1,4 @@
-# String 1.27.0
+# String 1.28.0 CN
 
 [英文](https://github.com/CodeMouse179/String/blob/main/README.md)
 
@@ -6,7 +6,7 @@
 
 System.String的C++实现
 
-平台 : Windows, Linux, macOS(未测试)
+平台 : Windows, Linux, macOS
 
 C++最低要求版本 : C++ 11
 

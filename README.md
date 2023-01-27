@@ -1,4 +1,4 @@
-# String 1.27.0
+# String 1.28.0
 
 [中文](https://github.com/CodeMouse179/String/blob/main/Doc/README_CN.md)
 
@@ -6,7 +6,7 @@
 
 System.String in C++
 
-Platform : Windows, Linux, macOS(Not tested)
+Platform : Windows, Linux, macOS
 
 C++ Minimum required version : C++ 11
 
