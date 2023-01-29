@@ -1,7 +1,7 @@
 ﻿//     +--------------------------------------------------------------------------------+
-//     |                                  String v1.28.0                                |
+//     |                                  String v1.28.1                                |
 //     |  Introduction : System.String in C++                                           |
-//     |  Modified Date : 2023/1/28                                                     |
+//     |  Modified Date : 2023/1/29                                                     |
 //     |  License : MIT                                                                 |
 //     |  Source Code : https://github.com/CodeMouse179/String                          |
 //     |  Readme : https://github.com/CodeMouse179/String/blob/main/README.md           |
@@ -19,9 +19,9 @@
 
 #define SYSTEM_STRING_VERSION_MAJOR 1
 #define SYSTEM_STRING_VERSION_MINOR 28
-#define SYSTEM_STRING_VERSION_PATCH 0
+#define SYSTEM_STRING_VERSION_PATCH 1
 #define SYSTEM_STRING_VERSION (SYSTEM_STRING_VERSION_MAJOR << 16 | SYSTEM_STRING_VERSION_MINOR << 8 | SYSTEM_STRING_VERSION_PATCH)
-#define SYSTEM_STRING_VERSION_STRING "1.28.0"
+#define SYSTEM_STRING_VERSION_STRING "1.28.1"
 
 //Windows Platform:
 #ifdef _WIN32
@@ -68,6 +68,7 @@
 //Linux Headers:
 #ifdef SYSTEM_LINUX
 #include <locale>       //std::wstring_convert
+#include <cstring>      //std::strlen
 #include <unistd.h>     //read, write, STDIN_FILENO, STDOUT_FILENO
 #include <termio.h>     //tcgetattr, tcsetattr, termios
 #include <sys/ioctl.h>  //ioctl
@@ -1025,14 +1026,14 @@ namespace System
             std::basic_string<T> s;
             if (value)
             {
-                for (int i = 0; i < strlen(TRUE_STRING); i++)
+                for (int i = 0; i < std::strlen(TRUE_STRING); i++)
                 {
                     s.push_back((T)TRUE_STRING[i]);
                 }
             }
             else
             {
-                for (int i = 0; i < strlen(FALSE_STRING); i++)
+                for (int i = 0; i < std::strlen(FALSE_STRING); i++)
                 {
                     s.push_back((T)FALSE_STRING[i]);
                 }

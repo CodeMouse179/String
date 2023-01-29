@@ -1,4 +1,4 @@
-# String 1.28.0 CN
+# String 1.28.1 CN
 
 [英文](https://github.com/CodeMouse179/String/blob/main/README.md)
 
