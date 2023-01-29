@@ -2,6 +2,46 @@
 
 ## History
 
+### 1.21.1-little change
+
+Release Date : 2022/11/27
+
+Fixed : U8c on Linux
+
+### 1.21.1
+
+Release Date : 2022/11/27
+
+Added : U8c(macro)
+
+Changed : std::tolower => String::ToLower, std::toupper => String::ToUpper
+
+### 1.21.0
+
+Release Date : 2022/11/26
+
+Added : U8s(macro)
+
+### 1.20.1
+
+Release Date : 2022/11/22
+
+Changed : String::StringToWstring, String::WstringToString
+
+### 1.20.0
+
+Release Date : 2022/11/20
+
+Added : System::UTF32Char(typedef), String::StringToWstring(overload function), String::WstringToString(overload function), String::WstringToU32string(function), String::U32stringToWstring(function), String::CodePointToASCII(function), String::IsValidUTF32(function), String::UTF32CharCount(function), String::UTF32ToCharArray(function), String::CodePointToUTF32(function)
+
+### 1.19.0
+
+Release Date : 2022/11/20
+
+Added : String::CodePointToUTF8(overload function), String::CodePointToUTF16(overload function), String::UTF16ToUTF16String(function), String::IsValidUTF16String(function), String::UTF16StringCharCount(function), String::UTF16StringToCharArray(function)
+
+Changed : #else => #ifdef SYSTEM_LINUX, String::StringToWstring, String::WstringToString, add String::IsValidUTF16 Linux support, add String::UTF16CharCount Linux support, add StringUTF16ToCharArray Linux support
+
 ### 1.18.0
 
 Release Date : 2022/11/18
