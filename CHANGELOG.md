@@ -2,6 +2,28 @@
 
 ## History
 
+### 1.10.0
+
+Release Date : 2022/11/9
+
+Added : System::UTF8Char(struct), String::To_UTF8(overload function), String::To_UTF16(overload function), String::To_UTF32(overload function), String::UTF8ToCharArray(function)
+
+Changed : String::IsValidUTF8, String::UTF8CharCount
+
+### 1.9.1
+
+Release Date : 2022/11/8
+
+Fixed : String::UTF8CharCount
+
+### 1.9.0
+
+Release Date : 2022/11/7
+
+Added : SYSTEM_STRING_VERSION_STRING(macro), String::Insert(function), String::Reverse(function), String::IsValidASCII(function)
+
+Changed : String::FormatHelper
+
 ### 1.8.0
 
 Release Date : 2022/11/5
