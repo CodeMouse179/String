@@ -2,6 +2,40 @@
 
 ## History
 
+### 1.8.0
+
+Release Date : 2022/11/5
+
+Added : String::Remove(function), String::ToLower(overload function), String::ToUpper(overload function)
+
+Changed : SYSTEM_WINDOWS = 1, SYSTEM_LINUX = 1, SYSTEM_CXX_11 = 1, SYSTEM_CXX_14 = 1, SYSTEM_CXX_17 = 1, SYSTEM_CXX_20 = 1
+
+### 1.7.0
+
+Release Date : 2022/11/5
+
+Added : String::Copy(function), String::GetTypeCode(function), String::ToString(overload function)
+
+### 1.6.0
+
+Release Date : 2022/11/5
+
+Added : String::Replace(function), String::ToCharArray(function), String::ToString(function)
+
+Changed : make String::String static
+
+### 1.5.1
+
+Release Date : 2022/11/5
+
+Added : StringU8(macro), StringU16(macro), StringU32(macro)
+
+### 1.5.0
+
+Release Date : 2022/11/1
+
+Added : String::ConvertString(function)
+
 ### 1.4.0
 
 Release Date : 2022/10/28
