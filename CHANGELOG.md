@@ -2,6 +2,92 @@
 
 ## History
 
+### 1.18.0
+
+Release Date : 2022/11/18
+
+Added : String::CodePointToUTF16(function)
+
+Changed : BuiltInConsole::Init, String::Write
+
+Fixed : String::CodePointToUTF8
+
+### 1.17.1
+
+Release Date : 2022/11/17
+
+Fixed : String::Write bug
+
+### 1.17.0
+
+Release Date : 2022/11/17
+
+Added : ESC(macro), System::BuiltInConsole(class), String::CodePointToUTF8(function), String::Write(overload function), String::WriteLine(overload function)
+
+Changed : String::WriteLine
+
+### 1.16.1
+
+Release Date : 2022/11/16
+
+Changed : String::IsValidUTF16, String::UTF16ToCharArray
+
+### 1.16.0
+
+Release Date : 2022/11/15
+
+Added : #include <unistd.h>, String::WstringToU16string(function), String::U16stringToWstring(function), String::To_Wstring(overload function)
+
+Changed : add String::ReadLine Linux support, add String::Write Linux support
+
+### 1.15.0
+
+Release Date : 2022/11/15
+
+Added : SYSTEM_STRING_INPUT_BUFFER_SIZE(macro), String::Read(function), String::ReadLine(function), String::Write(function), String::WriteLine(function)
+
+### 1.14.0
+
+Release Date : 2022/11/14
+
+Added : #ifdef WIN32, UNICODE(macro), _UNICODE(macro), String::IsNumeric(function), String::IsEmptyOrWhiteSpace(function)
+
+### 1.13.1
+
+Release Date : 2022/11/13
+
+Added : String::ToString(overload function)
+
+### 1.13.0
+
+Release Date : 2022/11/12
+
+Added : TRUE_STRING(macro), FALSE_STRING(macro), String::Join(function), String::Split(overload function), String::GetTrueString(function), String::GetFalseString(function)
+
+Changed : System::StringEncoding
+
+Fixed : String::Split bug
+
+### 1.12.0
+
+Release Date : 2022/11/12
+
+Added : System::ASCIIChar(typedef), System::UTF8Char(typedef), System::UTF16Char(typedef), String::ASCIICharCount(function), String::ASCIIToCharArray(function), String::IsValidUTF8(overload function), String::UTF8CharCount(overload function), String::UTF8ToCharArray(overload function), String::IsValidUTF16(function), String::UTF16CharCount(function), String::UTF16ToCharArray(function)
+
+Changed : rename System::UTF8Char => System::UnicodeChar
+
+### 1.11.1
+
+Release Date : 2022/11/11
+
+Changed : String::Reverse
+
+### 1.11.0
+
+Release Date : 2022/11/10
+
+Added : U8S(macro), String::Reverse(function)
+
 ### 1.10.0
 
 Release Date : 2022/11/9
