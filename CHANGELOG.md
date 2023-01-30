@@ -361,3 +361,169 @@ Added : __SYSTEM_STRING_ONLY(macro)
 Release Date : 2022/10/26
 
 First release!
+
+Added : SYSTEM_STRING_VERSION_MAJOR(macro), SYSTEM_STRING_VERSION_MINOR(macro), SYSTEM_STRING_VERSION_PATCH(macro)
+
+Changed : SYSTEM_STRING_ONLY macro normally works now
+
+### 0.20.1
+
+Release Date : 2022/10/23
+
+Changed : #define _SILENCE_ALL_CXX17_DEPRECATION_WARNINGS only when _MSC_VER is enabled
+
+### 0.20.0
+
+Release Date : 2022/10/23
+
+Added : String::EndsWith(function), String::StartsWith(function)
+
+### 0.19.1
+
+Release Date : 2022/10/23
+
+Changed : String::Clone, String::FormatHelper
+
+### 0.19.0
+
+Release Date : 2022/10/23
+
+Added : SYSTEM_CXX_11(macro), SYSTEM_CXX_14(macro), SYSTEM_CXX_17(macro)
+
+Changed : String::Equals
+
+### 0.18.0
+
+Release Date : 2022/10/23
+
+Added : S(macro), W(macro), String::To_String(function), String::To_Wstring(function)
+
+### 0.17.2
+
+Release Date : 2022/10/23
+
+Fixed : String::To_UTF16, String::To_UTF32
+
+### 0.17.1
+
+Release Date : 2022/10/23
+
+Added : add #include <locale> on Linux
+
+### 0.17.0
+
+Release Date : 2022/10/23
+
+Added : _SILENCE_ALL_CXX17_DEPRECATION_WARNINGS(macro), add #include <codecvt>, String::To_UTF8(function), String::To_UTF16(function), String::To_UTF32(function)
+
+### 0.16.0
+
+Release Date : 2022/10/22
+
+Added : U16(macro), U32(macro)
+
+### 0.15.0
+
+Release Date : 2022/10/21
+
+Added : SYSTEM_CXX_20(macro), U8(macro), u8str(typedef), u8char(typedef), String::StringToU8string(function), String::U8stringToString(function)
+
+### 0.14.0
+
+Release Date : 2022/10/20
+
+Added : SYSTEM_WINDOWS(macro), SYSTEM_LINUX(macro), add #include <Windows.h>, System::StringEncoding(enum class), String::StringToWstring(function), String::WstringToString(function)
+
+Changed : #ifdef _WIN32 => #ifdef SYSTEM_WINDOWS
+
+### 0.13.0
+
+Release Date : 2022/10/18
+
+Added : String::IndexOf(function), String::LastIndexOf(function)
+
+### 0.12.0
+
+Release Date : 2022/10/18
+
+Added : String::Substring(function)
+
+### 0.11.0
+
+Release Date : 2022/10/18
+
+Added : String::Trim(function), String::TrimEnd(function), String::TrimStart(function)
+
+### 0.10.1
+
+Release Date : 2022/10/18
+
+Changed : String::GetHashCode
+
+### 0.10.0
+
+Release Date : 2022/10/18
+
+Added : String::Compare(function), String::Contains(function), String::ToLower(function)
+
+### 0.9.0
+
+Release Date : 2022/10/18
+
+Added : String::Slice(function)
+
+### 0.8.0
+
+Release Date : 2022/10/18
+
+Added : String::Split(function)
+
+### 0.7.0
+
+Release Date : 2022/10/18
+
+Added : String::GetHashCode(function)
+
+Changed : System::StringComparison, String::Equals
+
+### 0.6.0
+
+Release Date : 2022/10/18
+
+Added : String::ConcatHelper(private function), String::Concat(function)
+
+### 0.5.0
+
+Release Date : 2022/10/18
+
+Added : #include <vector>, String::Concat(function)
+
+### 0.4.0
+
+Release Date : 2022/10/18
+
+Added : #include <sstream>, String::FormatHelper(private function), String::Format(function)
+
+### 0.3.1
+
+Release Date : 2022/10/17
+
+Fixed : add #include <algorithm>, #include <cctype>
+
+### 0.3.0
+
+Release Date : 2022/10/17
+
+Added : System::StringComparison(enum class), String::Clone(function), String::Equals(function)
+
+### 0.2.0
+
+Release Date : 2022/10/17
+
+Added : T(macro)
+
+### 0.1.0
+
+Release Date : 2022/10/17
+
+Added : String.hpp
