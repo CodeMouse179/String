@@ -1,7 +1,7 @@
 ﻿//     +--------------------------------------------------------------------------------+
 //     |                                  String v1.28.1                                |
 //     |  Introduction : System.String in C++                                           |
-//     |  Modified Date : 2023/1/29                                                     |
+//     |  Modified Date : 2023/1/31                                                     |
 //     |  License : MIT                                                                 |
 //     |  Source Code : https://github.com/CodeMouse179/String                          |
 //     |  Readme : https://github.com/CodeMouse179/String/blob/main/README.md           |
@@ -43,11 +43,6 @@
 #define SYSTEM_MACOS 2
 #endif
 
-//C++ Language:
-#ifdef __cplusplus
-#define SYSTEM_CXX 1
-#endif
-
 //Windows Headers:
 #ifdef SYSTEM_WINDOWS
 //Enable UNICODE:
@@ -80,6 +75,11 @@
 #include <unistd.h>     //read, write, STDIN_FILENO, STDOUT_FILENO
 #include <termios.h>    //tcgetattr, tcsetattr, termios
 #include <sys/ioctl.h>  //ioctl
+#endif
+
+//C++ Language:
+#ifdef __cplusplus
+#define SYSTEM_CXX 1
 #endif
 
 //CXX version define:
