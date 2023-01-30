@@ -2,6 +2,78 @@
 
 ## History
 
+### 1.28.1
+
+Release Date : 2022/1/29
+
+Fixed : add #include <cstring> on Linux, strlen => std::strlen
+
+### 1.28.0
+
+Release Date : 2022/1/28
+
+Added : SYSTEM_MACOS(macro), add macOS Headers
+
+Changed : #ifdef SYSTEM_LINUX => #if defined(SYSTEM_LINUX) || defined(SYSTEM_MACOS)
+
+### 1.27.0
+
+Release Date : 2022/1/15
+
+Added : String::ToBoolean(function), String::ToInt32(function), String::ToString(overload function)
+
+### 1.26.3
+
+Release Date : 2022/12/11
+
+Changed : rename StringComparison => System::StringComparison in code
+
+### 1.26.2
+
+Release Date : 2022/12/11
+
+Desc : rename 1.26.1-emergency repair patch 1 => 1.26.2
+
+### 1.26.1-emergency repair patch 1
+
+Release Date : 2022/12/11
+
+Added : BuiltInConsole::oldInput(field), BuiltInConsole::ResetInput(function)
+
+Changed : add BuiltInConsole::Init Linux support, String::KeyAvailable, String::ReadKey
+
+### 1.26.1
+
+Release Date : 2022/12/11
+
+Added : #include <sys/ioctl.h>
+
+Changed : impl String::KeyAvailable
+
+### 1.26.0-emergency repair patch 3
+
+Release Date : 2022/12/11
+
+Fixed : fix String::ReadKey Linux support
+
+### 1.26.0-emergency repair patch 2
+
+Release Date : 2022/12/11
+
+Fixed : fix String::ReadKey Linux support
+
+### 1.26.0-emergency repair patch 1
+
+Release Date : 2022/12/11
+
+Fixed : fix String::ReadKey Linux support
+
+### 1.26.0-emergency repair
+
+Release Date : 2022/12/11
+
+Fixed : fix String::ReadKey Linux support
+
 ### 1.26.0
 
 Release Date : 2022/12/11
