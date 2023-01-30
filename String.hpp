@@ -1,5 +1,5 @@
 ﻿//     +--------------------------------------------------------------------------------+
-//     |                                  String v1.28.1                                |
+//     |                                  String v1.28.2                                |
 //     |  Introduction : System.String in C++                                           |
 //     |  Modified Date : 2023/1/31                                                     |
 //     |  License : MIT                                                                 |
@@ -19,9 +19,9 @@
 
 #define SYSTEM_STRING_VERSION_MAJOR 1
 #define SYSTEM_STRING_VERSION_MINOR 28
-#define SYSTEM_STRING_VERSION_PATCH 1
+#define SYSTEM_STRING_VERSION_PATCH 2
 #define SYSTEM_STRING_VERSION (SYSTEM_STRING_VERSION_MAJOR << 16 | SYSTEM_STRING_VERSION_MINOR << 8 | SYSTEM_STRING_VERSION_PATCH)
-#define SYSTEM_STRING_VERSION_STRING "1.28.1"
+#define SYSTEM_STRING_VERSION_STRING "1.28.2"
 
 //Windows Platform:
 #ifdef _WIN32
@@ -2138,7 +2138,7 @@ namespace System
         }
 #endif
 
-#ifdef SYSTEM_STRING_CONSOLE
+#if defined(SYSTEM_STRING_CONSOLE) && !defined(SYSTEM_STRING_ONLY)
     public: //Console Function 1:
 
         static bool KeyAvailable()
