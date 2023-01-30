@@ -2,6 +2,48 @@
 
 ## History
 
+### 1.26.0
+
+Release Date : 2022/12/11
+
+Added : SYSTEM_CXX(macro), #include <termio.h>, String::KeyAvailable
+
+Changed : add String::ReadKey Linux support
+
+### 1.25.1
+
+Release Date : 2022/12/10
+
+Changed : String::ReadKey
+
+Fixed : add BuiltInConsoleKey::BuiltInConsoleKey, fix String::ReadLineEx bug
+
+### 1.25.0
+
+Release Date : 2022/12/10
+
+Added : BuiltInConsole::TempChar(field), BuiltInConsole::NoProblem(function), System::BuiltInConsoleKey(struct), System::color(typedef), String::ReadKey(function), String::ReadLineEx(function)
+
+Changed : define SYSTEM_STRING_CONSOLE macro to enable console functions, String::ReadLine, String::Write, String::WriteLine
+
+### 1.24.0
+
+Release Date : 2022/12/9
+
+Added : String::UTF32ToUTF32String(function), String::IsValidUTF32String(function), String::UTF32StringCharCount(function), String::UTF32StringToCharArray(function)
+
+### 1.23.0
+
+Release Date : 2022/12/4
+
+Added : String::StringToWstring2(function), String::WstringToString2(function)
+
+### 1.22.0
+
+Release Date : 2022/11/27
+
+Added : String::IndexOf(overload function), String::LastIndexOf(overload function), String::Replace(overload function), String::Trim(overload function), String::TrimEnd(overload function), String::TrimStart(overload function)
+
 ### 1.21.1-little change
 
 Release Date : 2022/11/27
