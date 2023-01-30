@@ -28,6 +28,50 @@ Windows : Open String.sln with VisualStudio and click Windows Debugger
 
 Linux, macOS : cmake . && make && ./ss
 
+### Macros
+
+Header infomation macros:
+
+    SYSTEM_STRING_HPP
+
+    SYSTEM_STRING_VERSION_MAJOR
+
+    SYSTEM_STRING_VERSION_MINOR
+
+    SYSTEM_STRING_VERSION_PATCH
+
+    SYSTEM_STRING_VERSION
+
+    SYSTEM_STRING_VERSION_STRING
+
+Platform macros:
+
+    SYSTEM_WINDOWS
+
+    SYSTEM_LINUX
+
+    SYSTEM_MACOS
+
+Language macros:
+
+    SYSTEM_CXX
+
+    SYSTEM_CXX_11
+
+    SYSTEM_CXX_14
+
+    SYSTEM_CXX_17
+
+    SYSTEM_CXX_20
+
+You can define these macros before include String.hpp:
+
+    SYSTEM_STRING_ONLY(Disable extra functions)
+
+    SYSTEM_STRING_SET_UTF8(Change execution character set to UTF8, only effects on Windows)
+
+    SYSTEM_STRING_CONSOLE(Enable console functions)
+
 ### API Tutorial
 
 Include String.hpp:
