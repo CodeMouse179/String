@@ -6,7 +6,7 @@
 
 Release Date : 2022/1/29
 
-Fixed : add #include <cstring> on Linux, strlen => std::strlen
+Fixed : add #include cstring on Linux, strlen => std::strlen
 
 ### 1.28.0
 
@@ -46,7 +46,7 @@ Changed : add BuiltInConsole::Init Linux support, String::KeyAvailable, String::
 
 Release Date : 2022/12/11
 
-Added : #include <sys/ioctl.h>
+Added : #include sys/ioctl.h
 
 Changed : impl String::KeyAvailable
 
@@ -78,7 +78,7 @@ Fixed : fix String::ReadKey Linux support
 
 Release Date : 2022/12/11
 
-Added : SYSTEM_CXX(macro), #include <termio.h>, String::KeyAvailable
+Added : SYSTEM_CXX(macro), #include termio.h, String::KeyAvailable
 
 Changed : add String::ReadKey Linux support
 
@@ -190,7 +190,7 @@ Changed : String::IsValidUTF16, String::UTF16ToCharArray
 
 Release Date : 2022/11/15
 
-Added : #include <unistd.h>, String::WstringToU16string(function), String::U16stringToWstring(function), String::To_Wstring(overload function)
+Added : #include unistd.h, String::WstringToU16string(function), String::U16stringToWstring(function), String::To_Wstring(overload function)
 
 Changed : add String::ReadLine Linux support, add String::Write Linux support
 
@@ -408,13 +408,13 @@ Fixed : String::To_UTF16, String::To_UTF32
 
 Release Date : 2022/10/23
 
-Added : add #include <locale> on Linux
+Added : add #include locale on Linux
 
 ### 0.17.0
 
 Release Date : 2022/10/23
 
-Added : _SILENCE_ALL_CXX17_DEPRECATION_WARNINGS(macro), add #include <codecvt>, String::To_UTF8(function), String::To_UTF16(function), String::To_UTF32(function)
+Added : _SILENCE_ALL_CXX17_DEPRECATION_WARNINGS(macro), add #include codecvt, String::To_UTF8(function), String::To_UTF16(function), String::To_UTF32(function)
 
 ### 0.16.0
 
@@ -432,7 +432,7 @@ Added : SYSTEM_CXX_20(macro), U8(macro), u8str(typedef), u8char(typedef), String
 
 Release Date : 2022/10/20
 
-Added : SYSTEM_WINDOWS(macro), SYSTEM_LINUX(macro), add #include <Windows.h>, System::StringEncoding(enum class), String::StringToWstring(function), String::WstringToString(function)
+Added : SYSTEM_WINDOWS(macro), SYSTEM_LINUX(macro), add #include Windows.h, System::StringEncoding(enum class), String::StringToWstring(function), String::WstringToString(function)
 
 Changed : #ifdef _WIN32 => #ifdef SYSTEM_WINDOWS
 
@@ -496,19 +496,19 @@ Added : String::ConcatHelper(private function), String::Concat(function)
 
 Release Date : 2022/10/18
 
-Added : #include <vector>, String::Concat(function)
+Added : #include vector, String::Concat(function)
 
 ### 0.4.0
 
 Release Date : 2022/10/18
 
-Added : #include <sstream>, String::FormatHelper(private function), String::Format(function)
+Added : #include sstream, String::FormatHelper(private function), String::Format(function)
 
 ### 0.3.1
 
 Release Date : 2022/10/17
 
-Fixed : add #include <algorithm>, #include <cctype>
+Fixed : add #include algorithm, #include cctype
 
 ### 0.3.0
 
