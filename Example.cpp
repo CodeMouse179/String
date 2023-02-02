@@ -69,6 +69,15 @@ int key_available_tutorial()
     return 0;
 }
 
+int get_window_size()
+{
+    int width = StringA::WindowWidth();
+    int height = StringA::WindowHeight();
+    StringA::WriteLine(U8("Terminal window width:") + StringA::ToString(width));
+    StringA::WriteLine(U8("Terminal window height:") + StringA::ToString(height));
+    return 0;
+}
+
 int main()
 {
     //tutorials:
@@ -442,6 +451,9 @@ int main()
 
     //Emoji Test:
     StringA::WriteLine(U8("😄😄😄😆😆😆"));
+
+    //Get terminal window size:
+    get_window_size();
 
     //Tutorial:
     readline_ex_tutorial();

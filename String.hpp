@@ -1,7 +1,7 @@
 ﻿//     +--------------------------------------------------------------------------------+
-//     |                                  String v1.28.2                                |
+//     |                                  String v1.29.0                                |
 //     |  Introduction : System.String in C++                                           |
-//     |  Modified Date : 2023/1/31                                                     |
+//     |  Modified Date : 2023/2/2                                                      |
 //     |  License : MIT                                                                 |
 //     |  Source Code : https://github.com/CodeMouse179/String                          |
 //     |  Readme : https://github.com/CodeMouse179/String/blob/main/README.md           |
@@ -18,10 +18,10 @@
 //Versioning refer to Semantic Versioning 2.0.0 : https://semver.org/
 
 #define SYSTEM_STRING_VERSION_MAJOR 1
-#define SYSTEM_STRING_VERSION_MINOR 28
-#define SYSTEM_STRING_VERSION_PATCH 2
+#define SYSTEM_STRING_VERSION_MINOR 29
+#define SYSTEM_STRING_VERSION_PATCH 0
 #define SYSTEM_STRING_VERSION (SYSTEM_STRING_VERSION_MAJOR << 16 | SYSTEM_STRING_VERSION_MINOR << 8 | SYSTEM_STRING_VERSION_PATCH)
-#define SYSTEM_STRING_VERSION_STRING "1.28.2"
+#define SYSTEM_STRING_VERSION_STRING "1.29.0"
 
 //Windows Platform:
 #ifdef _WIN32
@@ -41,6 +41,11 @@
 #define SYSTEM_MACOS 1
 #elif defined(__APPLE__)
 #define SYSTEM_MACOS 2
+#endif
+
+//POSIX Platform:
+#if defined(SYSTEM_LINUX) || defined(SYSTEM_MACOS)
+#define SYSTEM_POSIX 1
 #endif
 
 //Windows Headers:
@@ -2471,6 +2476,34 @@ namespace System
         static bool WriteLine(const std::string& s)
         {
             return String::Write(s + U8("\n"));
+        }
+
+        static int WindowWidth()
+        {
+#ifdef SYSTEM_WINDOWS
+            //TODO
+#endif
+#ifdef SYSTEM_POSIX
+            struct winsize window;
+            int ret = ioctl(STDOUT_FILENO, TIOCGWINSZ, &window);
+            if (ret == 0) return window.ws_col;
+            return 0;
+#endif
+            return 0;
+        }
+
+        static int WindowHeight()
+        {
+#ifdef SYSTEM_WINDOWS
+            //TODO
+#endif
+#ifdef SYSTEM_POSIX
+            struct winsize window;
+            int ret = ioctl(STDOUT_FILENO, TIOCGWINSZ, &window);
+            if (ret == 0) return window.ws_row;
+            return 0;
+#endif
+            return 0;
         }
 
     public: //Extension Console Function 1:
