@@ -2,15 +2,27 @@
 
 ## History
 
+### 1.29.0
+
+Release Date : 2023/2/2
+
+Added : SYSTEM_POSIX(macro), String::WindowWidth(function), String::WindowHeight(function)
+
+### 1.28.2
+
+Release Date : 2023/1/31
+
+Fixed : #ifdef SYSTEM_STRING_CONSOLE => #if defined(SYSTEM_STRING_CONSOLE) && !defined(SYSTEM_STRING_ONLY)
+
 ### 1.28.1
 
-Release Date : 2022/1/29
+Release Date : 2023/1/29
 
 Fixed : add #include cstring on Linux, strlen => std::strlen
 
 ### 1.28.0
 
-Release Date : 2022/1/28
+Release Date : 2023/1/28
 
 Added : SYSTEM_MACOS(macro), add macOS Headers
 
@@ -18,7 +30,7 @@ Changed : #ifdef SYSTEM_LINUX => #if defined(SYSTEM_LINUX) || defined(SYSTEM_MAC
 
 ### 1.27.0
 
-Release Date : 2022/1/15
+Release Date : 2023/1/15
 
 Added : String::ToBoolean(function), String::ToInt32(function), String::ToString(overload function)
 
