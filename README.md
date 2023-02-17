@@ -52,6 +52,8 @@ Platform macros:
 
     SYSTEM_MACOS
 
+    SYSTEM_POSIX(Linux, macOS)
+
 Language macros:
 
     SYSTEM_CXX
@@ -72,7 +74,7 @@ You can define these macros before include String.hpp:
 
     SYSTEM_STRING_CONSOLE(Enable console functions)
 
-### API Tutorial
+### String API Tutorial
 
 Include String.hpp:
 
@@ -86,6 +88,7 @@ String::Format example:
 ``` cpp
 //output: a:2:3
 std::string format1 = StringA::Format("{0}:{1}:{2}", (char)97, 2, 3);
+
 //output: 97:2:3
 std::string format2 = StringA::Format("{0}:{1}:{2}", 97, 2, 3);
 ```
@@ -95,6 +98,16 @@ String::Split example:
 ``` cpp
 //vector values:1,2,3
 std::vector<std::string> split1 = StringA::Split("1 2 3", ' ');
+```
+
+### Console API Tutorial
+
+Enable console function support:
+
+``` cpp
+#define SYSTEM_STRING_CONSOLE
+#include "String.hpp"
+using namespace System; //optional
 ```
 
 ### Example 1
