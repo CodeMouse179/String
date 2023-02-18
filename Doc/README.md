@@ -1,4 +1,4 @@
-# String 1.28.2 Documentation
+# String 1.30.0 Documentation
 
 1. Encoding wiki:
 
@@ -48,7 +48,7 @@
 
     * [Semantic Versioning 2.0.0](https://semver.org/)
 
-1. SYSTEM_WINDOWS, SYSTEM_LINUX, SYSTEM_MACOS
+1. SYSTEM_WINDOWS, SYSTEM_LINUX, SYSTEM_MACOS, SYSTEM_POSIX
 
     * [WIN32, _WIN32](https://stackoverflow.com/questions/662084/whats-the-difference-between-the-win32-and-win32-defines-in-c)
 
@@ -300,6 +300,14 @@
 
     1. Console Function 1:
 
+        * System::String::ConsoleSendCommand
+
+        * System::String::InitConsole
+
+        * System::String::DeinitConsole
+
+        * System::String::SetCursorPosition
+
         * System::String::KeyAvailable
 
             * [Virtual-Key Codes](https://learn.microsoft.com/en-us/windows/win32/inputdev/virtual-key-codes)
@@ -319,6 +327,10 @@
         * System::String::Write
 
         * System::String::WriteLine
+
+        * System::String::WindowWidth
+
+        * System::String::WindowHeight
 
     1. Extension Console Function 1:
 

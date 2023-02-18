@@ -2,6 +2,12 @@
 
 ## History
 
+### 1.30.0
+
+Release Date : 2023/2/18
+
+Added : String::ConsoleSendCommand(function), String::InitConsole(function), String::DeinitConsole(function), String::SetCursorPosition(function)
+
 ### 1.29.0
 
 Release Date : 2023/2/2
