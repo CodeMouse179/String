@@ -28,29 +28,86 @@ Windows：用VisualStudio打开String.sln，点击本地Windows调试器即可
 
 Linux：cmake . && make && ./ss
 
-### API 教程
+### 宏
 
-Include String.hpp:
+头文件宏:
+
+    SYSTEM_STRING_HPP
+
+    SYSTEM_STRING_VERSION_MAJOR
+
+    SYSTEM_STRING_VERSION_MINOR
+
+    SYSTEM_STRING_VERSION_PATCH
+
+    SYSTEM_STRING_VERSION
+
+    SYSTEM_STRING_VERSION_STRING
+
+平台宏:
+
+    SYSTEM_WINDOWS
+
+    SYSTEM_LINUX
+
+    SYSTEM_MACOS
+
+    SYSTEM_POSIX(Linux, macOS)
+
+语言宏:
+
+    SYSTEM_CXX
+
+    SYSTEM_CXX_11
+
+    SYSTEM_CXX_14
+
+    SYSTEM_CXX_17
+
+    SYSTEM_CXX_20
+
+你可以在引用String.hpp之前定义以下宏:
+
+    SYSTEM_STRING_ONLY(禁用额外函数)
+
+    SYSTEM_STRING_SET_UTF8(将运行时字符集设置为utf-8，仅在Windows平台生效)
+
+    SYSTEM_STRING_CONSOLE(启用控制台函数)
+
+### String API 教程
+
+引用String.hpp:
 
 ``` cpp
 #include "String.hpp"
-using namespace System; //optional
+using namespace System; //可选项
 ```
 
-String::Format example:
+String::Format示例:
 
 ``` cpp
 //output: a:2:3
 std::string format1 = StringA::Format("{0}:{1}:{2}", (char)97, 2, 3);
+
 //output: 97:2:3
 std::string format2 = StringA::Format("{0}:{1}:{2}", 97, 2, 3);
 ```
 
-String::Split example:
+String::Split示例:
 
 ``` cpp
 //vector values:1,2,3
 std::vector<std::string> split1 = StringA::Split("1 2 3", ' ');
+```
+
+### 控制台 API 教程
+
+启用控制台函数支持:
+
+``` cpp
+#define SYSTEM_STRING_CONSOLE
+#include "String.hpp"
+using namespace System; //可选项
 ```
 
 ### 示例1
