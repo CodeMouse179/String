@@ -78,9 +78,21 @@ int get_window_size()
     return 0;
 }
 
+int init_deinit_console()
+{
+    StringA::InitConsole();
+    StringA::SetCursorPosition(4, 2);
+    StringA::WriteLine(U8("Hello World!"));
+    StringA::ReadLine();
+    StringA::DeinitConsole();
+    return 0;
+}
+
 int main()
 {
     //tutorials:
+    int r0 = init_deinit_console();
+
     int r1 = format_tutorial();
 
     int r2 = split_tutorial();

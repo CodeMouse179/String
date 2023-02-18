@@ -1,7 +1,7 @@
 ﻿//     +--------------------------------------------------------------------------------+
-//     |                                  String v1.29.0                                |
+//     |                                  String v1.30.0                                |
 //     |  Introduction : System.String in C++                                           |
-//     |  Modified Date : 2023/2/2                                                      |
+//     |  Modified Date : 2023/2/18                                                     |
 //     |  License : MIT                                                                 |
 //     |  Source Code : https://github.com/CodeMouse179/String                          |
 //     |  Readme : https://github.com/CodeMouse179/String/blob/main/README.md           |
@@ -18,10 +18,10 @@
 //Versioning refer to Semantic Versioning 2.0.0 : https://semver.org/
 
 #define SYSTEM_STRING_VERSION_MAJOR 1
-#define SYSTEM_STRING_VERSION_MINOR 29
+#define SYSTEM_STRING_VERSION_MINOR 30
 #define SYSTEM_STRING_VERSION_PATCH 0
 #define SYSTEM_STRING_VERSION (SYSTEM_STRING_VERSION_MAJOR << 16 | SYSTEM_STRING_VERSION_MINOR << 8 | SYSTEM_STRING_VERSION_PATCH)
-#define SYSTEM_STRING_VERSION_STRING "1.29.0"
+#define SYSTEM_STRING_VERSION_STRING "1.30.0"
 
 //Windows Platform:
 #ifdef _WIN32
@@ -2144,6 +2144,50 @@ namespace System
 #endif
 
 #if defined(SYSTEM_STRING_CONSOLE) && !defined(SYSTEM_STRING_ONLY)
+    public: //Console Function 0:
+
+        //format must be UTF-8 Encoding.
+        //About implementation see String::Format
+        template<typename... Types>
+        static bool ConsoleSendCommand(const std::string& format, Types... args)
+        {
+            std::ostringstream boss;
+            std::string clone = String::Clone(format);
+#ifdef SYSTEM_CXX_17
+            (String::FormatHelper(boss, clone, args), ...); //C++17
+#else
+            int arr[] = { (String::FormatHelper(boss, clone, args), 0)... }; //C++11
+#endif
+            boss << clone;
+            std::string cmd = boss.str();
+            bool cmdSuccess = String::Write(cmd);
+            return cmdSuccess;
+        }
+
+        static bool InitConsole()
+        {
+#ifdef SYSTEM_WINDOWS
+            //TODO
+#endif
+#ifdef SYSTEM_POSIX
+            //For POSIX platform, string encoding is UTF-8 by default.
+            return String::ConsoleSendCommand("{0}[?1049h", ESC);
+#endif
+            return false;
+        }
+
+        static bool DeinitConsole()
+        {
+#ifdef SYSTEM_WINDOWS
+            //TODO
+#endif
+#ifdef SYSTEM_POSIX
+            //For POSIX platform, string encoding is UTF-8 by default.
+            return String::ConsoleSendCommand("{0}[?1049l", ESC);
+#endif
+            return false;
+        }
+
     public: //Console Function 1:
 
         static bool KeyAvailable()
@@ -2448,6 +2492,18 @@ namespace System
             }
             if (charArray.size() > 0) return String::CodePointToUTF8(charArray);
             return StringA::Empty();
+        }
+
+        static bool SetCursorPosition(int left, int top)
+        {
+#ifdef SYSTEM_WINDOWS
+            //TODO
+#endif
+#ifdef SYSTEM_POSIX
+            //For POSIX platform, string encoding is UTF-8 by default.
+            return String::ConsoleSendCommand("{0}[{1};{2}H", ESC, top + 1, left + 1);
+#endif
+            return false;
         }
 
         //std::string must be UTF-8 Encoding.
