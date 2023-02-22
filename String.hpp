@@ -1,21 +1,21 @@
-﻿//     +--------------------------------------------------------------------------------+
-//     |                                  String v1.30.0                                |
-//     |  Introduction : System.String in C++                                           |
-//     |  Modified Date : 2023/2/18                                                     |
-//     |  License : MIT                                                                 |
-//     |  Source Code : https://github.com/CodeMouse179/String                          |
-//     |  Readme : https://github.com/CodeMouse179/String/blob/main/README.md           |
-//     |                                                                                |
-//     |                             Designer : CodeMouse179                            |
-//     |  Email : codemouse179@gmail.com                                                |
-//     |  Github : https://github.com/CodeMouse179                                      |
-//     |  Bilibili : https://space.bilibili.com/3461577785215838                        |
-//     +--------------------------------------------------------------------------------+
+﻿//      +--------------------------------------------------------------------------------+
+//      |                                  String v1.30.0                                |
+//      |  Introduction : System.String in C++                                           |
+//      |  Modified Date : 2023/2/22                                                     |
+//      |  License : MIT                                                                 |
+//      |  Source Code : https://github.com/CodeMouse179/String                          |
+//      |  Readme : https://github.com/CodeMouse179/String/blob/main/README.md           |
+//      |                                                                                |
+//      |                             Designer : CodeMouse179                            |
+//      |  Email : codemouse179@gmail.com                                                |
+//      |  Github : https://github.com/CodeMouse179                                      |
+//      |  Bilibili : https://space.bilibili.com/3461577785215838                        |
+//      +--------------------------------------------------------------------------------+
 
 #ifndef SYSTEM_STRING_HPP
 #define SYSTEM_STRING_HPP
 
-//Versioning refer to Semantic Versioning 2.0.0 : https://semver.org/
+//Versioning refer to Semantic Versioning 2.0.0 : https://semver.org
 
 #define SYSTEM_STRING_VERSION_MAJOR 1
 #define SYSTEM_STRING_VERSION_MINOR 30
