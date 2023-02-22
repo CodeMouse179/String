@@ -1,9 +1,19 @@
 ﻿#define SYSTEM_STRING_CONSOLE
-#include "String.hpp"
-#include <assert.h> //assert
-#include <string.h> //strcpy_s
-#include <iostream> //std::cin, std::cout, std::wcout
-#include <locale.h> //setlocale(ONLY FOR TUTORIAL, NEVER USE SETLOCALE IN ANY WHERE!!!)
+#include "String.hpp"   //System.String in C++
+#include <assert.h>     //assert
+#include <string.h>     //strcpy_s
+#include <iostream>     //std::cin, std::cout, std::wcout
+#include <locale.h>     //setlocale(ONLY FOR TUTORIAL, NEVER USE SETLOCALE IN ANY WHERE!!!)
+
+void wait(float second)
+{
+#ifdef SYSTEM_WINDOWS
+        Sleep(second * 1000);
+#endif
+#ifdef SYSTEM_POSIX
+        usleep(second * 1000 * 1000);
+#endif
+}
 
 int format_tutorial()
 {
@@ -57,14 +67,13 @@ int key_available_tutorial()
     {
         if (StringA::KeyAvailable())
         {
-            StringA::ReadKey();
+            System::BuiltInConsoleKey key = StringA::ReadKey();
+            if (key.CodePoint == 'q' || key.CodePoint == 'Q')
+            {
+                break;
+            }
         }
-#ifdef SYSTEM_WINDOWS
-        Sleep(sec * 1000);
-#endif
-#ifdef SYSTEM_LINUX
-        usleep(sec * 1000 * 1000);
-#endif
+        wait(sec);
     }
     return 0;
 }
@@ -88,8 +97,26 @@ int init_deinit_console()
     return 0;
 }
 
+int key_available_test()
+{
+    while (true)
+    {
+        if (StringA::KeyAvailable())
+        {
+            std::string line;
+            std::cin >> line;
+            std::cout << "Hello\n" << line;
+        }
+        wait(0.1f);
+    }
+    return 0;
+}
+
 int main()
 {
+    key_available_tutorial();
+    return 0;
+
     //tutorials:
     int r0 = init_deinit_console();
 
