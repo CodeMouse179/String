@@ -1,4 +1,8 @@
-﻿#define SYSTEM_STRING_CONSOLE
+﻿// Example of String.hpp
+// Programmer : CodeMouse179
+// Platform : Windows, Linux, macOS
+
+#define SYSTEM_STRING_CONSOLE
 #include "String.hpp"   //System.String in C++
 #include <assert.h>     //assert
 #include <string.h>     //strcpy_s
