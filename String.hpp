@@ -1,7 +1,7 @@
 ﻿//      +--------------------------------------------------------------------------------+
-//      |                                  String v1.30.0                                |
+//      |                                  String v1.31.0                                |
 //      |  Introduction : System.String in C++                                           |
-//      |  Modified Date : 2023/2/22                                                     |
+//      |  Modified Date : 2023/2/25                                                     |
 //      |  License : MIT                                                                 |
 //      |  Source Code : https://github.com/CodeMouse179/String                          |
 //      |  Readme : https://github.com/CodeMouse179/String/blob/main/README.md           |
@@ -18,10 +18,10 @@
 //Versioning refer to Semantic Versioning 2.0.0 : https://semver.org
 
 #define SYSTEM_STRING_VERSION_MAJOR 1
-#define SYSTEM_STRING_VERSION_MINOR 30
+#define SYSTEM_STRING_VERSION_MINOR 31
 #define SYSTEM_STRING_VERSION_PATCH 0
 #define SYSTEM_STRING_VERSION (SYSTEM_STRING_VERSION_MAJOR << 16 | SYSTEM_STRING_VERSION_MINOR << 8 | SYSTEM_STRING_VERSION_PATCH)
-#define SYSTEM_STRING_VERSION_STRING "1.30.0"
+#define SYSTEM_STRING_VERSION_STRING "1.31.0"
 
 //Windows Platform:
 #ifdef _WIN32
@@ -430,6 +430,17 @@ namespace System
         static std::basic_string<T> Empty()
         {
             return std::basic_string<T>();
+        }
+
+    public:
+        static T Chars(const std::basic_string<T>& s, int index)
+        {
+            return s[index];
+        }
+
+        static int Length(const std::basic_string<T>& s)
+        {
+            return s.size();
         }
 
     public:

@@ -66,6 +66,7 @@ int readline_ex_tutorial()
 
 int key_available_tutorial()
 {
+    StringA::WriteLine(U8("key_available_tutorial enter."));
     const float sec = 0.05f;
     while (true)
     {
@@ -96,6 +97,7 @@ int init_deinit_console()
     StringA::InitConsole();
     StringA::SetCursorPosition(4, 2);
     StringA::WriteLine(U8("Hello World!"));
+    StringA::WriteLine(U8("press Enter continue..."));
     StringA::ReadLine();
     StringA::DeinitConsole();
     return 0;
@@ -118,8 +120,8 @@ int key_available_test()
 
 int main()
 {
-    key_available_tutorial();
-    return 0;
+    //key_available_tutorial();
+    //return 0;
 
     //tutorials:
     int r0 = init_deinit_console();
@@ -252,8 +254,21 @@ int main()
     //String::UTF8CharCount, output:7
     int count = System::String<char>::UTF8CharCount(U8("你好世界123"));
 
+    int version_major = SYSTEM_STRING_VERSION_MAJOR;
+    int version_minor = SYSTEM_STRING_VERSION_MINOR;
+    int version_patch = SYSTEM_STRING_VERSION_PATCH;
     int version = SYSTEM_STRING_VERSION;
+    std::string version_string = U8(SYSTEM_STRING_VERSION_STRING);
+    StringA::WriteLine(U8("String.hpp version_major:") + StringA::ToString(version_major));
+    StringA::WriteLine(U8("String.hpp version_minor:") + StringA::ToString(version_minor));
+    StringA::WriteLine(U8("String.hpp version_patch:") + StringA::ToString(version_patch));
+    StringA::WriteLine(U8("String.hpp version:") + StringA::ToString(version));
+    StringA::WriteLine(U8("String.hpp version_string:") + version_string);
     System::tstring s = StringT::Empty();
+    char string_chars = StringA::Chars("ABCDEFG", 5);
+    int string_length = StringA::Length("ABCDEFG");
+    StringA::WriteLine(U8("string_chars:") + StringA::ToString(string_chars));
+    StringA::WriteLine(U8("string_length:") + StringA::ToString(string_length));
     std::string clone = StringA::Clone("ABC123");
     int compare = StringA::Compare("a1", "1a");
     int compare2 = StringA::Compare("A1", "a1", System::StringComparison::IgnoreCase);
