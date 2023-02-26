@@ -40,47 +40,52 @@
 
     * [UTF-8, UTF-16, and UTF-32](https://stackoverflow.com/questions/496321/utf-8-utf-16-and-utf-32)
 
-1. SYSTEM_STRING_HPP
-
-    * [include guard](https://en.wikipedia.org/wiki/Include_guard)
-
-1. SYSTEM_STRING_VERSION
-
-    * [Semantic Versioning 2.0.0](https://semver.org/)
-
-1. SYSTEM_WINDOWS, SYSTEM_LINUX, SYSTEM_MACOS, SYSTEM_POSIX
-
-    * [WIN32, _WIN32](https://stackoverflow.com/questions/662084/whats-the-difference-between-the-win32-and-win32-defines-in-c)
-
-    * [Platform macros](https://stackoverflow.com/questions/4605842/how-to-identify-platform-compiler-from-preprocessor-macros)
-
-    * [macOS macros](https://stackoverflow.com/questions/2166483/which-macro-to-wrap-mac-os-x-specific-code-in-c-c)
-
-1. C++ version definition on Windows, Linux, macOS:
-
-    * [_MSVC_LANG](https://stackoverflow.com/questions/43639122/which-values-can-msvc-lang-have)
-
-    * [__cplusplus](https://stackoverflow.com/questions/2324658/how-to-determine-the-version-of-the-c-standard-used-by-the-compiler)
-
 1. char, wchar_t, char8_t, char16_t, char32_t
 
     * [char, wchar_t, char8_t, char16_t, char32_t](https://learn.microsoft.com/en-us/cpp/cpp/char-wchar-t-char16-t-char32-t?view=msvc-170)
 
-1. S, W, U16, U32
+1. String.hpp:
 
-    * [String and character literals (C++)](https://learn.microsoft.com/en-us/cpp/cpp/string-and-character-literals-cpp?view=msvc-170)
+    1. Comment
 
-1. U8
+        * [olcPixelGameEngine.h](https://github.com/OneLoneCoder/olcPixelGameEngine/blob/master/olcPixelGameEngine.h)
 
-    * [C++20 with u8, char8_t and std::string](https://stackoverflow.com/questions/56833000/c20-with-u8-char8-t-and-stdstring)
+    1. SYSTEM_STRING_HPP
 
-    * [How do I properly use std::string on UTF-8 in C++?](https://stackoverflow.com/questions/50403342/how-do-i-properly-use-stdstring-on-utf-8-in-c)
+        * [include guard](https://en.wikipedia.org/wiki/Include_guard)
 
-1. SYSTEM_STRING_SET_UTF8
+    1. SYSTEM_STRING_VERSION_MAJOR, SYSTEM_STRING_VERSION_MINOR, SYSTEM_STRING_VERSION_PATCH, SYSTEM_STRING_VERSION, SYSTEM_STRING_VERSION_STRING
 
-    * [execution_character_set pragma](https://learn.microsoft.com/en-us/cpp/preprocessor/execution-character-set?view=msvc-170)
+        * [Semantic Versioning 2.0.0](https://semver.org/)
 
-    * [/utf-8 (Set source and execution character sets to UTF-8)](https://learn.microsoft.com/en-us/cpp/build/reference/utf-8-set-source-and-executable-character-sets-to-utf-8?view=msvc-170)
+    1. SYSTEM_WINDOWS, SYSTEM_LINUX, SYSTEM_MACOS, SYSTEM_POSIX
+
+        * [WIN32, _WIN32](https://stackoverflow.com/questions/662084/whats-the-difference-between-the-win32-and-win32-defines-in-c)
+
+        * [Platform macros](https://stackoverflow.com/questions/4605842/how-to-identify-platform-compiler-from-preprocessor-macros)
+
+        * [macOS macros](https://stackoverflow.com/questions/2166483/which-macro-to-wrap-mac-os-x-specific-code-in-c-c)
+
+    1. SYSTEM_CXX, SYSTEM_CXX_11, SYSTEM_CXX_14, SYSTEM_CXX_17, SYSTEM_CXX_20 (C++ version definition on Windows, Linux, macOS)
+
+        * [_MSVC_LANG](https://stackoverflow.com/questions/43639122/which-values-can-msvc-lang-have)
+
+        * [__cplusplus](https://stackoverflow.com/questions/2324658/how-to-determine-the-version-of-the-c-standard-used-by-the-compiler)
+
+
+    1. S, W, U8c, U8s, U8, U8S, U16, U32, T, T8
+
+        * [String and character literals (C++)](https://learn.microsoft.com/en-us/cpp/cpp/string-and-character-literals-cpp?view=msvc-170)
+
+        * [C++20 with u8, char8_t and std::string](https://stackoverflow.com/questions/56833000/c20-with-u8-char8-t-and-stdstring)
+
+        * [How do I properly use std::string on UTF-8 in C++?](https://stackoverflow.com/questions/50403342/how-do-i-properly-use-stdstring-on-utf-8-in-c)
+
+    1. SYSTEM_STRING_SET_UTF8
+
+        * [execution_character_set pragma](https://learn.microsoft.com/en-us/cpp/preprocessor/execution-character-set?view=msvc-170)
+
+        * [/utf-8 (Set source and execution character sets to UTF-8)](https://learn.microsoft.com/en-us/cpp/build/reference/utf-8-set-source-and-executable-character-sets-to-utf-8?view=msvc-170)
 
 1. System::String class Functions:
 
