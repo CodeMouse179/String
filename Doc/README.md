@@ -72,6 +72,9 @@
 
         * [__cplusplus](https://stackoverflow.com/questions/2324658/how-to-determine-the-version-of-the-c-standard-used-by-the-compiler)
 
+    1. SYSTEM_STRING_ONLY
+
+    1. StringA, StringW, StringU8, String16, String32, StringT
 
     1. S, W, U8c, U8s, U8, U8S, U16, U32, T, T8
 
@@ -81,11 +84,21 @@
 
         * [How do I properly use std::string on UTF-8 in C++?](https://stackoverflow.com/questions/50403342/how-do-i-properly-use-stdstring-on-utf-8-in-c)
 
+        * [Is the u8 string literal necessary in C++11](https://stackoverflow.com/questions/13444930/is-the-u8-string-literal-necessary-in-c11)
+
     1. SYSTEM_STRING_SET_UTF8
 
         * [execution_character_set pragma](https://learn.microsoft.com/en-us/cpp/preprocessor/execution-character-set?view=msvc-170)
 
         * [/utf-8 (Set source and execution character sets to UTF-8)](https://learn.microsoft.com/en-us/cpp/build/reference/utf-8-set-source-and-executable-character-sets-to-utf-8?view=msvc-170)
+
+    1. TRUE_STRING, FALSE_STRING
+
+    1. SYSTEM_STRING_INPUT_BUFFER_SIZE
+
+    1. SYSTEM_STRING_CONSOLE
+
+    1. ESC
 
 1. System::String class Functions:
 
