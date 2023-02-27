@@ -1,8 +1,10 @@
 # String 1.32.0
 
-[README-中文](https://github.com/CodeMouse179/String/blob/main/Doc/README_CN.md)
+[README - 中文](https://github.com/CodeMouse179/String/blob/main/Doc/README_CN.md)
 
-System.String in C++
+## System.String in C++
+
+API Family : [System](https://github.com/CodeMouse179/System)
 
 Platform : Windows, Linux, macOS
 
