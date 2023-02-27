@@ -8,7 +8,7 @@ Platform : Windows, Linux, macOS
 
 C++ Minimum required version : C++ 11
 
-### Introduce
+## Introduce
 
 String.hpp is a System.String (C#) implemented in C++. The purpose is to provide C++ programmers with convenient and reliable string manipulation functions.
 
@@ -20,17 +20,17 @@ String.hpp is distributed as a single header file and it is very simple to use:
 
 2. #include "String.hpp"
 
-### Compile and Run Example
+## Compile and Run Example
 
 Windows : Open String.sln with VisualStudio and click Windows Debugger
 
 Linux, macOS : cmake . && make && ./ss
 
-### Documentation
+## Documentation
 
 [Documentation](https://github.com/CodeMouse179/String/blob/main/Doc/README.md)
 
-### Macros
+## Macros
 
 Header infomation macros:
 
@@ -76,7 +76,7 @@ You can define these macros before include String.hpp:
 
     SYSTEM_STRING_CONSOLE(Enable console functions)
 
-### String API Tutorial
+## String API Tutorial
 
 Include String.hpp:
 
@@ -102,7 +102,7 @@ String::Split example:
 std::vector<std::string> split1 = StringA::Split("1 2 3", ' ');
 ```
 
-### Console API Tutorial
+## Console API Tutorial
 
 Enable console function support:
 
@@ -112,7 +112,7 @@ Enable console function support:
 using namespace System; //optional
 ```
 
-### Example 1
+## Example 1
 
 ``` cpp
 //(Optional) Only valid for Windows, let runtime strings be encoded in UTF-8 format
@@ -149,7 +149,7 @@ int main()
 }
 ```
 
-### Example 2
+## Example 2
 
 ``` cpp
     //String::Format, output:"Anna is your Wife."
