@@ -12,11 +12,15 @@ C++ Minimum required version : C++ 11
 
 ## Introduce
 
-String.hpp is a System.String (C#) implemented in C++. The purpose is to provide C++ programmers with convenient and reliable string manipulation functions.
+String.hpp is a System.String (C#) implemented in C++. 
+
+The purpose is to provide C++ programmers with convenient and reliable string manipulation functions.
 
 It supports multiple character types by manipulating std::basic_string: char, wchar_t, char8_t, char16_t , char32_t.
 
-String.hpp is distributed as a single header file and it is very simple to use:
+## Install
+
+String.hpp is distributed as a single header file so it's easy to install, just follow 2 steps:
 
 1. Copy String.hpp into your project
 
