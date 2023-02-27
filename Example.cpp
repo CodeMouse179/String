@@ -298,6 +298,10 @@ int main()
     int index22 = StringA::IndexOf("ABCDEFG", 'd', System::StringComparison::IgnoreCase);
     int index222 = StringA::IndexOf("ABCDEFG", 'd', System::StringComparison::None);
     std::string insert_str = StringA::Insert("ABCDEFG", 4, "OPQ");
+    bool isNullOrEmpty = StringA::IsNullOrEmpty("");
+    bool isNullOrWhiteSpace = StringA::IsNullOrWhiteSpace("  ");
+    StringA::WriteLine(U8("isNullOrEmpty:") + StringA::ToString(isNullOrEmpty));
+    StringA::WriteLine(U8("isNullOrWhiteSpace:") + StringA::ToString(isNullOrWhiteSpace));
     std::string join_str1 = StringA::Join(" ", { "A", "B", "C", "D" });
     std::string join_str2 = StringA::Join(' ', { "A", "B", "C", "D" });
     int index3 = StringA::LastIndexOf("654321", "1");
@@ -306,6 +310,12 @@ int main()
     int index333 = StringA::LastIndexOf("ABCDEFG", "b", System::StringComparison::None);
     int index44 = StringA::LastIndexOf("ABCDEFG", 'b', System::StringComparison::IgnoreCase);
     int index444 = StringA::LastIndexOf("ABCDEFG", 'b', System::StringComparison::None);
+    //pad left:
+    std::string padLeft1 = StringA::PadLeft("1", 10, 'a');
+    StringA::WriteLine(U8("padLeft1 :") + padLeft1);
+    //pad right:
+    std::string padRight1 = StringA::PadRight("1", 10, 'a');
+    StringA::WriteLine(U8("padRight1:") + padRight1);
     std::string remove1 = StringA::Remove("ABCDEFG", 2);
     std::string remove2 = StringA::Remove("ABCDEFG", 2, 3);
     std::string replace1 = StringA::Replace("ABCD", "C", "");

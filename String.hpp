@@ -1,7 +1,7 @@
 ﻿//      +--------------------------------------------------------------------------------+
-//      |                                  String v1.31.0                                |
+//      |                                  String v1.32.0                                |
 //      |  Introduction : System.String in C++                                           |
-//      |  Modified Date : 2023/2/25                                                     |
+//      |  Modified Date : 2023/2/27                                                     |
 //      |  License : MIT                                                                 |
 //      |  Source Code : https://github.com/CodeMouse179/String                          |
 //      |  Readme : https://github.com/CodeMouse179/String/blob/main/README.md           |
@@ -18,10 +18,10 @@
 //Versioning refer to Semantic Versioning 2.0.0 : https://semver.org
 
 #define SYSTEM_STRING_VERSION_MAJOR 1
-#define SYSTEM_STRING_VERSION_MINOR 31
+#define SYSTEM_STRING_VERSION_MINOR 32
 #define SYSTEM_STRING_VERSION_PATCH 0
 #define SYSTEM_STRING_VERSION (SYSTEM_STRING_VERSION_MAJOR << 16 | SYSTEM_STRING_VERSION_MINOR << 8 | SYSTEM_STRING_VERSION_PATCH)
-#define SYSTEM_STRING_VERSION_STRING "1.31.0"
+#define SYSTEM_STRING_VERSION_STRING "1.32.0"
 
 //Windows Platform:
 #ifdef _WIN32
@@ -657,6 +657,22 @@ namespace System
             return part1 + value + part2;
         }
 
+        static bool IsNullOrEmpty(const std::basic_string<T>& value)
+        {
+            if (value.empty()) return true;
+            return false;
+        }
+
+        static bool IsNullOrWhiteSpace(const std::basic_string<T>& value)
+        {
+            if (value.empty()) return true;
+            for (int i = 0; i < value.size(); i++)
+            {
+                if (value[i] != (T)' ') return false;
+            }
+            return true;
+        }
+
         static std::basic_string<T> Join(const std::basic_string<T>& separator, const std::vector<std::basic_string<T>>& values)
         {
             std::basic_string<T> str;
@@ -707,6 +723,38 @@ namespace System
             {
                 return String::LastIndexOf(s, value);
             }
+        }
+
+        static std::basic_string<T> PadLeft(const std::basic_string<T>& s, int totalWidth)
+        {
+            return String::PadLeft(s, totalWidth, (T)' ');
+        }
+
+        static std::basic_string<T> PadLeft(const std::basic_string<T>& s, int totalWidth, T paddingChar)
+        {
+            if (totalWidth <= s.size()) return s;
+            std::basic_string<T> str = s;
+            for (int i = 0; i < totalWidth - s.size(); i++)
+            {
+                str.insert(0, 1, paddingChar);
+            }
+            return str;
+        }
+
+        static std::basic_string<T> PadRight(const std::basic_string<T>& s, int totalWidth)
+        {
+            return String::PadRight(s, totalWidth, (T)' ');
+        }
+
+        static std::basic_string<T> PadRight(const std::basic_string<T>& s, int totalWidth, T paddingChar)
+        {
+            if (totalWidth <= s.size()) return s;
+            std::basic_string<T> str = s;
+            for (int i = 0; i < totalWidth - s.size(); i++)
+            {
+                str.insert(str.size(), 1, paddingChar);
+            }
+            return str;
         }
 
         static std::basic_string<T> Remove(const std::basic_string<T>& s, int startIndex)
