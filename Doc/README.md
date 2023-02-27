@@ -1,4 +1,4 @@
-# String 1.30.0 Documentation
+# String 1.32.0 Documentation
 
 1. Encoding wiki:
 
@@ -104,6 +104,10 @@
 
     1. System::String::Empty
 
+    1. System::String::Chars
+
+    1. System::String::Length
+
     1. System::String::Clone
 
     1. System::String::Compare
@@ -140,9 +144,21 @@
 
     1. System::String::Insert
 
+    1. System::String::IsNullOrEmpty
+
+    1. System::String::IsNullOrWhiteSpace
+
     1. System::String::Join
 
     1. System::String::LastIndexOf
+
+    1. System::String::PadLeft
+
+        * [C++: insert char to a string](https://stackoverflow.com/questions/3223302/c-insert-char-to-a-string)
+
+    1. System::String::PadRight
+
+        * [C++: insert char to a string](https://stackoverflow.com/questions/3223302/c-insert-char-to-a-string)
 
     1. System::String::Remove
 

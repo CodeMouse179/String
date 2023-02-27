@@ -1,8 +1,6 @@
 # String 1.32.0
 
-[中文](https://github.com/CodeMouse179/String/blob/main/Doc/README_CN.md)
-
-[Reference](https://github.com/CodeMouse179/String/blob/main/Doc/README.md)
+[README-中文](https://github.com/CodeMouse179/String/blob/main/Doc/README_CN.md)
 
 System.String in C++
 
@@ -27,6 +25,10 @@ String.hpp is distributed as a single header file and it is very simple to use:
 Windows : Open String.sln with VisualStudio and click Windows Debugger
 
 Linux, macOS : cmake . && make && ./ss
+
+### Documentation
+
+[Documentation](https://github.com/CodeMouse179/String/blob/main/Doc/README.md)
 
 ### Macros
 
