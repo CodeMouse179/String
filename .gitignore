@@ -397,13 +397,6 @@ FodyWeavers.xsd
 # JetBrains Rider
 *.sln.iml
 
-# String
-/String.exe
-/String.pdb
-
-# ss(System.String)
-/ss
-
 # CMake
 CMakeLists.txt.user
 CMakeCache.txt
@@ -419,3 +412,19 @@ _deps
 
 ## .DS_Store(macOS)
 .DS_Store
+
+# String(System.String - Windows)
+/String.exe
+/String.pdb
+
+# ss(System.String - POSIX)
+/ss
+
+## CMake Generated Files(Visual Studio Project)
+/ALL_BUILD.vcxproj
+/ALL_BUILD.vcxproj.filters
+/ZERO_CHECK.vcxproj
+/ZERO_CHECK.vcxproj.filters
+/ss.vcxproj
+/ss.vcxproj.filters
+/SystemString.sln
