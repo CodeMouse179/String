@@ -12,10 +12,10 @@
 void wait(float second)
 {
 #ifdef SYSTEM_WINDOWS
-        Sleep(second * 1000);
+    Sleep(second * 1000);
 #endif
 #ifdef SYSTEM_POSIX
-        usleep(second * 1000 * 1000);
+    usleep(second * 1000 * 1000);
 #endif
 }
 

@@ -2,6 +2,18 @@
 
 ## History
 
+### 1.32.0
+
+Release Date : 2023/2/27
+
+Added : String::IsNullOrEmpty(function), String::IsNullOrWhiteSpace(function), String::PadLeft(function), String::PadRight(function)
+
+### 1.31.0
+
+Release Date : 2023/2/25
+
+Added : String::Chars(function), String::Length(function)
+
 ### 1.30.0
 
 Release Date : 2023/2/18
