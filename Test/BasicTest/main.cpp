@@ -5,6 +5,17 @@
 #include "../../String.hpp"
 #endif
 using namespace System;
+
+void wait(float second)
+{
+#ifdef SYSTEM_WINDOWS
+    Sleep(second * 1000);
+#endif
+#ifdef SYSTEM_POSIX
+    usleep(second * 1000 * 1000);
+#endif
+}
+
 int main()
 {
     StringA::WriteLine(U8("BasicTest"));
@@ -20,7 +31,7 @@ int main()
                 break;
             }
         }
-        usleep(sec * 1000 * 1000);
+        wait(sec);
     }
     return 0;
 }
