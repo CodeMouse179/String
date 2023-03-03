@@ -283,9 +283,13 @@ int main()
     std::string con3 = StringA::Concat("A1", "B2", "C3", "D4", "E5", "F6", "G7");
     bool contains = StringA::Contains("ABC123", "C12");
     bool contains2 = StringA::Contains("ABC123", "c12", System::StringComparison::IgnoreCase);
+    bool contains3 = StringA::Contains("ABC123", 'a');
+    bool contains4 = StringA::Contains("ABC123", 'a', System::StringComparison::IgnoreCase);
     std::string copy = StringA::Copy("ABCD你好呀");
     bool endWith1 = StringA::EndsWith("ABCDEFG", "EFg");
     bool endWith2 = StringA::EndsWith("ABCDEFG", "EFg", System::StringComparison::IgnoreCase);
+    bool endWith3 = StringA::EndsWith("ABCDEFG",'g');
+    bool endWith4 = StringA::EndsWith("ABCDEFG",'g', System::StringComparison::IgnoreCase);
     bool eq1 = StringA::Equals("abc", "ABC");
     bool eq2 = StringA::Equals("abc", "ABC", System::StringComparison::IgnoreCase);
     std::string format = StringA::Format("{0} name is {1}.", "My", "ABC");

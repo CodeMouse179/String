@@ -1,5 +1,5 @@
 ﻿//      +--------------------------------------------------------------------------------+
-//      |                                  String v1.33.0                                |
+//      |                                  String v1.33.1                                |
 //      |  Introduction : System.String in C++                                           |
 //      |  Modified Date : 2023/3/3                                                     |
 //      |  License : MIT                                                                 |
@@ -19,9 +19,9 @@
 
 #define SYSTEM_STRING_VERSION_MAJOR 1
 #define SYSTEM_STRING_VERSION_MINOR 33
-#define SYSTEM_STRING_VERSION_PATCH 0
+#define SYSTEM_STRING_VERSION_PATCH 1
 #define SYSTEM_STRING_VERSION (SYSTEM_STRING_VERSION_MAJOR << 16 | SYSTEM_STRING_VERSION_MINOR << 8 | SYSTEM_STRING_VERSION_PATCH)
-#define SYSTEM_STRING_VERSION_STRING "1.33.0"
+#define SYSTEM_STRING_VERSION_STRING "1.33.1"
 
 //Windows Platform:
 #ifdef _WIN32
@@ -565,7 +565,7 @@ namespace System
 
         static bool EndsWith(const std::basic_string<T>& s, T value)
         {
-            if (s.empty() && value.empty()) return true;
+            if (s.empty() && value == 0) return true;
             if (s.empty()) return false;
             return s[s.size() - 1] == value;
         }
