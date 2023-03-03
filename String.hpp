@@ -1,7 +1,7 @@
 ﻿//      +--------------------------------------------------------------------------------+
-//      |                                  String v1.32.0                                |
+//      |                                  String v1.33.0                                |
 //      |  Introduction : System.String in C++                                           |
-//      |  Modified Date : 2023/2/27                                                     |
+//      |  Modified Date : 2023/3/3                                                     |
 //      |  License : MIT                                                                 |
 //      |  Source Code : https://github.com/CodeMouse179/String                          |
 //      |  Readme : https://github.com/CodeMouse179/String/blob/main/README.md           |
@@ -18,10 +18,10 @@
 //Versioning refer to Semantic Versioning 2.0.0 : https://semver.org
 
 #define SYSTEM_STRING_VERSION_MAJOR 1
-#define SYSTEM_STRING_VERSION_MINOR 32
+#define SYSTEM_STRING_VERSION_MINOR 33
 #define SYSTEM_STRING_VERSION_PATCH 0
 #define SYSTEM_STRING_VERSION (SYSTEM_STRING_VERSION_MAJOR << 16 | SYSTEM_STRING_VERSION_MINOR << 8 | SYSTEM_STRING_VERSION_PATCH)
-#define SYSTEM_STRING_VERSION_STRING "1.32.0"
+#define SYSTEM_STRING_VERSION_STRING "1.33.0"
 
 //Windows Platform:
 #ifdef _WIN32
