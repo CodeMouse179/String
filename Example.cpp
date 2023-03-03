@@ -272,6 +272,8 @@ int main()
     std::string clone = StringA::Clone("ABC123");
     int compare = StringA::Compare("a1", "1a");
     int compare2 = StringA::Compare("A1", "a1", System::StringComparison::IgnoreCase);
+    int compare3 = StringA::Compare("A1", "a1", true);
+    StringA::WriteLine(U8("compare3:") + StringA::ToString(compare3));
     std::string con = StringA::Concat("ABC", "123");
     std::vector<std::string> values;
     values.push_back("A1");

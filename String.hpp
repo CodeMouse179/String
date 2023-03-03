@@ -455,6 +455,18 @@ namespace System
             return strA.compare(strB);
         }
 
+        static int Compare(const std::basic_string<T>& strA, const std::basic_string<T>& strB, bool ignoreCase)
+        {
+            if (ignoreCase)
+            {
+                return String::Compare(strA, strB, StringComparison::IgnoreCase);
+            }
+            else
+            {
+                return String::Compare(strA, strB);
+            }
+        }
+
         static int Compare(const std::basic_string<T>& strA, const std::basic_string<T>& strB, System::StringComparison comparisonType)
         {
             if (comparisonType == System::StringComparison::IgnoreCase)
@@ -470,6 +482,16 @@ namespace System
         static std::basic_string<T> Concat(const std::basic_string<T>& str0, const std::basic_string<T>& str1)
         {
             return str0 + str1;
+        }
+
+        static std::basic_string<T> Concat(const std::basic_string<T>& str0, const std::basic_string<T>& str1, const std::basic_string<T>& str2)
+        {
+            return str0 + str1 + str2;
+        }
+
+        static std::basic_string<T> Concat(const std::basic_string<T>& str0, const std::basic_string<T>& str1, const std::basic_string<T>& str2, const std::basic_string<T>& str3)
+        {
+            return str0 + str1 + str2 + str3;
         }
 
         static std::basic_string<T> Concat(const std::vector<std::basic_string<T>>& values)
@@ -496,7 +518,24 @@ namespace System
             return s.find(value) != std::string::npos;
         }
 
+        static bool Contains(const std::basic_string<T>& s, T value)
+        {
+            return s.find(value) != std::string::npos;
+        }
+
         static bool Contains(const std::basic_string<T>& s, const std::basic_string<T>& value, System::StringComparison comparisonType)
+        {
+            if (comparisonType == System::StringComparison::IgnoreCase)
+            {
+                return String::Contains(String::ToLower(s), String::ToLower(value));
+            }
+            else
+            {
+                return String::Contains(s, value);
+            }
+        }
+
+        static bool Contains(const std::basic_string<T>& s, T value, System::StringComparison comparisonType)
         {
             if (comparisonType == System::StringComparison::IgnoreCase)
             {
@@ -524,6 +563,13 @@ namespace System
             return true;
         }
 
+        static bool EndsWith(const std::basic_string<T>& s, T value)
+        {
+            if (s.empty() && value.empty()) return true;
+            if (s.empty()) return false;
+            return s[s.size() - 1] == value;
+        }
+
         static bool EndsWith(const std::basic_string<T>& s, const std::basic_string<T>& value, System::StringComparison comparisonType)
         {
             if (comparisonType == System::StringComparison::IgnoreCase)
@@ -534,6 +580,18 @@ namespace System
                     if (String::ToLower(s[i]) != String::ToLower(value[j])) return false;
                 }
                 return true;
+            }
+            else
+            {
+                return String::EndsWith(s, value);
+            }
+        }
+
+        static bool EndsWith(const std::basic_string<T>& s, T value, System::StringComparison comparisonType)
+        {
+            if (comparisonType == System::StringComparison::IgnoreCase)
+            {
+                return String::EndsWith(String::ToLower(s), String::ToLower(value));
             }
             else
             {
