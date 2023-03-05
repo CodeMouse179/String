@@ -366,7 +366,15 @@
 
         * System::String::WindowWidth
 
+            * [Getting terminal width in C?](https://stackoverflow.com/questions/1022957/getting-terminal-width-in-c)
+
+            * [What is termios.TIOCGWINSZ](https://stackoverflow.com/questions/16237137/what-is-termios-tiocgwinsz)
+
         * System::String::WindowHeight
+
+            * [Getting terminal width in C?](https://stackoverflow.com/questions/1022957/getting-terminal-width-in-c)
+
+            * [What is termios.TIOCGWINSZ](https://stackoverflow.com/questions/16237137/what-is-termios-tiocgwinsz)
 
     1. Extension Console Function 1:
 
