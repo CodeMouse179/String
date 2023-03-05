@@ -2,6 +2,32 @@
 
 ## History
 
+### 1.34.0
+
+Release Date : 2023/3/5
+
+Added : SYSTEM_CXX_20(new detection), String::Insert(overload), String::ReplaceLineEndings, String::StartsWith(overload)
+
+Fixed : String::InitConsole(Windows), String::DeinitConsole(Windows), String::SetCursorPosition(Windows), String::WindowWidth(Windows), String::WindowHeight(Windows)
+
+### 1.33.1
+
+Release Date : 2023/3/3
+
+Fixed : String::EndsWith
+
+### 1.33.0-fix
+
+Release Date : 2023/3/3
+
+Changed : comment, SYSTEM_STRING_VERSION_MINOR, SYSTEM_STRING_VERSION_STRING
+
+### 1.33.0
+
+Release Date : 2023/3/3
+
+Added : String::Compare(overload), String::Concat(overload), String::Contains(overload), String::EndsWith(overload)
+
 ### 1.32.0
 
 Release Date : 2023/2/27
