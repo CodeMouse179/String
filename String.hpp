@@ -1,7 +1,7 @@
 ﻿//      +--------------------------------------------------------------------------------+
-//      |                                  String v1.33.1                                |
+//      |                                  String v1.34.0                                |
 //      |  Introduction : System.String in C++                                           |
-//      |  Modified Date : 2023/3/3                                                     |
+//      |  Modified Date : 2023/3/5                                                      |
 //      |  License : MIT                                                                 |
 //      |  Source Code : https://github.com/CodeMouse179/String                          |
 //      |  Readme : https://github.com/CodeMouse179/String/blob/main/README.md           |
@@ -18,10 +18,10 @@
 //Versioning refer to Semantic Versioning 2.0.0 : https://semver.org
 
 #define SYSTEM_STRING_VERSION_MAJOR 1
-#define SYSTEM_STRING_VERSION_MINOR 33
-#define SYSTEM_STRING_VERSION_PATCH 1
+#define SYSTEM_STRING_VERSION_MINOR 34
+#define SYSTEM_STRING_VERSION_PATCH 0
 #define SYSTEM_STRING_VERSION (SYSTEM_STRING_VERSION_MAJOR << 16 | SYSTEM_STRING_VERSION_MINOR << 8 | SYSTEM_STRING_VERSION_PATCH)
-#define SYSTEM_STRING_VERSION_STRING "1.33.1"
+#define SYSTEM_STRING_VERSION_STRING "1.34.0"
 
 //Windows Platform:
 #ifdef _WIN32
@@ -87,7 +87,7 @@
 #define SYSTEM_CXX 1
 #endif
 
-//CXX version define:
+//C++ Version Definition(Windows):
 #ifdef SYSTEM_WINDOWS
 #if (_MSVC_LANG >= 201103L)
 #define SYSTEM_CXX_11 1
@@ -98,8 +98,13 @@
 #if (_MSVC_LANG >= 201703L)
 #define SYSTEM_CXX_17 1
 #endif
+#if (_MSVC_LANG >= 202002L)
+#define SYSTEM_CXX_20 1
 #endif
-#if defined(SYSTEM_LINUX) || defined(SYSTEM_MACOS)
+#endif
+
+//C++ Version Definition(POSIX):
+#ifdef SYSTEM_POSIX
 #if (__cplusplus >= 201103L)
 #define SYSTEM_CXX_11 1
 #endif
@@ -108,6 +113,9 @@
 #endif
 #if (__cplusplus >= 201703L)
 #define SYSTEM_CXX_17 1
+#endif
+#if (__cplusplus >= 202002L)
+#define SYSTEM_CXX_20 1
 #endif
 #endif
 
@@ -715,6 +723,16 @@ namespace System
             return part1 + value + part2;
         }
 
+        //EXTRA:
+        static std::basic_string<T> Insert(const std::basic_string<T>& s, int startIndex, T value)
+        {
+            if (startIndex < 0 || startIndex > s.size()) return s;
+            if (startIndex == s.size()) return s + value;
+            std::basic_string<T> part1 = String::Substring(s, 0, startIndex);
+            std::basic_string<T> part2 = String::Substring(s, startIndex);
+            return part1 + value + part2;
+        }
+
         static bool IsNullOrEmpty(const std::basic_string<T>& value)
         {
             if (value.empty()) return true;
@@ -910,6 +928,64 @@ namespace System
             }
         }
 
+        static std::basic_string<T> ReplaceLineEndings(const std::basic_string<T>& s)
+        {
+            std::basic_string<T> str;
+#ifdef SYSTEM_WINDOWS
+            for (int i = 0; i < s.size(); i++)
+            {
+                //POSIX NewLine => Windows NewLine:
+                if (s[i] == (T)'\n')
+                {
+                    //It's Windows NewLine!
+                    if (i - 1 >= 0 && s[i - 1] == (T)'\r')
+                    {
+                        str += s[i];
+                    }
+                    else
+                    {
+                        str += (T)'\r';
+                        str += (T)'\n';
+                    }
+                }
+                else
+                {
+                    str += s[i];
+                }
+            }
+#endif
+#ifdef SYSTEM_POSIX
+            for (int i = 0; i < s.size(); i++)
+            {
+                //Windows NewLine => POSIX NewLine:
+                if (s[i] == (T)'\r')
+                {
+                    //It's Windows NewLine!
+                    if (i + 1 < s.size() && s[i + 1] == (T)'\n')
+                    {
+                        str += (T)'\n';
+                    }
+                    else
+                    {
+                        str += s[i];
+                    }
+                }
+                else
+                {
+                    str += s[i];
+                }
+            }
+#endif
+            return str;
+        }
+
+        static std::basic_string<T> ReplaceLineEndings(const std::basic_string<T>& s, const std::basic_string<T>& replacementText)
+        {
+            std::basic_string<T> str;
+            //TODO
+            return str;
+        }
+
 #ifndef SYSTEM_STRING_ONLY
         static std::string Reverse(const std::string& s)
         {
@@ -1030,6 +1106,13 @@ namespace System
             return true;
         }
 
+        static bool StartsWith(const std::basic_string<T>& s, T value)
+        {
+            if (s.empty() && value == 0) return true;
+            if (s.empty()) return false;
+            return s[0] == value;
+        }
+
         static bool StartsWith(const std::basic_string<T>& s, const std::basic_string<T>& value, System::StringComparison comparisonType)
         {
             if (comparisonType == System::StringComparison::IgnoreCase)
@@ -1040,6 +1123,18 @@ namespace System
                     if (String::ToLower(s[i]) != String::ToLower(value[i])) return false;
                 }
                 return true;
+            }
+            else
+            {
+                return String::StartsWith(s, value);
+            }
+        }
+
+        static bool StartsWith(const std::basic_string<T>& s, T value, System::StringComparison comparisonType)
+        {
+            if (comparisonType == System::StringComparison::IgnoreCase)
+            {
+                return String::StartsWith(String::ToLower(s), String::ToLower(value));
             }
             else
             {
@@ -2284,7 +2379,7 @@ namespace System
         static bool InitConsole()
         {
 #ifdef SYSTEM_WINDOWS
-            //TODO
+            return String::ConsoleSendCommand(U8("{0}[?1049h"), U8(ESC));
 #endif
 #ifdef SYSTEM_POSIX
             //For POSIX platform, string encoding is UTF-8 by default.
@@ -2296,7 +2391,7 @@ namespace System
         static bool DeinitConsole()
         {
 #ifdef SYSTEM_WINDOWS
-            //TODO
+            return String::ConsoleSendCommand(U8("{0}[?1049l"), U8(ESC));
 #endif
 #ifdef SYSTEM_POSIX
             //For POSIX platform, string encoding is UTF-8 by default.
@@ -2614,7 +2709,13 @@ namespace System
         static bool SetCursorPosition(int left, int top)
         {
 #ifdef SYSTEM_WINDOWS
-            //TODO
+            HANDLE stdOutputHandle = GetStdHandle(STD_OUTPUT_HANDLE);
+            if (stdOutputHandle == NULL) return false;
+            if (stdOutputHandle == INVALID_HANDLE_VALUE) return false;
+            COORD position;
+            position.X = left;
+            position.Y = top;
+            return SetConsoleCursorPosition(stdOutputHandle, position);
 #endif
 #ifdef SYSTEM_POSIX
             //For POSIX platform, string encoding is UTF-8 by default.
@@ -2654,7 +2755,14 @@ namespace System
         static int WindowWidth()
         {
 #ifdef SYSTEM_WINDOWS
-            //TODO
+            HANDLE stdOutputHandle = GetStdHandle(STD_OUTPUT_HANDLE);
+            if (stdOutputHandle == NULL) return 0;
+            if (stdOutputHandle == INVALID_HANDLE_VALUE) return 0;
+            CONSOLE_SCREEN_BUFFER_INFO csbi;
+            BOOL success = GetConsoleScreenBufferInfo(stdOutputHandle, &csbi);
+            if (!success) return 0;
+            int windowWidth = csbi.srWindow.Right - csbi.srWindow.Left + 1;
+            return windowWidth;
 #endif
 #ifdef SYSTEM_POSIX
             struct winsize window;
@@ -2668,7 +2776,14 @@ namespace System
         static int WindowHeight()
         {
 #ifdef SYSTEM_WINDOWS
-            //TODO
+            HANDLE stdOutputHandle = GetStdHandle(STD_OUTPUT_HANDLE);
+            if (stdOutputHandle == NULL) return 0;
+            if (stdOutputHandle == INVALID_HANDLE_VALUE) return 0;
+            CONSOLE_SCREEN_BUFFER_INFO csbi;
+            BOOL success = GetConsoleScreenBufferInfo(stdOutputHandle, &csbi);
+            if (!success) return 0;
+            int windowHeight = csbi.srWindow.Bottom - csbi.srWindow.Top + 1;
+            return windowHeight;
 #endif
 #ifdef SYSTEM_POSIX
             struct winsize window;

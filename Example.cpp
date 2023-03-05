@@ -303,7 +303,8 @@ int main()
     int index111 = StringA::IndexOf("ABCDEFG", "d", System::StringComparison::None);
     int index22 = StringA::IndexOf("ABCDEFG", 'd', System::StringComparison::IgnoreCase);
     int index222 = StringA::IndexOf("ABCDEFG", 'd', System::StringComparison::None);
-    std::string insert_str = StringA::Insert("ABCDEFG", 4, "OPQ");
+    std::string insert_str1 = StringA::Insert("ABCDEFG", 4, "OPQ");
+    std::string insert_str2 = StringA::Insert("ABCDEFG", 4, 'Q');
     bool isNullOrEmpty = StringA::IsNullOrEmpty("");
     bool isNullOrWhiteSpace = StringA::IsNullOrWhiteSpace("  ");
     StringA::WriteLine(U8("isNullOrEmpty:") + StringA::ToString(isNullOrEmpty));
@@ -330,6 +331,8 @@ int main()
     std::string replace4 = StringA::Replace("ABCD", "c", "", System::StringComparison::None);
     std::string replace33 = StringA::Replace("ABCD", 'c', 0, System::StringComparison::IgnoreCase);
     std::string replace44 = StringA::Replace("ABCD", 'c', 0, System::StringComparison::None);
+    std::string replaceLineEndings1 = StringA::ReplaceLineEndings("nihao, shijie\n!!!\n你好世界\n!!!");
+    std::string replaceLineEndings2 = StringA::ReplaceLineEndings("nihao, shijie\r\n!!!\r\n你好世界\r\n!!!");
     auto reversed_stra = StringA::Reverse(U8("你好世界"));
     auto reversed_stra2w = StringA::StringToWstring(reversed_stra, System::StringEncoding::UTF8);
     auto reversed_stra2 = StringA::Reverse(S("你好世界ABCD"));

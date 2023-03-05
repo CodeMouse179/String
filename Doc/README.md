@@ -1,4 +1,4 @@
-# String 1.33.1 Documentation
+# String 1.34.0 Documentation
 
 1. Encoding wiki:
 
@@ -165,6 +165,8 @@
     1. System::String::Replace
 
         * [Replace part of a string with another string](https://stackoverflow.com/questions/3418231/replace-part-of-a-string-with-another-string)
+
+    1. System::String::ReplaceLineEndings
 
     1. System::String::Reverse
 
