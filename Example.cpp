@@ -118,13 +118,20 @@ int key_available_test()
     return 0;
 }
 
+int readme_example()
+{
+    return 0;
+}
+
 int main()
 {
     //key_available_tutorial();
     //return 0;
 
     //tutorials:
-    int r0 = init_deinit_console();
+    //int r0 = init_deinit_console();
+
+    int readme_example_result = readme_example();
 
     int r1 = format_tutorial();
 
