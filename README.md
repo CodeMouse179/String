@@ -114,10 +114,10 @@ std::vector<std::string> split1 = StringA::Split("1 2 3", ' ');
 
 ## Console API Tutorial
 
-Enable console function support:
+Include String.hpp and enable console function support:
 
 ``` cpp
-#define SYSTEM_STRING_CONSOLE
+#define SYSTEM_STRING_CONSOLE //Enable console function support
 #include "String.hpp"
 using namespace System; //optional
 ```
