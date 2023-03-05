@@ -393,3 +393,5 @@
     * [字符编码笔记：ASCII，Unicode 和 UTF-8](https://www.ruanyifeng.com/blog/2007/10/ascii_unicode_and_utf-8.html)
 
     * [C++ 中的中文编码](https://sf-zhou.github.io/programming/chinese_encoding.html)
+
+    * [IBM AIX(UNIX)](https://www.ibm.com/docs/en/aix/7.3)
