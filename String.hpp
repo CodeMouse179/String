@@ -1,7 +1,7 @@
 ﻿//      +--------------------------------------------------------------------------------+
-//      |                                  String v1.34.0                                |
+//      |                                  String v1.35.0                                |
 //      |  Introduction : System.String in C++                                           |
-//      |  Modified Date : 2023/3/5                                                      |
+//      |  Modified Date : 2023/3/6                                                      |
 //      |  License : MIT                                                                 |
 //      |  Source Code : https://github.com/CodeMouse179/String                          |
 //      |  Readme : https://github.com/CodeMouse179/String/blob/main/README.md           |
@@ -18,10 +18,10 @@
 //Versioning refer to Semantic Versioning 2.0.0 : https://semver.org
 
 #define SYSTEM_STRING_VERSION_MAJOR 1
-#define SYSTEM_STRING_VERSION_MINOR 34
+#define SYSTEM_STRING_VERSION_MINOR 35
 #define SYSTEM_STRING_VERSION_PATCH 0
 #define SYSTEM_STRING_VERSION (SYSTEM_STRING_VERSION_MAJOR << 16 | SYSTEM_STRING_VERSION_MINOR << 8 | SYSTEM_STRING_VERSION_PATCH)
-#define SYSTEM_STRING_VERSION_STRING "1.34.0"
+#define SYSTEM_STRING_VERSION_STRING "1.35.0"
 
 //Windows Platform:
 #ifdef _WIN32
@@ -249,6 +249,10 @@
 
 #ifdef SYSTEM_STRING_CONSOLE
 #define ESC "\033"   //00011011 = 033 = 27 = 0x1b
+#endif
+
+#if defined(SYSTEM_STRING_CONSOLE) && !defined(SYSTEM_CONSOLE)
+#define Console StringA
 #endif
 
 namespace System
@@ -765,6 +769,32 @@ namespace System
         static std::basic_string<T> Join(T separator, const std::vector<std::basic_string<T>>& values)
         {
             return String::Join(String::ToString(separator), values);
+        }
+
+        template<typename... Types>
+        static std::basic_string<T> Join(const std::basic_string<T>& separator, Types... args)
+        {
+            std::basic_ostringstream<T> boss;
+#ifdef SYSTEM_CXX_17
+            (String::JoinHelper(boss, separator, args), ...); //C++17
+#else
+            int arr[] = { (String::JoinHelper(boss, separator, args), 0)... }; //C++11
+#endif
+            if (boss.str().empty()) return String::Empty();
+            return String::Substring(boss.str(), 0, boss.str().size() - separator.size());
+        }
+
+        template<typename... Types>
+        static std::basic_string<T> Join(T separator, Types... args)
+        {
+            std::basic_ostringstream<T> boss;
+#ifdef SYSTEM_CXX_17
+            (String::JoinHelper(boss, separator, args), ...); //C++17
+#else
+            int arr[] = { (String::JoinHelper(boss, separator, args), 0)... }; //C++11
+#endif
+            if (boss.str().empty()) return String::Empty();
+            return String::Substring(boss.str(), 0, boss.str().size() - 1);
         }
 
         static int LastIndexOf(const std::basic_string<T>& s, const std::basic_string<T>& value)
@@ -2378,26 +2408,37 @@ namespace System
 
         static bool InitConsole()
         {
+            bool init_success = true;
 #ifdef SYSTEM_WINDOWS
-            return String::ConsoleSendCommand(U8("{0}[?1049h"), U8(ESC));
+            //Maybe should support Legacy ConHost V1 on Windows.
 #endif
 #ifdef SYSTEM_POSIX
             //For POSIX platform, string encoding is UTF-8 by default.
-            return String::ConsoleSendCommand("{0}[?1049h", ESC);
 #endif
-            return false;
+            //enable alternate screen buffer:
+            bool send_cmd_success = String::ConsoleSendCommand(U8("{0}[?1049h"), U8(ESC));
+            //reset cursor position:
+            bool set_cursor_pos_success = String::SetCursorPosition(0, 0);
+            //return:
+            init_success &= send_cmd_success;
+            init_success &= set_cursor_pos_success;
+            return init_success;
         }
 
         static bool DeinitConsole()
         {
+            bool deinit_success = true;
 #ifdef SYSTEM_WINDOWS
-            return String::ConsoleSendCommand(U8("{0}[?1049l"), U8(ESC));
+            //Maybe should support Legacy ConHost V1 on Windows.
 #endif
 #ifdef SYSTEM_POSIX
             //For POSIX platform, string encoding is UTF-8 by default.
-            return String::ConsoleSendCommand("{0}[?1049l", ESC);
 #endif
-            return false;
+            //enable main screen buffer:
+            bool send_cmd_success = String::ConsoleSendCommand(U8("{0}[?1049l"), U8(ESC));
+            //return:
+            deinit_success &= send_cmd_success;
+            return deinit_success;
         }
 
     public: //Console Function 1:
@@ -2851,6 +2892,18 @@ namespace System
             if (closeBracket == std::string::npos) return;
             boss << s.substr(0, openBracket) << value;
             s = s.substr(closeBracket + 1);
+        }
+
+        template<typename Type>
+        static void JoinHelper(std::basic_ostringstream<T>& boss, const std::basic_string<T>& separator, const Type& value)
+        {
+            boss << value << separator;
+        }
+
+        template<typename Type>
+        static void JoinHelper(std::basic_ostringstream<T>& boss, T separator, const Type& value)
+        {
+            boss << value << separator;
         }
     };
 }

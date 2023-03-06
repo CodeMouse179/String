@@ -123,8 +123,23 @@ int readme_example()
     return 0;
 }
 
+int console_example()
+{
+    Console::InitConsole();
+    Console::WriteLine(U8("Console Example:"));
+    Console::ReadLine();
+    Console::DeinitConsole();
+    return 0;
+}
+
 int main()
 {
+    //Intro:
+    Console::WriteLine(U8("String.hpp ") + std::string(U8(SYSTEM_STRING_VERSION_STRING)), 255, 45, 145);
+
+    //console example:
+    console_example();
+
     //key_available_tutorial();
     //return 0;
 
@@ -318,6 +333,10 @@ int main()
     StringA::WriteLine(U8("isNullOrWhiteSpace:") + StringA::ToString(isNullOrWhiteSpace));
     std::string join_str1 = StringA::Join(" ", { "A", "B", "C", "D" });
     std::string join_str2 = StringA::Join(' ', { "A", "B", "C", "D" });
+    std::string join_str3 = StringA::Join("B", "M", 1);
+    std::string join_str4 = StringA::Join('B', 'M', 2);
+    Console::WriteLine("Join str:" + join_str3);
+    Console::WriteLine("Join chr:" + join_str4);
     int index3 = StringA::LastIndexOf("654321", "1");
     int index4 = StringA::LastIndexOf("654321", '1');
     int index33 = StringA::LastIndexOf("ABCDEFG", "b", System::StringComparison::IgnoreCase);
