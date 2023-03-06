@@ -100,337 +100,337 @@
 
     1. ESC
 
-1. System::tstring
+    1. System::tstring(typedef)
 
-1. System::tchar
+    1. System::tchar(typedef)
 
-1. System::u8str(typedef)
+    1. System::u8str(typedef)
 
-1. System::u8char(typedef)
+    1. System::u8char(typedef)
 
-1. System::StringComparison(enum class)
+    1. System::StringComparison(enum class)
 
-1. System::StringEncoding(enum class)
+    1. System::StringEncoding(enum class)
 
-1. System::UnicodeChar(struct)
+    1. System::UnicodeChar(struct)
 
-1. System::ASCIIChar(typedef)
+    1. System::ASCIIChar(typedef)
 
-1. System::UTF8Char(typedef)
+    1. System::UTF8Char(typedef)
 
-1. System::UTF16Char(typedef)
+    1. System::UTF16Char(typedef)
 
-1. System::UTF32Char(typedef)
+    1. System::UTF32Char(typedef)
 
-1. System::BuiltInConsole(class):
+    1. System::BuiltInConsole(class):
 
-    1. System::BuiltInConsole::Init
+        1. System::BuiltInConsole::Init
 
-    1. System::BuiltInConsole::IsInited
+        1. System::BuiltInConsole::IsInited
 
-    1. System::BuiltInConsole::Success
+        1. System::BuiltInConsole::Success
 
-    1. System::BuiltInConsole::NoProblem
+        1. System::BuiltInConsole::NoProblem
 
-    1. System::BuiltInConsole::ResetInput
+        1. System::BuiltInConsole::ResetInput
 
-    1. System::BuiltInConsole::Instance
+        1. System::BuiltInConsole::Instance
 
-1. System::BuiltInConsoleKey(struct):
+    1. System::BuiltInConsoleKey(struct):
 
-    1. System::BuiltInConsoleKey::CodePoint(Field)
+        1. System::BuiltInConsoleKey::CodePoint(Field)
 
-1. System::color(typedef)
+    1. System::color(typedef)
 
-1. System::String(class):
+    1. System::String(class):
 
-    1. System::String::Empty
+        1. System::String::Empty
 
-    1. System::String::Chars
+        1. System::String::Chars
 
-    1. System::String::Length
+        1. System::String::Length
 
-    1. System::String::Clone
+        1. System::String::Clone
 
-    1. System::String::Compare
+        1. System::String::Compare
 
-        * [compare](https://cplusplus.com/reference/string/string/compare/)
+            * [compare](https://cplusplus.com/reference/string/string/compare/)
 
-    1. System::String::Concat
+        1. System::String::Concat
 
-    1. System::String::Contains
+        1. System::String::Contains
 
-        * [find](https://cplusplus.com/reference/string/string/find/)
+            * [find](https://cplusplus.com/reference/string/string/find/)
 
-    1. System::String::Copy
+        1. System::String::Copy
 
-    1. System::String::EndsWith
+        1. System::String::EndsWith
 
-    1. System::String::Equals
+        1. System::String::Equals
 
-        * [Case-insensitive string comparison in C++](https://stackoverflow.com/questions/11635/case-insensitive-string-comparison-in-c)
+            * [Case-insensitive string comparison in C++](https://stackoverflow.com/questions/11635/case-insensitive-string-comparison-in-c)
 
-    1. System::String::Format
+        1. System::String::Format
 
-        * [Implementation in C++17 : Fold-expression version](https://codereview.stackexchange.com/questions/269425/implementing-stdformat)
+            * [Implementation in C++17 : Fold-expression version](https://codereview.stackexchange.com/questions/269425/implementing-stdformat)
 
-        * [Implementation in C++11](https://www.cnblogs.com/qicosmos/p/4325949.html)
+            * [Implementation in C++11](https://www.cnblogs.com/qicosmos/p/4325949.html)
 
-    1. System::String::GetHashCode
+        1. System::String::GetHashCode
 
-        * [BKDR Hash Function](https://byvoid.com/zhs/blog/string-hash-compare/)
+            * [BKDR Hash Function](https://byvoid.com/zhs/blog/string-hash-compare/)
 
-    1. System::String::GetTypeCode
+        1. System::String::GetTypeCode
 
-    1. System::String::IndexOf
+        1. System::String::IndexOf
 
-    1. System::String::Insert
+        1. System::String::Insert
 
-    1. System::String::IsNullOrEmpty
+        1. System::String::IsNullOrEmpty
 
-    1. System::String::IsNullOrWhiteSpace
+        1. System::String::IsNullOrWhiteSpace
 
-    1. System::String::Join
+        1. System::String::Join
 
-    1. System::String::LastIndexOf
+        1. System::String::LastIndexOf
 
-    1. System::String::PadLeft
+        1. System::String::PadLeft
 
-        * [C++: insert char to a string](https://stackoverflow.com/questions/3223302/c-insert-char-to-a-string)
+            * [C++: insert char to a string](https://stackoverflow.com/questions/3223302/c-insert-char-to-a-string)
 
-    1. System::String::PadRight
+        1. System::String::PadRight
 
-        * [C++: insert char to a string](https://stackoverflow.com/questions/3223302/c-insert-char-to-a-string)
+            * [C++: insert char to a string](https://stackoverflow.com/questions/3223302/c-insert-char-to-a-string)
 
-    1. System::String::Remove
+        1. System::String::Remove
 
-    1. System::String::Replace
+        1. System::String::Replace
 
-        * [Replace part of a string with another string](https://stackoverflow.com/questions/3418231/replace-part-of-a-string-with-another-string)
+            * [Replace part of a string with another string](https://stackoverflow.com/questions/3418231/replace-part-of-a-string-with-another-string)
 
-    1. System::String::ReplaceLineEndings
+        1. System::String::ReplaceLineEndings
 
-    1. System::String::Reverse
+        1. System::String::Reverse
 
-    1. System::String::Slice
+        1. System::String::Slice
 
-        * [Array.prototype.slice](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/slice)
+            * [Array.prototype.slice](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/slice)
 
-    1. System::String::Split
+        1. System::String::Split
 
-        * [Split string in C++](https://stackoverflow.com/questions/14265581/parse-split-a-string-in-c-using-string-delimiter-standard-c)
+            * [Split string in C++](https://stackoverflow.com/questions/14265581/parse-split-a-string-in-c-using-string-delimiter-standard-c)
 
-    1. System::String::StartsWith
+        1. System::String::StartsWith
 
-    1. System::String::Substring
+        1. System::String::Substring
 
-    1. System::String::ToBoolean
+        1. System::String::ToBoolean
 
-    1. System::String::ToCharArray
+        1. System::String::ToCharArray
 
-    1. System::String::ToInt32
+        1. System::String::ToInt32
 
-    1. System::String::ToLower
+        1. System::String::ToLower
 
-    1. System::String::ToString
+        1. System::String::ToString
 
-    1. System::String::ToUpper
+        1. System::String::ToUpper
 
-    1. System::String::Trim
+        1. System::String::Trim
 
-    1. System::String::TrimEnd
+        1. System::String::TrimEnd
 
-    1. System::String::TrimStart
+        1. System::String::TrimStart
 
-    1. Extra Convert Function 1:
+        1. Extra Convert Function 1:
 
-        * System::String::StringToWstring
+            * System::String::StringToWstring
 
-            * [MultiByteToWideChar](https://learn.microsoft.com/en-us/windows/win32/api/stringapiset/nf-stringapiset-multibytetowidechar)
+                * [MultiByteToWideChar](https://learn.microsoft.com/en-us/windows/win32/api/stringapiset/nf-stringapiset-multibytetowidechar)
 
-            * [How do I use MultiByteToWideChar?](https://stackoverflow.com/questions/6693010/how-do-i-use-multibytetowidechar)
+                * [How do I use MultiByteToWideChar?](https://stackoverflow.com/questions/6693010/how-do-i-use-multibytetowidechar)
 
-        * System::String::WstringToString
+            * System::String::WstringToString
 
-            * [WideCharToMultiByte](https://learn.microsoft.com/en-us/windows/win32/api/stringapiset/nf-stringapiset-widechartomultibyte)
+                * [WideCharToMultiByte](https://learn.microsoft.com/en-us/windows/win32/api/stringapiset/nf-stringapiset-widechartomultibyte)
 
-            * [How do you properly use WideCharToMultiByte](https://stackoverflow.com/questions/215963/how-do-you-properly-use-widechartomultibyte)
+                * [How do you properly use WideCharToMultiByte](https://stackoverflow.com/questions/215963/how-do-you-properly-use-widechartomultibyte)
 
-        * System::String::StringToWstring2
+            * System::String::StringToWstring2
 
-        * System::String::WstringToString2
+            * System::String::WstringToString2
 
-        * System::String::StringToU8string
+            * System::String::StringToU8string
 
-            * [C++20 with u8, char8_t and std::string](https://stackoverflow.com/questions/56833000/c20-with-u8-char8-t-and-stdstring)
+                * [C++20 with u8, char8_t and std::string](https://stackoverflow.com/questions/56833000/c20-with-u8-char8-t-and-stdstring)
 
-        * System::String::U8stringToString
+            * System::String::U8stringToString
 
-            * [C++20 with u8, char8_t and std::string](https://stackoverflow.com/questions/56833000/c20-with-u8-char8-t-and-stdstring)
+                * [C++20 with u8, char8_t and std::string](https://stackoverflow.com/questions/56833000/c20-with-u8-char8-t-and-stdstring)
 
-        * System::String::WstringToU16string
+            * System::String::WstringToU16string
 
-        * System::String::U16stringToWstring
+            * System::String::U16stringToWstring
 
-        * System::String::WstringToU32string
+            * System::String::WstringToU32string
 
-        * System::String::U32stringToWstring
+            * System::String::U32stringToWstring
 
-    1. Extra Convert Function 2:
+        1. Extra Convert Function 2:
 
-        * System::String::To_UTF8
+            * System::String::To_UTF8
 
-            * [std::u32string conversion to/from std::string and std::u16string](https://stackoverflow.com/questions/31302506/stdu32string-conversion-to-from-stdstring-and-stdu16string)
+                * [std::u32string conversion to/from std::string and std::u16string](https://stackoverflow.com/questions/31302506/stdu32string-conversion-to-from-stdstring-and-stdu16string)
 
-        * System::String::To_UTF16
+            * System::String::To_UTF16
 
-            * [std::u32string conversion to/from std::string and std::u16string](https://stackoverflow.com/questions/31302506/stdu32string-conversion-to-from-stdstring-and-stdu16string)
+                * [std::u32string conversion to/from std::string and std::u16string](https://stackoverflow.com/questions/31302506/stdu32string-conversion-to-from-stdstring-and-stdu16string)
 
-        * System::String::To_UTF32
+            * System::String::To_UTF32
 
-            * [std::u32string conversion to/from std::string and std::u16string](https://stackoverflow.com/questions/31302506/stdu32string-conversion-to-from-stdstring-and-stdu16string)
+                * [std::u32string conversion to/from std::string and std::u16string](https://stackoverflow.com/questions/31302506/stdu32string-conversion-to-from-stdstring-and-stdu16string)
 
-    1. Extra Convert Function 3:
+        1. Extra Convert Function 3:
 
-        * System::String::To_String
+            * System::String::To_String
 
-        * System::String::To_Wstring
+            * System::String::To_Wstring
 
-    1. Extra Convert Function 4:
+        1. Extra Convert Function 4:
 
-        * System::String::ConvertString
+            * System::String::ConvertString
 
-    1. Extra Util 1:
+        1. Extra Util 1:
 
-        * System::String::IsValidASCII
+            * System::String::IsValidASCII
 
-            * [How to find out if there is any non ASCII character in a string with a file path](https://stackoverflow.com/questions/48212992/how-to-find-out-if-there-is-any-non-ascii-character-in-a-string-with-a-file-path)
+                * [How to find out if there is any non ASCII character in a string with a file path](https://stackoverflow.com/questions/48212992/how-to-find-out-if-there-is-any-non-ascii-character-in-a-string-with-a-file-path)
 
-            * [ASCII](https://en.wikipedia.org/wiki/ASCII)
+                * [ASCII](https://en.wikipedia.org/wiki/ASCII)
 
-        * System::String::ASCIICharCount
+            * System::String::ASCIICharCount
 
-        * System::String::ASCIIToCharArray
+            * System::String::ASCIIToCharArray
 
-        * System::String::CodePointToASCII
+            * System::String::CodePointToASCII
 
-        * System::String::IsValidUTF32
+            * System::String::IsValidUTF32
 
-        * System::String::UTF32CharCount
+            * System::String::UTF32CharCount
 
-        * System::String::UTF32ToCharArray
+            * System::String::UTF32ToCharArray
 
-        * System::String::CodePointToUTF32
+            * System::String::CodePointToUTF32
 
-        * System::String::IsValidUTF8
+            * System::String::IsValidUTF8
 
-            * [How to easily detect utf8 encoding in the string?](https://stackoverflow.com/questions/28270310/how-to-easily-detect-utf8-encoding-in-the-string)
+                * [How to easily detect utf8 encoding in the string?](https://stackoverflow.com/questions/28270310/how-to-easily-detect-utf8-encoding-in-the-string)
 
-            * [UTF-8](https://en.wikipedia.org/wiki/UTF-8)
+                * [UTF-8](https://en.wikipedia.org/wiki/UTF-8)
 
-        * System::String::UTF8CharCount
+            * System::String::UTF8CharCount
 
-        * System::String::UTF8ToCharArray
+            * System::String::UTF8ToCharArray
 
-        * System::String::CodePointToUTF8
+            * System::String::CodePointToUTF8
 
-        * System::String::IsValidUTF16
+            * System::String::IsValidUTF16
 
-        * System::String::UTF16CharCount
+            * System::String::UTF16CharCount
 
-        * System::String::UTF16ToCharArray
+            * System::String::UTF16ToCharArray
 
-            * [How to map Unicode codepoints from an UTF-16 file using C](https://stackoverflow.com/questions/43564445/how-to-map-unicode-codepoints-from-an-utf-16-file-using-c)
+                * [How to map Unicode codepoints from an UTF-16 file using C](https://stackoverflow.com/questions/43564445/how-to-map-unicode-codepoints-from-an-utf-16-file-using-c)
 
-            * [Are wchar_t and char16_t the same thing on Windows?](https://stackoverflow.com/questions/53293159/are-wchar-t-and-char16-t-the-same-thing-on-windows)
+                * [Are wchar_t and char16_t the same thing on Windows?](https://stackoverflow.com/questions/53293159/are-wchar-t-and-char16-t-the-same-thing-on-windows)
 
-        * System::String::CodePointToUTF16
+            * System::String::CodePointToUTF16
 
-    1. Extra Util 2:
+        1. Extra Util 2:
 
-        * System::String::UTF16ToUTF16String
+            * System::String::UTF16ToUTF16String
 
-        * System::String::IsValidUTF16String
+            * System::String::IsValidUTF16String
 
-        * System::String::UTF16StringCharCount
+            * System::String::UTF16StringCharCount
 
-        * System::String::UTF16StringToCharArray
+            * System::String::UTF16StringToCharArray
 
-    1. Extra Util 3:
+        1. Extra Util 3:
 
-        * System::String::UTF32ToUTF32String
+            * System::String::UTF32ToUTF32String
 
-        * System::String::IsValidUTF32String
+            * System::String::IsValidUTF32String
 
-        * System::String::UTF32StringCharCount
+            * System::String::UTF32StringCharCount
 
-        * System::String::UTF32StringToCharArray
+            * System::String::UTF32StringToCharArray
 
-    1. Extra Function 1:
+        1. Extra Function 1:
 
-        * System::String::GetTrueString
+            * System::String::GetTrueString
 
-        * System::String::GetFalseString
+            * System::String::GetFalseString
 
-        * System::String::IsNumeric
+            * System::String::IsNumeric
 
-        * System::String::IsEmptyOrWhiteSpace
+            * System::String::IsEmptyOrWhiteSpace
 
-    1. Console Function 1:
+        1. Console Function 1:
 
-        * System::String::ConsoleSendCommand
+            * System::String::ConsoleSendCommand
 
-        * System::String::InitConsole
+            * System::String::InitConsole
 
-        * System::String::DeinitConsole
+            * System::String::DeinitConsole
 
-        * System::String::KeyAvailable
+            * System::String::KeyAvailable
 
-            * [Virtual-Key Codes](https://learn.microsoft.com/en-us/windows/win32/inputdev/virtual-key-codes)
+                * [Virtual-Key Codes](https://learn.microsoft.com/en-us/windows/win32/inputdev/virtual-key-codes)
 
-            * [Using kbhit() and getch() on Linux](https://stackoverflow.com/questions/29335758/using-kbhit-and-getch-on-linux)
+                * [Using kbhit() and getch() on Linux](https://stackoverflow.com/questions/29335758/using-kbhit-and-getch-on-linux)
 
-        * System::String::Read
+            * System::String::Read
 
-        * System::String::ReadKey
+            * System::String::ReadKey
 
-            * [What is the equivalent to getch() & getche() in Linux?](https://stackoverflow.com/questions/7469139/what-is-the-equivalent-to-getch-getche-in-linux)
+                * [What is the equivalent to getch() & getche() in Linux?](https://stackoverflow.com/questions/7469139/what-is-the-equivalent-to-getch-getche-in-linux)
 
-        * System::String::ReadLine
+            * System::String::ReadLine
 
-        * System::String::ReadLineEx
+            * System::String::ReadLineEx
 
-        * System::String::SetCursorPosition
+            * System::String::SetCursorPosition
 
-        * System::String::Write
+            * System::String::Write
 
-        * System::String::WriteLine
+            * System::String::WriteLine
 
-        * System::String::WindowWidth
+            * System::String::WindowWidth
 
-            * [Getting terminal width in C?](https://stackoverflow.com/questions/1022957/getting-terminal-width-in-c)
+                * [Getting terminal width in C?](https://stackoverflow.com/questions/1022957/getting-terminal-width-in-c)
 
-            * [What is termios.TIOCGWINSZ](https://stackoverflow.com/questions/16237137/what-is-termios-tiocgwinsz)
+                * [What is termios.TIOCGWINSZ](https://stackoverflow.com/questions/16237137/what-is-termios-tiocgwinsz)
 
-        * System::String::WindowHeight
+            * System::String::WindowHeight
 
-            * [Getting terminal width in C?](https://stackoverflow.com/questions/1022957/getting-terminal-width-in-c)
+                * [Getting terminal width in C?](https://stackoverflow.com/questions/1022957/getting-terminal-width-in-c)
 
-            * [What is termios.TIOCGWINSZ](https://stackoverflow.com/questions/16237137/what-is-termios-tiocgwinsz)
+                * [What is termios.TIOCGWINSZ](https://stackoverflow.com/questions/16237137/what-is-termios-tiocgwinsz)
 
-    1. Extension Console Function 1:
+        1. Extension Console Function 1:
 
-        * System::String::Write
+            * System::String::Write
 
-        * System::String::WriteLine
+            * System::String::WriteLine
 
-    1. private functions:
+        1. private functions:
 
-        * System::String::ConcatHelper
+            * System::String::ConcatHelper
 
-        * System::String::FormatHelper
-        
-        * System::String::JoinHelper
+            * System::String::FormatHelper
+
+            * System::String::JoinHelper
 
 1. Read
 
