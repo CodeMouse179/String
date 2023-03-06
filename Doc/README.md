@@ -100,7 +100,49 @@
 
     1. ESC
 
-1. System::String class Functions:
+1. System::tstring
+
+1. System::tchar
+
+1. System::u8str(typedef)
+
+1. System::u8char(typedef)
+
+1. System::StringComparison(enum class)
+
+1. System::StringEncoding(enum class)
+
+1. System::UnicodeChar(struct)
+
+1. System::ASCIIChar(typedef)
+
+1. System::UTF8Char(typedef)
+
+1. System::UTF16Char(typedef)
+
+1. System::UTF32Char(typedef)
+
+1. System::BuiltInConsole(class):
+
+    1. System::BuiltInConsole::Init
+
+    1. System::BuiltInConsole::IsInited
+
+    1. System::BuiltInConsole::Success
+
+    1. System::BuiltInConsole::NoProblem
+
+    1. System::BuiltInConsole::ResetInput
+
+    1. System::BuiltInConsole::Instance
+
+1. System::BuiltInConsoleKey(struct):
+
+    1. System::BuiltInConsoleKey::CodePoint(Field)
+
+1. System::color(typedef)
+
+1. System::String(class):
 
     1. System::String::Empty
 
@@ -342,8 +384,6 @@
 
         * System::String::DeinitConsole
 
-        * System::String::SetCursorPosition
-
         * System::String::KeyAvailable
 
             * [Virtual-Key Codes](https://learn.microsoft.com/en-us/windows/win32/inputdev/virtual-key-codes)
@@ -359,6 +399,8 @@
         * System::String::ReadLine
 
         * System::String::ReadLineEx
+
+        * System::String::SetCursorPosition
 
         * System::String::Write
 
@@ -381,6 +423,14 @@
         * System::String::Write
 
         * System::String::WriteLine
+
+    1. private functions:
+
+        * System::String::ConcatHelper
+
+        * System::String::FormatHelper
+        
+        * System::String::JoinHelper
 
 1. Read
 
