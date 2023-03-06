@@ -394,13 +394,15 @@
 
             * System::String::IsEmptyOrWhiteSpace
 
-        1. Console Function 1:
+        1. Console Function 0:
 
             * System::String::ConsoleSendCommand
 
             * System::String::InitConsole
 
             * System::String::DeinitConsole
+
+        1. Console Function 1:
 
             * System::String::KeyAvailable
 
