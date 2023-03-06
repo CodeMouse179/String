@@ -2,6 +2,14 @@
 
 ## History
 
+### 1.35.0
+
+Release Date : 2023/3/6
+
+Added : Console(macro), String::Join(overload), String::JoinHelper(private function)
+
+Changed : String::InitConsole, String::DeinitConsole
+
 ### 1.34.0
 
 Release Date : 2023/3/5
