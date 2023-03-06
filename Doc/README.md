@@ -54,7 +54,23 @@
 
         * [include guard](https://en.wikipedia.org/wiki/Include_guard)
 
-    1. SYSTEM_STRING_VERSION_MAJOR, SYSTEM_STRING_VERSION_MINOR, SYSTEM_STRING_VERSION_PATCH, SYSTEM_STRING_VERSION, SYSTEM_STRING_VERSION_STRING
+    1. SYSTEM_STRING_VERSION_MAJOR
+
+        * [Semantic Versioning 2.0.0](https://semver.org/)
+
+    1. SYSTEM_STRING_VERSION_MINOR
+
+        * [Semantic Versioning 2.0.0](https://semver.org/)
+
+    1. SYSTEM_STRING_VERSION_PATCH
+
+        * [Semantic Versioning 2.0.0](https://semver.org/)
+
+    1. SYSTEM_STRING_VERSION
+
+        * [Semantic Versioning 2.0.0](https://semver.org/)
+
+    1. SYSTEM_STRING_VERSION_STRING
 
         * [Semantic Versioning 2.0.0](https://semver.org/)
 
@@ -92,7 +108,9 @@
 
         * [/utf-8 (Set source and execution character sets to UTF-8)](https://learn.microsoft.com/en-us/cpp/build/reference/utf-8-set-source-and-executable-character-sets-to-utf-8?view=msvc-170)
 
-    1. TRUE_STRING, FALSE_STRING
+    1. TRUE_STRING
+    
+    1. FALSE_STRING
 
     1. SYSTEM_STRING_INPUT_BUFFER_SIZE
 
