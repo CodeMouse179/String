@@ -127,6 +127,7 @@ int console_example()
 {
     Console::InitConsole();
     Console::WriteLine(U8("Console Example:"));
+    Console::WriteLineU8(U8("你好世界😄"));
     Console::ReadLine();
     Console::DeinitConsole();
     return 0;

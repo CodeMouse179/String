@@ -1,7 +1,7 @@
 ﻿//      +--------------------------------------------------------------------------------+
-//      |                                  String v1.35.0                                |
+//      |                                  String v1.36.0                                |
 //      |  Introduction : System.String in C++                                           |
-//      |  Modified Date : 2023/3/6                                                      |
+//      |  Modified Date : 2023/3/7                                                      |
 //      |  License : MIT                                                                 |
 //      |  Source Code : https://github.com/CodeMouse179/String                          |
 //      |  Readme : https://github.com/CodeMouse179/String/blob/main/README.md           |
@@ -18,10 +18,10 @@
 //Versioning refer to Semantic Versioning 2.0.0 : https://semver.org
 
 #define SYSTEM_STRING_VERSION_MAJOR 1
-#define SYSTEM_STRING_VERSION_MINOR 35
+#define SYSTEM_STRING_VERSION_MINOR 36
 #define SYSTEM_STRING_VERSION_PATCH 0
 #define SYSTEM_STRING_VERSION (SYSTEM_STRING_VERSION_MAJOR << 16 | SYSTEM_STRING_VERSION_MINOR << 8 | SYSTEM_STRING_VERSION_PATCH)
-#define SYSTEM_STRING_VERSION_STRING "1.35.0"
+#define SYSTEM_STRING_VERSION_STRING "1.36.0"
 
 //Windows Platform:
 #ifdef _WIN32
@@ -334,14 +334,16 @@ namespace System
 #ifdef SYSTEM_WINDOWS
     private:
         //code here:
+
+    public:
+        wchar_t TempChar = 0;   //For UTF-16 Character
+
+        int OutputCodePage = 0; //Output Code Page
 #endif
-#if defined(SYSTEM_LINUX) || defined(SYSTEM_MACOS)
+#ifdef SYSTEM_POSIX
     private:
         termios oldInput;
 #endif
-
-    public:
-        wchar_t TempChar = 0; //For UTF-16 Character
 
     public:
         void Init()
@@ -350,6 +352,7 @@ namespace System
 #ifdef SYSTEM_WINDOWS
             //Get Output Handle:
             HANDLE stdOutputHandle = GetStdHandle(STD_OUTPUT_HANDLE);
+            if (stdOutputHandle == NULL) return;
             if (stdOutputHandle == INVALID_HANDLE_VALUE) return;
 
             //Get Console Mode:
@@ -2411,6 +2414,12 @@ namespace System
             bool init_success = true;
 #ifdef SYSTEM_WINDOWS
             //Maybe should support Legacy ConHost V1 on Windows.
+            //Get current console output cp and save it.
+            UINT consoleOutputCP = GetConsoleOutputCP();
+            BuiltInConsole::Instance().OutputCodePage = (int)consoleOutputCP;
+            //After setting this, you can use WriteConsoleA/WriteFile with Unicode.
+            BOOL set_output_cp = SetConsoleOutputCP(CP_UTF8);
+            init_success &= set_output_cp;
 #endif
 #ifdef SYSTEM_POSIX
             //For POSIX platform, string encoding is UTF-8 by default.
@@ -2430,6 +2439,12 @@ namespace System
             bool deinit_success = true;
 #ifdef SYSTEM_WINDOWS
             //Maybe should support Legacy ConHost V1 on Windows.
+            //Restore console output cp:
+            if (BuiltInConsole::Instance().OutputCodePage != 0)
+            {
+                BOOL set_output_cp = SetConsoleOutputCP(BuiltInConsole::Instance().OutputCodePage);
+                deinit_success &= set_output_cp;
+            }
 #endif
 #ifdef SYSTEM_POSIX
             //For POSIX platform, string encoding is UTF-8 by default.
@@ -2874,6 +2889,47 @@ namespace System
         {
             return String::Write(s + U8("\n"), r1, g1, b1, r2, g2, b2);
         }
+
+        //SetConsoleOutputCP = 65001
+        static bool WriteU8(const std::string& s)
+        {
+            if (s.empty()) return false;
+            //Don't check if s is utf-8 string.
+#ifdef SYSTEM_WINDOWS
+            HANDLE stdOutputHandle = GetStdHandle(STD_OUTPUT_HANDLE);
+            if (stdOutputHandle == NULL) return false;
+            if (stdOutputHandle == INVALID_HANDLE_VALUE) return false;
+            DWORD written;
+            //BOOL success = WriteFile(stdOutputHandle, s.c_str(), s.size(), &written, NULL);
+            BOOL success = WriteConsoleA(stdOutputHandle, s.c_str(), s.size(), &written, NULL);
+            return success;
+#endif
+#ifdef SYSTEM_POSIX
+            return String::Write(s);
+#endif
+            return false;
+        }
+
+        //SetConsoleOutputCP = 65001
+        static bool WriteLineU8(const std::string& s)
+        {
+            return String::WriteU8(s + U8("\n"));
+        }
+
+#ifdef SYSTEM_CXX_20
+        static bool WriteU8(const std::u8string& s)
+        {
+            std::string str = String::U8stringToString(s);
+            return String::WriteU8(str);
+        }
+
+        static bool WriteLineU8(const std::u8string& s)
+        {
+            std::string str = String::U8stringToString(s);
+            return String::WriteLineU8(str);
+        }
+#endif
+
 #endif
 
     private:

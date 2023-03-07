@@ -1,4 +1,4 @@
-# String 1.35.0 Documentation
+# String 1.36.0 Documentation
 
 1. Encoding wiki:
 
@@ -443,6 +443,10 @@
             * System::String::Write
 
             * System::String::WriteLine
+
+            * System::String::WriteU8
+
+            * System::String::WriteLineU8
 
         1. private functions:
 
