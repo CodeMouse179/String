@@ -24,15 +24,12 @@
 #define SYSTEM_STRING_VERSION_STRING "1.36.0"
 
 //Windows Platform:
-#ifdef _WIN32
-#define SYSTEM_WINDOWS 1
-#endif
-#ifdef WIN32
+#if defined(WIN32) || defined(_WIN32)
 #define SYSTEM_WINDOWS 1
 #endif
 
 //Linux Platform:
-#ifdef __linux__
+#if defined(__linux__)
 #define SYSTEM_LINUX 1
 #endif
 
