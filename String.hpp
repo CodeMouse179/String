@@ -15,8 +15,6 @@
 #ifndef SYSTEM_STRING_HPP
 #define SYSTEM_STRING_HPP
 
-//Versioning refer to Semantic Versioning 2.0.0 : https://semver.org
-
 #define SYSTEM_STRING_VERSION_MAJOR 1
 #define SYSTEM_STRING_VERSION_MINOR 36
 #define SYSTEM_STRING_VERSION_PATCH 0
