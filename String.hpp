@@ -1,10 +1,12 @@
 ﻿//      +--------------------------------------------------------------------------------+
 //      |                                  String v1.36.0                                |
+//      |  Modified Date : 2023/3/11                                                     |
 //      |  Introduction : System.String in C++                                           |
-//      |  Modified Date : 2023/3/7                                                      |
 //      |  License : MIT                                                                 |
-//      |  Source Code : https://github.com/CodeMouse179/String                          |
-//      |  Readme : https://github.com/CodeMouse179/String/blob/main/README.md           |
+//      |  Platform : Windows, Linux, macOS                                              |
+//      |  C++ Required Version : C++ 11                                                 |
+//      |  API Family : https://github.com/CodeMouse179/System                           |
+//      |  Repository : https://github.com/CodeMouse179/String                           |
 //      |                                                                                |
 //      |                             Designer : CodeMouse179                            |
 //      |  Email : codemouse179@gmail.com                                                |

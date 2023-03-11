@@ -8,11 +8,13 @@
 
 ## System.String in C++
 
-API Family : [System](https://github.com/CodeMouse179/System)
+License : MIT
 
 Platform : Windows, Linux, macOS
 
-C++ Minimum required version : C++ 11
+C++ Required Version : C++ 11
+
+API Family : [System](https://github.com/CodeMouse179/System)
 
 ## Introduce
 
