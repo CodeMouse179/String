@@ -57,10 +57,12 @@ int wstr_to_str_tutorial()
 
 int readline_ex_tutorial()
 {
+    Console::WriteLine(U8("readline_ex_tutorial started."), 179, 116, 69);
     StringA::WriteLine(U8("请输入你的名字(Please input your name):"));
     std::string readLineExString1 = StringA::ReadLineEx();
     StringA::WriteLine(U8("你好!") + readLineExString1);
     //System::tstring readLineExTstring1 = StringA::StringToWstring(readLineExString1, System::StringEncoding::UTF8);
+    Console::WriteLine(U8("readline_ex_tutorial finished."), 179, 116, 69);
     return 0;
 }
 
@@ -311,8 +313,8 @@ int main()
     std::string copy = StringA::Copy("ABCD你好呀");
     bool endWith1 = StringA::EndsWith("ABCDEFG", "EFg");
     bool endWith2 = StringA::EndsWith("ABCDEFG", "EFg", System::StringComparison::IgnoreCase);
-    bool endWith3 = StringA::EndsWith("ABCDEFG",'g');
-    bool endWith4 = StringA::EndsWith("ABCDEFG",'g', System::StringComparison::IgnoreCase);
+    bool endWith3 = StringA::EndsWith("ABCDEFG", 'g');
+    bool endWith4 = StringA::EndsWith("ABCDEFG", 'g', System::StringComparison::IgnoreCase);
     bool eq1 = StringA::Equals("abc", "ABC");
     bool eq2 = StringA::Equals("abc", "ABC", System::StringComparison::IgnoreCase);
     std::string format = StringA::Format("{0} name is {1}.", "My", "ABC");
