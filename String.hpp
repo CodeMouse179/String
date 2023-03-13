@@ -1,6 +1,6 @@
 ﻿//      +--------------------------------------------------------------------------------+
-//      |                                  String v1.36.0                                |
-//      |  Modified Date : 2023/3/11                                                     |
+//      |                                  String v1.37.0                                |
+//      |  Modified Date : 2023/3/13                                                     |
 //      |  Introduction : System.String in C++                                           |
 //      |  License : MIT                                                                 |
 //      |  Platform : Windows, Linux, macOS                                              |
@@ -18,10 +18,10 @@
 #define SYSTEM_STRING_HPP
 
 #define SYSTEM_STRING_VERSION_MAJOR 1
-#define SYSTEM_STRING_VERSION_MINOR 36
+#define SYSTEM_STRING_VERSION_MINOR 37
 #define SYSTEM_STRING_VERSION_PATCH 0
 #define SYSTEM_STRING_VERSION (SYSTEM_STRING_VERSION_MAJOR << 16 | SYSTEM_STRING_VERSION_MINOR << 8 | SYSTEM_STRING_VERSION_PATCH)
-#define SYSTEM_STRING_VERSION_STRING "1.36.0"
+#define SYSTEM_STRING_VERSION_STRING "1.37.0"
 
 //Windows Platform:
 #if defined(WIN32) || defined(_WIN32)
@@ -240,16 +240,86 @@
 #define FALSE_STRING "False"
 #endif
 
+#ifndef NEW_LINE_STRING
+#define NEW_LINE_STRING "\n"
+#endif
+
+#ifndef ERASE_STRING
+#define ERASE_STRING "\b \b"
+#endif
+
+#ifdef SYSTEM_STRING_CONSOLE
+
+//ReadLine Buffer Size:
 #ifndef SYSTEM_STRING_INPUT_BUFFER_SIZE
 #define SYSTEM_STRING_INPUT_BUFFER_SIZE 1024
 #endif
 
-#ifdef SYSTEM_STRING_CONSOLE
+//0x1B:
+#ifndef ESC
 #define ESC "\033"   //00011011 = 033 = 27 = 0x1b
 #endif
 
+//Virtual Terminal Format Strings:
+#ifndef USE_ALTERNATE_SCREEN_BUFFER_FORMAT
+#define USE_ALTERNATE_SCREEN_BUFFER_FORMAT "{0}[?1049h"
+#endif
+
+#ifndef USE_MAIN_SCREEN_BUFFER_FORMAT
+#define USE_MAIN_SCREEN_BUFFER_FORMAT "{0}[?1049l"
+#endif
+
+#ifndef SET_CURSOR_POSITION_FORMAT
+#define SET_CURSOR_POSITION_FORMAT "{0}[{1};{2}H"
+#endif
+
+#ifndef SET_RGB_COLOR_FORMAT
+#define SET_RGB_COLOR_FORMAT "{0}[{1};{2};{3};{4};{5}m"
+#endif
+
+#ifndef SET_DEFAULT_ATTRIBUTE_FORMAT
+#define SET_DEFAULT_ATTRIBUTE_FORMAT "{0}[{1}m"
+#endif
+
+#endif
+
+//Console Macro:
 #if defined(SYSTEM_STRING_CONSOLE) && !defined(SYSTEM_CONSOLE)
 #define Console StringA
+#endif
+
+//Exception Strings:
+#ifndef STRING_TO_BOOLEAN_EXCEPTION
+#define STRING_TO_BOOLEAN_EXCEPTION "String::ToBoolean Exception"
+#endif
+
+#ifndef STRING_READKEY_EXCEPTION
+#define STRING_READKEY_EXCEPTION "String::ReadKey Exception"
+#endif
+
+//Characters:
+#ifndef SPACE_CHAR
+#define SPACE_CHAR ' '
+#endif
+
+#ifndef N_CHAR
+#define N_CHAR '\n'
+#endif
+
+#ifndef R_CHAR
+#define R_CHAR '\r'
+#endif
+
+#ifndef B_CHAR
+#define B_CHAR '\b'
+#endif
+
+#ifndef LEFT_CURLY_BRACKET
+#define LEFT_CURLY_BRACKET '{'
+#endif
+
+#ifndef RIGHT_CURLY_BRACKET
+#define RIGHT_CURLY_BRACKET '}'
 #endif
 
 namespace System
@@ -748,7 +818,7 @@ namespace System
             if (value.empty()) return true;
             for (int i = 0; i < value.size(); i++)
             {
-                if (value[i] != (T)' ') return false;
+                if (value[i] != (T)SPACE_CHAR) return false;
             }
             return true;
         }
@@ -833,7 +903,7 @@ namespace System
 
         static std::basic_string<T> PadLeft(const std::basic_string<T>& s, int totalWidth)
         {
-            return String::PadLeft(s, totalWidth, (T)' ');
+            return String::PadLeft(s, totalWidth, (T)SPACE_CHAR);
         }
 
         static std::basic_string<T> PadLeft(const std::basic_string<T>& s, int totalWidth, T paddingChar)
@@ -849,7 +919,7 @@ namespace System
 
         static std::basic_string<T> PadRight(const std::basic_string<T>& s, int totalWidth)
         {
-            return String::PadRight(s, totalWidth, (T)' ');
+            return String::PadRight(s, totalWidth, (T)SPACE_CHAR);
         }
 
         static std::basic_string<T> PadRight(const std::basic_string<T>& s, int totalWidth, T paddingChar)
@@ -965,17 +1035,17 @@ namespace System
             for (int i = 0; i < s.size(); i++)
             {
                 //POSIX NewLine => Windows NewLine:
-                if (s[i] == (T)'\n')
+                if (s[i] == (T)N_CHAR)
                 {
-                    //It's Windows NewLine!
-                    if (i - 1 >= 0 && s[i - 1] == (T)'\r')
+                    //It is Windows NewLine!
+                    if (i - 1 >= 0 && s[i - 1] == (T)R_CHAR)
                     {
                         str += s[i];
                     }
                     else
                     {
-                        str += (T)'\r';
-                        str += (T)'\n';
+                        str += (T)R_CHAR;
+                        str += (T)N_CHAR;
                     }
                 }
                 else
@@ -988,12 +1058,12 @@ namespace System
             for (int i = 0; i < s.size(); i++)
             {
                 //Windows NewLine => POSIX NewLine:
-                if (s[i] == (T)'\r')
+                if (s[i] == (T)R_CHAR)
                 {
-                    //It's Windows NewLine!
-                    if (i + 1 < s.size() && s[i + 1] == (T)'\n')
+                    //It is Windows NewLine!
+                    if (i + 1 < s.size() && s[i + 1] == (T)N_CHAR)
                     {
-                        str += (T)'\n';
+                        str += (T)N_CHAR;
                     }
                     else
                     {
@@ -1205,7 +1275,7 @@ namespace System
             }
             else
             {
-                throw "ToBoolean Exception";
+                throw STRING_TO_BOOLEAN_EXCEPTION;
             }
         }
 #endif
@@ -1334,7 +1404,7 @@ namespace System
 
         static std::basic_string<T> Trim(const std::basic_string<T>& s)
         {
-            return String::Trim(s, (T)' ');
+            return String::Trim(s, (T)SPACE_CHAR);
         }
 
         //注意:trimString仅应该存放单个字符
@@ -1354,7 +1424,7 @@ namespace System
 
         static std::basic_string<T> TrimEnd(const std::basic_string<T>& s)
         {
-            return String::TrimEnd(s, (T)' ');
+            return String::TrimEnd(s, (T)SPACE_CHAR);
         }
 
         //注意:trimString仅应该存放单个字符
@@ -1374,7 +1444,7 @@ namespace System
 
         static std::basic_string<T> TrimStart(const std::basic_string<T>& s)
         {
-            return String::TrimStart(s, (T)' ');
+            return String::TrimStart(s, (T)SPACE_CHAR);
         }
 
 #ifndef SYSTEM_STRING_ONLY
@@ -2366,7 +2436,7 @@ namespace System
             for (int i = 0; i < s.size(); i++)
             {
                 //'0' = 48, '9' = 57
-                if (s[i] < (T)'0' || s[i] > (T)'9')
+                if (s[i] < (T)48 || s[i] > (T)57)
                 {
                     return false;
                 }
@@ -2379,7 +2449,7 @@ namespace System
             if (s.empty()) return true;
             for (int i = 0; i < s.size(); i++)
             {
-                if (s[i] != (T)' ') return false;
+                if (s[i] != (T)SPACE_CHAR) return false;
             }
             return true;
         }
@@ -2422,7 +2492,7 @@ namespace System
             //For POSIX platform, string encoding is UTF-8 by default.
 #endif
             //enable alternate screen buffer:
-            bool send_cmd_success = String::ConsoleSendCommand(U8("{0}[?1049h"), U8(ESC));
+            bool send_cmd_success = String::ConsoleSendCommand(U8(USE_ALTERNATE_SCREEN_BUFFER_FORMAT), U8(ESC));
             //reset cursor position:
             bool set_cursor_pos_success = String::SetCursorPosition(0, 0);
             //return:
@@ -2447,7 +2517,7 @@ namespace System
             //For POSIX platform, string encoding is UTF-8 by default.
 #endif
             //enable main screen buffer:
-            bool send_cmd_success = String::ConsoleSendCommand(U8("{0}[?1049l"), U8(ESC));
+            bool send_cmd_success = String::ConsoleSendCommand(U8(USE_MAIN_SCREEN_BUFFER_FORMAT), U8(ESC));
             //return:
             deinit_success &= send_cmd_success;
             return deinit_success;
@@ -2602,23 +2672,23 @@ namespace System
                     }
                     else
                     {
-                        throw "String::ReadKey ERROR!!!";
+                        throw STRING_READKEY_EXCEPTION;
                     }
                 }
             }
             //\r => \n:
-            if (key.CodePoint == '\r')
+            if (key.CodePoint == R_CHAR)
             {
-                key.CodePoint = '\n';
+                key.CodePoint = N_CHAR;
             }
             //Echo character:
             if (!intercept)
             {
                 std::string u8string = String::CodePointToUTF8(key.CodePoint);
                 //Handle backspace:
-                if (key.CodePoint == '\b')
+                if (key.CodePoint == B_CHAR)
                 {
-                    String::Write(U8("\b \b"));
+                    String::Write(U8(ERASE_STRING));
                 }
                 else
                 {
@@ -2671,9 +2741,9 @@ namespace System
             if (!intercept)
             {
                 //Handle backspace:
-                if (key.CodePoint == '\b')
+                if (key.CodePoint == B_CHAR)
                 {
-                    String::Write(U8("\b \b"));
+                    String::Write(U8(ERASE_STRING));
                 }
                 else
                 {
@@ -2740,7 +2810,7 @@ namespace System
                     break;
                 }
                 //Backspace:
-                if (key.CodePoint == '\b')
+                if (key.CodePoint == B_CHAR)
                 {
                     if (charArray.size() > 0)
                     {
@@ -2749,7 +2819,7 @@ namespace System
                     }
                 }
                 //Finish:
-                if (key.CodePoint == '\r' || key.CodePoint == '\n')
+                if (key.CodePoint == R_CHAR || key.CodePoint == N_CHAR)
                 {
                     break;
                 }
@@ -2772,7 +2842,7 @@ namespace System
 #endif
 #ifdef SYSTEM_POSIX
             //For POSIX platform, string encoding is UTF-8 by default.
-            return String::ConsoleSendCommand("{0}[{1};{2}H", ESC, top + 1, left + 1);
+            return String::ConsoleSendCommand(SET_CURSOR_POSITION_FORMAT, ESC, top + 1, left + 1);
 #endif
             return false;
         }
@@ -2802,7 +2872,7 @@ namespace System
         //std::string must be UTF-8 Encoding.
         static bool WriteLine(const std::string& s)
         {
-            return String::Write(s + U8("\n"));
+            return String::Write(s + U8(NEW_LINE_STRING));
         }
 
         static int WindowWidth()
@@ -2852,8 +2922,8 @@ namespace System
         {
             if (BuiltInConsole::Instance().NoProblem())
             {
-                std::string format1 = StringA::Format(U8("{0}[{1};{2};{3};{4};{5}m"), U8(ESC), 38, 2, (int)r, (int)g, (int)b);
-                std::string format2 = StringA::Format(U8("{0}[{1}m"), U8(ESC), 0);
+                std::string format1 = StringA::Format(U8(SET_RGB_COLOR_FORMAT), U8(ESC), 38, 2, (int)r, (int)g, (int)b);
+                std::string format2 = StringA::Format(U8(SET_DEFAULT_ATTRIBUTE_FORMAT), U8(ESC), 0);
                 return StringA::Write(format1 + s + format2);
             }
             else
@@ -2866,9 +2936,9 @@ namespace System
         {
             if (BuiltInConsole::Instance().NoProblem())
             {
-                std::string format1 = StringA::Format(U8("{0}[{1};{2};{3};{4};{5}m"), U8(ESC), 38, 2, (int)r1, (int)g1, (int)b1);
-                std::string format2 = StringA::Format(U8("{0}[{1};{2};{3};{4};{5}m"), U8(ESC), 48, 2, (int)r2, (int)g2, (int)b2);
-                std::string format3 = StringA::Format(U8("{0}[{1}m"), U8(ESC), 0);
+                std::string format1 = StringA::Format(U8(SET_RGB_COLOR_FORMAT), U8(ESC), 38, 2, (int)r1, (int)g1, (int)b1);
+                std::string format2 = StringA::Format(U8(SET_RGB_COLOR_FORMAT), U8(ESC), 48, 2, (int)r2, (int)g2, (int)b2);
+                std::string format3 = StringA::Format(U8(SET_DEFAULT_ATTRIBUTE_FORMAT), U8(ESC), 0);
                 return StringA::Write(format1 + format2 + s + format3);
             }
             else
@@ -2879,19 +2949,19 @@ namespace System
 
         static bool WriteLine(const std::string& s, color r, color g, color b)
         {
-            return String::Write(s + U8("\n"), r, g, b);
+            return String::Write(s + U8(NEW_LINE_STRING), r, g, b);
         }
 
         static bool WriteLine(const std::string& s, color r1, color g1, color b1, color r2, color g2, color b2)
         {
-            return String::Write(s + U8("\n"), r1, g1, b1, r2, g2, b2);
+            return String::Write(s + U8(NEW_LINE_STRING), r1, g1, b1, r2, g2, b2);
         }
 
         //SetConsoleOutputCP = 65001
         static bool WriteU8(const std::string& s)
         {
             if (s.empty()) return false;
-            //Don't check if s is utf-8 string.
+            //Do not check if s is utf-8 string.
 #ifdef SYSTEM_WINDOWS
             HANDLE stdOutputHandle = GetStdHandle(STD_OUTPUT_HANDLE);
             if (stdOutputHandle == NULL) return false;
@@ -2910,7 +2980,7 @@ namespace System
         //SetConsoleOutputCP = 65001
         static bool WriteLineU8(const std::string& s)
         {
-            return String::WriteU8(s + U8("\n"));
+            return String::WriteU8(s + U8(NEW_LINE_STRING));
         }
 
 #ifdef SYSTEM_CXX_20
@@ -2939,9 +3009,9 @@ namespace System
         template<typename Type>
         static void FormatHelper(std::basic_ostringstream<T>& boss, std::basic_string<T>& s, const Type& value)
         {
-            std::size_t openBracket = s.find((T)'{');
+            std::size_t openBracket = s.find((T)LEFT_CURLY_BRACKET);
             if (openBracket == std::string::npos) return;
-            std::size_t closeBracket = s.find((T)'}', openBracket + 1);
+            std::size_t closeBracket = s.find((T)RIGHT_CURLY_BRACKET, openBracket + 1);
             if (closeBracket == std::string::npos) return;
             boss << s.substr(0, openBracket) << value;
             s = s.substr(closeBracket + 1);
