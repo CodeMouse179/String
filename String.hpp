@@ -1,5 +1,5 @@
 ﻿//      +--------------------------------------------------------------------------------+
-//      |                                  String v1.37.0                                |
+//      |                                  String v1.38.0                                |
 //      |  Modified Date : 2023/3/13                                                     |
 //      |  Introduction : System.String in C++                                           |
 //      |  License : MIT                                                                 |
@@ -18,10 +18,12 @@
 #define SYSTEM_STRING_HPP
 
 #define SYSTEM_STRING_VERSION_MAJOR 1
-#define SYSTEM_STRING_VERSION_MINOR 37
+#define SYSTEM_STRING_VERSION_MINOR 38
 #define SYSTEM_STRING_VERSION_PATCH 0
 #define SYSTEM_STRING_VERSION (SYSTEM_STRING_VERSION_MAJOR << 16 | SYSTEM_STRING_VERSION_MINOR << 8 | SYSTEM_STRING_VERSION_PATCH)
-#define SYSTEM_STRING_VERSION_STRING "1.37.0"
+#define SYSTEM_STRING_VERSION_STRING "1.38.0"
+
+//--------------------System.hpp START--------------------
 
 //Windows Platform:
 #if defined(WIN32) || defined(_WIN32)
@@ -44,6 +46,51 @@
 #if defined(SYSTEM_LINUX) || defined(SYSTEM_MACOS)
 #define SYSTEM_POSIX 1
 #endif
+
+//C++ Language:
+#if defined(__cplusplus)
+#define SYSTEM_CXX 1
+#endif
+
+//C++ Version Definition(Windows):
+#if defined(SYSTEM_WINDOWS) && defined(_MSVC_LANG)
+#if (_MSVC_LANG >= 199711L)
+#define SYSTEM_CXX_98 1
+#endif
+#if (_MSVC_LANG >= 201103L)
+#define SYSTEM_CXX_11 1
+#endif
+#if (_MSVC_LANG >= 201402L)
+#define SYSTEM_CXX_14 1
+#endif
+#if (_MSVC_LANG >= 201703L)
+#define SYSTEM_CXX_17 1
+#endif
+#if (_MSVC_LANG >= 202002L)
+#define SYSTEM_CXX_20 1
+#endif
+#endif
+
+//C++ Version Definition(POSIX):
+#if defined(SYSTEM_POSIX) && defined(__cplusplus)
+#if (__cplusplus >= 199711L)
+#define SYSTEM_CXX_98 1
+#endif
+#if (__cplusplus >= 201103L)
+#define SYSTEM_CXX_11 1
+#endif
+#if (__cplusplus >= 201402L)
+#define SYSTEM_CXX_14 1
+#endif
+#if (__cplusplus >= 201703L)
+#define SYSTEM_CXX_17 1
+#endif
+#if (__cplusplus >= 202002L)
+#define SYSTEM_CXX_20 1
+#endif
+#endif
+
+//--------------------System.hpp END--------------------
 
 //Windows Headers:
 #ifdef SYSTEM_WINDOWS
@@ -77,43 +124,6 @@
 #include <unistd.h>     //read, write, STDIN_FILENO, STDOUT_FILENO
 #include <termios.h>    //tcgetattr, tcsetattr, termios
 #include <sys/ioctl.h>  //ioctl
-#endif
-
-//C++ Language:
-#ifdef __cplusplus
-#define SYSTEM_CXX 1
-#endif
-
-//C++ Version Definition(Windows):
-#ifdef SYSTEM_WINDOWS
-#if (_MSVC_LANG >= 201103L)
-#define SYSTEM_CXX_11 1
-#endif
-#if (_MSVC_LANG >= 201402L)
-#define SYSTEM_CXX_14 1
-#endif
-#if (_MSVC_LANG >= 201703L)
-#define SYSTEM_CXX_17 1
-#endif
-#if (_MSVC_LANG >= 202002L)
-#define SYSTEM_CXX_20 1
-#endif
-#endif
-
-//C++ Version Definition(POSIX):
-#ifdef SYSTEM_POSIX
-#if (__cplusplus >= 201103L)
-#define SYSTEM_CXX_11 1
-#endif
-#if (__cplusplus >= 201402L)
-#define SYSTEM_CXX_14 1
-#endif
-#if (__cplusplus >= 201703L)
-#define SYSTEM_CXX_17 1
-#endif
-#if (__cplusplus >= 202002L)
-#define SYSTEM_CXX_20 1
-#endif
 #endif
 
 #ifdef __cpp_char8_t
@@ -788,6 +798,28 @@ namespace System
             }
         }
 
+        static int IndexOfAny(const std::basic_string<T>& s, const std::vector<T>& anyOf)
+        {
+            return String::IndexOfAny(s, anyOf, 0, anyOf.size());
+        }
+
+        static int IndexOfAny(const std::basic_string<T>& s, const std::vector<T>& anyOf, int startIndex)
+        {
+            return String::IndexOfAny(s, anyOf, startIndex, anyOf.size() - startIndex);
+        }
+
+        static int IndexOfAny(const std::basic_string<T>& s, const std::vector<T>& anyOf, int startIndex, int count)
+        {
+            if (startIndex < 0 || startIndex > anyOf.size() - 1) return -1;
+            //TODO:more index check
+            for (int i = startIndex; i < startIndex + count; i++)
+            {
+                int pos = String::IndexOf(anyOf[i]);
+                if (pos != -1) return pos;
+            }
+            return -1;
+        }
+
         static std::basic_string<T> Insert(const std::basic_string<T>& s, int startIndex, const std::basic_string<T>& value)
         {
             if (startIndex < 0 || startIndex > s.size()) return s;
@@ -899,6 +931,28 @@ namespace System
             {
                 return String::LastIndexOf(s, value);
             }
+        }
+
+        static int LastIndexOfAny(const std::basic_string<T>& s, const std::vector<T>& anyOf)
+        {
+            return String::LastIndexOfAny(s, anyOf, 0, anyOf.size());
+        }
+
+        static int LastIndexOfAny(const std::basic_string<T>& s, const std::vector<T>& anyOf, int startIndex)
+        {
+            return String::LastIndexOfAny(s, anyOf, startIndex, anyOf.size() - startIndex);
+        }
+
+        static int LastIndexOfAny(const std::basic_string<T>& s, const std::vector<T>& anyOf, int startIndex, int count)
+        {
+            if (startIndex < 0 || startIndex > anyOf.size() - 1) return -1;
+            //TODO:more index check
+            for (int i = startIndex; i < startIndex + count; i++)
+            {
+                int pos = String::LastIndexOf(anyOf[i]);
+                if (pos != -1) return pos;
+            }
+            return -1;
         }
 
         static std::basic_string<T> PadLeft(const std::basic_string<T>& s, int totalWidth)
@@ -2829,6 +2883,7 @@ namespace System
             return StringA::Empty();
         }
 
+        //zero-based position
         static bool SetCursorPosition(int left, int top)
         {
 #ifdef SYSTEM_WINDOWS
@@ -2957,7 +3012,7 @@ namespace System
             return String::Write(s + U8(NEW_LINE_STRING), r1, g1, b1, r2, g2, b2);
         }
 
-        //SetConsoleOutputCP = 65001
+        //SetConsoleOutputCP = 65001(Windows)
         static bool WriteU8(const std::string& s)
         {
             if (s.empty()) return false;
@@ -2977,7 +3032,7 @@ namespace System
             return false;
         }
 
-        //SetConsoleOutputCP = 65001
+        //SetConsoleOutputCP = 65001(Windows)
         static bool WriteLineU8(const std::string& s)
         {
             return String::WriteU8(s + U8(NEW_LINE_STRING));

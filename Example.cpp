@@ -128,6 +128,7 @@ int readme_example()
 int console_example()
 {
     Console::InitConsole();
+    Console::SetCursorPosition(4, 2);
     Console::WriteLine(U8("Console Example:"));
     Console::WriteLineU8(U8("你好世界😄"));
     Console::ReadLine();
