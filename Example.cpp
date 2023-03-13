@@ -329,6 +329,8 @@ int main()
     int index111 = StringA::IndexOf("ABCDEFG", "d", System::StringComparison::None);
     int index22 = StringA::IndexOf("ABCDEFG", 'd', System::StringComparison::IgnoreCase);
     int index222 = StringA::IndexOf("ABCDEFG", 'd', System::StringComparison::None);
+    std::vector<char> anyOf1 = { 'E', 'F', 'G' };
+    int indexOfAny1 = StringA::IndexOfAny("ABCDEFG", anyOf1);
     std::string insert_str1 = StringA::Insert("ABCDEFG", 4, "OPQ");
     std::string insert_str2 = StringA::Insert("ABCDEFG", 4, 'Q');
     bool isNullOrEmpty = StringA::IsNullOrEmpty("");
@@ -347,6 +349,8 @@ int main()
     int index333 = StringA::LastIndexOf("ABCDEFG", "b", System::StringComparison::None);
     int index44 = StringA::LastIndexOf("ABCDEFG", 'b', System::StringComparison::IgnoreCase);
     int index444 = StringA::LastIndexOf("ABCDEFG", 'b', System::StringComparison::None);
+    std::vector<char> anyOf2 = { 'E', 'F', 'G' };
+    int lastIndexOfAny1 = StringA::LastIndexOfAny("ABCDEFG", anyOf2);
     //pad left:
     std::string padLeft1 = StringA::PadLeft("1", 10, 'a');
     StringA::WriteLine(U8("padLeft1 :") + padLeft1);

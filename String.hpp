@@ -1,5 +1,5 @@
 ﻿//      +--------------------------------------------------------------------------------+
-//      |                                  String v1.38.0                                |
+//      |                                  String v1.38.1                                |
 //      |  Modified Date : 2023/3/13                                                     |
 //      |  Introduction : System.String in C++                                           |
 //      |  License : MIT                                                                 |
@@ -19,9 +19,9 @@
 
 #define SYSTEM_STRING_VERSION_MAJOR 1
 #define SYSTEM_STRING_VERSION_MINOR 38
-#define SYSTEM_STRING_VERSION_PATCH 0
+#define SYSTEM_STRING_VERSION_PATCH 1
 #define SYSTEM_STRING_VERSION (SYSTEM_STRING_VERSION_MAJOR << 16 | SYSTEM_STRING_VERSION_MINOR << 8 | SYSTEM_STRING_VERSION_PATCH)
-#define SYSTEM_STRING_VERSION_STRING "1.38.0"
+#define SYSTEM_STRING_VERSION_STRING "1.38.1"
 
 //--------------------System.hpp START--------------------
 
@@ -814,7 +814,7 @@ namespace System
             //TODO:more index check
             for (int i = startIndex; i < startIndex + count; i++)
             {
-                int pos = String::IndexOf(anyOf[i]);
+                int pos = String::IndexOf(s, anyOf[i]);
                 if (pos != -1) return pos;
             }
             return -1;
@@ -949,7 +949,7 @@ namespace System
             //TODO:more index check
             for (int i = startIndex; i < startIndex + count; i++)
             {
-                int pos = String::LastIndexOf(anyOf[i]);
+                int pos = String::LastIndexOf(s, anyOf[i]);
                 if (pos != -1) return pos;
             }
             return -1;
