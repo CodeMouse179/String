@@ -2,6 +2,34 @@
 
 ## History
 
+### 1.38.1
+
+Release Date : 2023/3/13
+
+Fixed : String::IndexOfAny, String::LastIndexOfAny
+
+### 1.38.0
+
+Release Date : 2023/3/13
+
+Added : SYSTEM_CXX_98(macro), String::IndexOfAny(function), String::LastIndexOfAny(function)
+
+### 1.37.0
+
+Release Date : 2023/3/13
+
+Added : NEW_LINE_STRING(macro), ERASE_STRING(macro), USE_ALTERNATE_SCREEN_BUFFER_FORMAT(macro), USE_MAIN_SCREEN_BUFFER_FORMAT(macro), SET_CURSOR_POSITION_FORMAT(macro), SET_RGB_COLOR_FORMAT(macro), SET_DEFAULT_ATTRIBUTE_FORMAT(macro), STRING_TO_BOOLEAN_EXCEPTION(macro), STRING_READKEY_EXCEPTION(macro), SPACE_CHAR(macro), N_CHAR(macro), R_CHAR(macro), B_CHAR(macro), LEFT_CURLY_BRACKET(macro), RIGHT_CURLY_BRACKET(macro)
+
+Changed : replaced char/string with macro
+
+### 1.36.0
+
+Release Date : 2023/3/7
+
+Added : BuiltInConsole::OutputCodePage(private field), String::WriteU8(function), String::WriteLineU8(function)
+
+Changed : BuiltInConsole::Init, String::InitConsole, String::DeinitConsole
+
 ### 1.35.0
 
 Release Date : 2023/3/6

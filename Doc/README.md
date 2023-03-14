@@ -1,4 +1,4 @@
-# String 1.36.0 Documentation
+# String 1.38.1 Documentation
 
 1. Encoding wiki:
 
@@ -82,7 +82,7 @@
 
         * [macOS macros](https://stackoverflow.com/questions/2166483/which-macro-to-wrap-mac-os-x-specific-code-in-c-c)
 
-    1. SYSTEM_CXX, SYSTEM_CXX_11, SYSTEM_CXX_14, SYSTEM_CXX_17, SYSTEM_CXX_20 (C++ version definition on Windows, Linux, macOS)
+    1. SYSTEM_CXX, SYSTEM_CXX_98, SYSTEM_CXX_11, SYSTEM_CXX_14, SYSTEM_CXX_17, SYSTEM_CXX_20 (C++ version definition on Windows, Linux, macOS)
 
         * [_MSVC_LANG](https://stackoverflow.com/questions/43639122/which-values-can-msvc-lang-have)
 
@@ -112,11 +112,41 @@
     
     1. FALSE_STRING
 
+    1. NEW_LINE_STRING
+
+    1. ERASE_STRING
+
     1. SYSTEM_STRING_INPUT_BUFFER_SIZE
 
     1. SYSTEM_STRING_CONSOLE
 
     1. ESC
+
+    1. USE_ALTERNATE_SCREEN_BUFFER_FORMAT
+
+    1. USE_MAIN_SCREEN_BUFFER_FORMAT
+
+    1. SET_CURSOR_POSITION_FORMAT
+
+    1. SET_RGB_COLOR_FORMAT
+
+    1. SET_DEFAULT_ATTRIBUTE_FORMAT
+
+    1. STRING_TO_BOOLEAN_EXCEPTION
+
+    1. STRING_READKEY_EXCEPTION
+
+    1. SPACE_CHAR
+
+    1. N_CHAR
+
+    1. R_CHAR
+
+    1. B_CHAR
+
+    1. LEFT_CURLY_BRACKET
+
+    1. RIGHT_CURLY_BRACKET
 
     1. System::tstring(typedef)
 
@@ -202,6 +232,8 @@
 
         1. System::String::IndexOf
 
+        1. System::String::IndexOfAny
+
         1. System::String::Insert
 
         1. System::String::IsNullOrEmpty
@@ -211,6 +243,8 @@
         1. System::String::Join
 
         1. System::String::LastIndexOf
+
+        1. System::String::LastIndexOfAny
 
         1. System::String::PadLeft
 
@@ -424,15 +458,21 @@
 
             * System::String::Write
 
+                * [How to use write() or fwrite() for writing data to terminal (stdout)?](https://stackoverflow.com/questions/62699018/how-to-use-write-or-fwrite-for-writing-data-to-terminal-stdout)
+
             * System::String::WriteLine
 
             * System::String::WindowWidth
+
+                * [Get size of terminal window (rows/columns)](https://stackoverflow.com/questions/23369503/get-size-of-terminal-window-rows-columns)
 
                 * [Getting terminal width in C?](https://stackoverflow.com/questions/1022957/getting-terminal-width-in-c)
 
                 * [What is termios.TIOCGWINSZ](https://stackoverflow.com/questions/16237137/what-is-termios-tiocgwinsz)
 
             * System::String::WindowHeight
+
+                * [Get size of terminal window (rows/columns)](https://stackoverflow.com/questions/23369503/get-size-of-terminal-window-rows-columns)
 
                 * [Getting terminal width in C?](https://stackoverflow.com/questions/1022957/getting-terminal-width-in-c)
 
@@ -471,3 +511,15 @@
     * [IBM AIX(UNIX)](https://www.ibm.com/docs/en/aix/7.3)
 
     * [How to properly add include directories with CMake](https://stackoverflow.com/questions/13703647/how-to-properly-add-include-directories-with-cmake)
+
+    * [为什么 Windows 的兼容性这么强大，到底用了什么技术？](https://www.zhihu.com/question/266103113/answer/2769261857)
+
+    * [ANSI Escape Sequences](https://gist.github.com/fnky/458719343aabd01cfb17a3a4f7296797)
+
+    * [Build your own Command Line with ANSI escape codes](https://www.lihaoyi.com/post/BuildyourownCommandLinewithANSIescapecodes.html)
+
+    * [Unicode 编码及 UTF-32, UTF-16 和 UTF-8](https://zhuanlan.zhihu.com/p/51202412)
+
+    * [UTF-8 Everywhere](http://utf8everywhere.org)
+
+    * [C++ character types : char , wchar_t , char8_t , char16_t and char32_t a tutorial !](https://twiserandom.com/cpp/cpp-character-types-char-wchar_t-char8_t-char16_t-and-char32_t-a-tutorial/index.html)
