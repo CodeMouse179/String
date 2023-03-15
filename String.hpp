@@ -1,6 +1,6 @@
 ﻿//      +--------------------------------------------------------------------------------+
 //      |                                  String v1.38.1                                |
-//      |  Modified Date : 2023/3/13                                                     |
+//      |  Modified Date : 2023/3/15                                                     |
 //      |  Introduction : System.String in C++                                           |
 //      |  License : MIT                                                                 |
 //      |  Platform : Windows, Linux, macOS                                              |
@@ -135,12 +135,14 @@
 #endif
 
 //C++ Headers:
+#ifdef SYSTEM_CXX
 #include <string>       //std::basic_string, std::string, std::wstring, std::u8string, std::u16string, std::u32string
 #include <algorithm>    //std::equal
 #include <cctype>       //std::tolower, std::toupper
 #include <sstream>      //std::basic_ostringstream
 #include <vector>       //std::vector
 #include <codecvt>      //wstring_convert, codecvt_utf8, codecvt_utf16, codecvt_utf8_utf16
+#endif
 
 //Ordinary character System::String class
 #define StringA System::String<char>

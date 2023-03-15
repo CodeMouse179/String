@@ -18,7 +18,7 @@ API Family : [System](https://github.com/CodeMouse179/System)
 
 ## Introduce
 
-String.hpp is a System.String (C#) implemented in C++. 
+String.hpp is a System.String (C#) implemented in C++.
 
 The purpose is to provide C++ programmers with convenient and reliable string manipulation functions.
 
