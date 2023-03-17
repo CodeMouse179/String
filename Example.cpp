@@ -527,6 +527,10 @@ int main()
     bool isEmptyOrWhiteSpace2 = StringA::IsEmptyOrWhiteSpace("");
     bool isEmptyOrWhiteSpace3 = StringA::IsEmptyOrWhiteSpace("ABCD");
 
+    void* void2int_void = (void*)22;
+    int void2int_result = StringA::Void2Int(void2int_void);
+    Console::WriteLine(U8("我今年") + StringA::ToString(void2int_result) + U8("岁"), 169, 119, 197);
+
     //Russian Test:
     //Output:здравствуйте, Expected output:ЗДРАВСТВУЙТЕ
     //TODO:Implement a language-independent ToUpper function

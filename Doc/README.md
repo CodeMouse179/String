@@ -1,4 +1,4 @@
-# String 1.38.1 Documentation
+# String 1.40.0 Documentation
 
 1. Encoding wiki:
 
@@ -136,6 +136,8 @@
 
     1. STRING_READKEY_EXCEPTION
 
+    1. STRING_NOT_IMPLEMENTED_EXCEPTION
+
     1. SPACE_CHAR
 
     1. N_CHAR
@@ -181,6 +183,10 @@
         1. System::BuiltInConsole::NoProblem
 
         1. System::BuiltInConsole::ResetInput
+
+        1. System::BuiltInConsole::SaveIOState
+
+        1. System::BuiltInConsole::LoadIOState
 
         1. System::BuiltInConsole::Instance
 
@@ -427,6 +433,10 @@
             * System::String::IsNumeric
 
             * System::String::IsEmptyOrWhiteSpace
+
+            * System::String::Void2Int
+
+                * [void* => int](https://cplusplus.com/forum/general/269149/)
 
         1. Console Function 0:
 

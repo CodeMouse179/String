@@ -1,5 +1,5 @@
 ﻿//      +--------------------------------------------------------------------------------+
-//      |                                  String v1.39.0                                |
+//      |                                  String v1.40.0                                |
 //      |  Modified Date : 2023/3/17                                                     |
 //      |  Introduction : System.String in C++                                           |
 //      |  License : MIT                                                                 |
@@ -18,10 +18,10 @@
 #define SYSTEM_STRING_HPP
 
 #define SYSTEM_STRING_VERSION_MAJOR 1
-#define SYSTEM_STRING_VERSION_MINOR 39
+#define SYSTEM_STRING_VERSION_MINOR 40
 #define SYSTEM_STRING_VERSION_PATCH 0
 #define SYSTEM_STRING_VERSION (SYSTEM_STRING_VERSION_MAJOR << 16 | SYSTEM_STRING_VERSION_MINOR << 8 | SYSTEM_STRING_VERSION_PATCH)
-#define SYSTEM_STRING_VERSION_STRING "1.39.0"
+#define SYSTEM_STRING_VERSION_STRING "1.40.0"
 
 //--------------------System.hpp START--------------------
 
@@ -113,6 +113,7 @@
 
 //Windows Headers:
 #ifdef SYSTEM_WINDOWS
+//#define WIN32_LEAN_AND_MEAN //(optional)
 #include <Windows.h>    //...
 #endif
 
@@ -301,6 +302,10 @@
 #define STRING_READKEY_EXCEPTION "String::ReadKey Exception"
 #endif
 
+#ifndef STRING_NOT_IMPLEMENTED_EXCEPTION
+#define STRING_NOT_IMPLEMENTED_EXCEPTION "String::NotImplementedException"
+#endif
+
 //Characters:
 #ifndef SPACE_CHAR
 #define SPACE_CHAR ' '
@@ -403,17 +408,15 @@ namespace System
         bool success = false;
 
 #ifdef SYSTEM_WINDOWS
-    private:
-        //code here:
-
     public:
         wchar_t TempChar = 0;   //For UTF-16 Character
-
         int OutputCodePage = 0; //Output Code Page
 #endif
 #ifdef SYSTEM_POSIX
     private:
-        termios oldInput;
+        termios oldInput;       //For String::KeyAvailable, String::ReadKey
+        termios input_state;    //For String::InitConsole, String::DeinitConsole
+        termios output_state;   //For String::InitConsole, String::DeinitConsole
 #endif
 
     public:
@@ -477,6 +480,22 @@ namespace System
 #endif
 #ifdef SYSTEM_POSIX
             int setRet = tcsetattr(STDIN_FILENO, TCSANOW, &oldInput);
+#endif
+        }
+
+        void SaveIOState()
+        {
+#ifdef SYSTEM_POSIX
+            int ret1 = tcgetattr(STDIN_FILENO, &input_state);
+            int ret2 = tcgetattr(STDOUT_FILENO, &output_state);
+#endif
+        }
+
+        void LoadIOState()
+        {
+#ifdef SYSTEM_POSIX
+            int ret1 = tcsetattr(STDIN_FILENO, TCSANOW, &input_state);
+            int ret2 = tcsetattr(STDOUT_FILENO, TCSANOW, &output_state);
 #endif
         }
 
@@ -1129,6 +1148,7 @@ namespace System
 
         static std::basic_string<T> ReplaceLineEndings(const std::basic_string<T>& s, const std::basic_string<T>& replacementText)
         {
+            throw STRING_NOT_IMPLEMENTED_EXCEPTION;
             std::basic_string<T> str;
             //TODO
             return str;
@@ -2501,13 +2521,24 @@ namespace System
             }
             return true;
         }
+
+        //void* => int
+        static int Void2Int(void* p)
+        {
+#ifdef SYSTEM_CXX
+            int result = static_cast<int>(reinterpret_cast<std::intptr_t>(p));
+            return result;
+#else
+            int result = (int)p;
+            return result;
+#endif
+        }
 #endif
 
 #if defined(SYSTEM_STRING_CONSOLE) && !defined(SYSTEM_STRING_ONLY)
     public: //Console Function 0:
 
-        //format must be UTF-8 Encoding.
-        //About implementation see String::Format
+        //format must be UTF-8 Encoding. Implementation see String::Format
         template<typename... Types>
         static bool ConsoleSendCommand(const std::string& format, Types... args)
         {
@@ -2538,6 +2569,7 @@ namespace System
 #endif
 #ifdef SYSTEM_POSIX
             //For POSIX platform, string encoding is UTF-8 by default.
+            BuiltInConsole::Instance().SaveIOState();
 #endif
             //enable alternate screen buffer:
             bool send_cmd_success = String::ConsoleSendCommand(U8(USE_ALTERNATE_SCREEN_BUFFER_FORMAT), U8(ESC));
@@ -2563,6 +2595,7 @@ namespace System
 #endif
 #ifdef SYSTEM_POSIX
             //For POSIX platform, string encoding is UTF-8 by default.
+            BuiltInConsole::Instance().LoadIOState();
 #endif
             //enable main screen buffer:
             bool send_cmd_success = String::ConsoleSendCommand(U8(USE_MAIN_SCREEN_BUFFER_FORMAT), U8(ESC));
@@ -2575,6 +2608,7 @@ namespace System
 
         static bool KeyAvailable()
         {
+            BuiltInConsole::Instance().NoProblem();
 #ifdef SYSTEM_WINDOWS
             auto IsModKey = [](WORD virtualKey)
             {
@@ -2659,6 +2693,7 @@ namespace System
 
         static BuiltInConsoleKey ReadKey(bool intercept)
         {
+            BuiltInConsole::Instance().NoProblem();
             BuiltInConsoleKey key;
             key.CodePoint = -1;
 #ifdef SYSTEM_WINDOWS
