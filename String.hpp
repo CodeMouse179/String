@@ -1,6 +1,6 @@
 ﻿//      +--------------------------------------------------------------------------------+
-//      |                                  String v1.38.1                                |
-//      |  Modified Date : 2023/3/15                                                     |
+//      |                                  String v1.39.0                                |
+//      |  Modified Date : 2023/3/17                                                     |
 //      |  Introduction : System.String in C++                                           |
 //      |  License : MIT                                                                 |
 //      |  Platform : Windows, Linux, macOS                                              |
@@ -18,10 +18,10 @@
 #define SYSTEM_STRING_HPP
 
 #define SYSTEM_STRING_VERSION_MAJOR 1
-#define SYSTEM_STRING_VERSION_MINOR 38
-#define SYSTEM_STRING_VERSION_PATCH 1
+#define SYSTEM_STRING_VERSION_MINOR 39
+#define SYSTEM_STRING_VERSION_PATCH 0
 #define SYSTEM_STRING_VERSION (SYSTEM_STRING_VERSION_MAJOR << 16 | SYSTEM_STRING_VERSION_MINOR << 8 | SYSTEM_STRING_VERSION_PATCH)
-#define SYSTEM_STRING_VERSION_STRING "1.38.1"
+#define SYSTEM_STRING_VERSION_STRING "1.39.0"
 
 //--------------------System.hpp START--------------------
 
@@ -92,8 +92,11 @@
 
 //--------------------System.hpp END--------------------
 
-//Windows Headers:
-#ifdef SYSTEM_WINDOWS
+//--------------------Compiler START--------------------
+
+#ifdef _MSC_VER
+//Disable warnings for MSVC++ 20:
+#define _SILENCE_ALL_CXX17_DEPRECATION_WARNINGS
 //Enable UNICODE:
 #ifndef UNICODE
 #define UNICODE
@@ -102,36 +105,22 @@
 #ifndef _UNICODE
 #define _UNICODE
 #endif
-#include <Windows.h>
-//Disable warnings for MSVC++ 20:
-#ifdef _MSC_VER
-#define _SILENCE_ALL_CXX17_DEPRECATION_WARNINGS
-#endif
 #endif
 
-//Linux Headers:
-#ifdef SYSTEM_LINUX
-#include <locale>       //std::wstring_convert
-#include <cstring>      //std::strlen
-#include <unistd.h>     //read, write, STDIN_FILENO, STDOUT_FILENO
-#include <termio.h>     //tcgetattr, tcsetattr, termios
-#include <sys/ioctl.h>  //ioctl
+//--------------------Compiler END--------------------
+
+//--------------------Include START--------------------
+
+//Windows Headers:
+#ifdef SYSTEM_WINDOWS
+#include <Windows.h>    //...
 #endif
 
-//macOS Headers:
-#ifdef SYSTEM_MACOS
-#include <locale>       //std::wstring_convert
+//POSIX Headers:
+#ifdef SYSTEM_POSIX
 #include <unistd.h>     //read, write, STDIN_FILENO, STDOUT_FILENO
 #include <termios.h>    //tcgetattr, tcsetattr, termios
 #include <sys/ioctl.h>  //ioctl
-#endif
-
-#ifdef __cpp_char8_t
-#define SYSTEM_CXX_20 1
-#endif
-
-#ifdef __SYSTEM_STRING_ONLY
-#define SYSTEM_STRING_ONLY
 #endif
 
 //C++ Headers:
@@ -141,8 +130,11 @@
 #include <cctype>       //std::tolower, std::toupper
 #include <sstream>      //std::basic_ostringstream
 #include <vector>       //std::vector
-#include <codecvt>      //wstring_convert, codecvt_utf8, codecvt_utf16, codecvt_utf8_utf16
+#include <codecvt>      //std::wstring_convert, std::codecvt_utf8, std::codecvt_utf16, std::codecvt_utf8_utf16
+#include <locale>       //std::wstring_convert(POSIX)
 #endif
+
+//--------------------Include END--------------------
 
 //Ordinary character System::String class
 #define StringA System::String<char>
@@ -163,7 +155,7 @@
 #ifdef SYSTEM_WINDOWS
 #define StringT StringW
 #endif
-#if defined(SYSTEM_LINUX) || defined(SYSTEM_MACOS)
+#ifdef SYSTEM_POSIX
 #define StringT StringA
 #endif
 
@@ -180,7 +172,7 @@
 #define __U8c(c) u8##c
 #define U8c(c) __U8c(c)
 #endif
-#if defined(SYSTEM_LINUX) || defined(SYSTEM_MACOS)
+#ifdef SYSTEM_POSIX
 //g++ cannot compile u8'c' normally in C++14, requires C++17 or above
 #ifdef SYSTEM_CXX_17
 #define __U8c(c) u8##c
@@ -225,7 +217,7 @@
 #ifdef SYSTEM_WINDOWS
 #define T(s) W(s)
 #endif
-#if defined(SYSTEM_LINUX) || defined(SYSTEM_MACOS)
+#ifdef SYSTEM_POSIX
 #define T(s) s
 #endif
 
@@ -233,7 +225,7 @@
 #ifdef SYSTEM_WINDOWS
 #define T8(s) U8(s)
 #endif
-#if defined(SYSTEM_LINUX) || defined(SYSTEM_MACOS)
+#ifdef SYSTEM_POSIX
 #define T8(s) s
 #endif
 
@@ -341,7 +333,7 @@ namespace System
     typedef std::wstring tstring;
     typedef wchar_t tchar;
 #endif
-#if defined(SYSTEM_LINUX) || defined(SYSTEM_MACOS)
+#ifdef SYSTEM_POSIX
     typedef std::string tstring;
     typedef char tchar;
 #endif
@@ -453,7 +445,7 @@ namespace System
             //Set success:
             this->success = (outputMode & ENABLE_VIRTUAL_TERMINAL_PROCESSING);
 #endif
-#if defined(SYSTEM_LINUX) || defined(SYSTEM_MACOS)
+#ifdef SYSTEM_POSIX
             int getRet = tcgetattr(STDIN_FILENO, &oldInput);
             if (getRet == -1)
             {
@@ -483,7 +475,7 @@ namespace System
         {
 #ifdef SYSTEM_WINDOWS
 #endif
-#if defined(SYSTEM_LINUX) || defined(SYSTEM_MACOS)
+#ifdef SYSTEM_POSIX
             int setRet = tcsetattr(STDIN_FILENO, TCSANOW, &oldInput);
 #endif
         }
@@ -1155,7 +1147,7 @@ namespace System
                 std::wstring wstr = String::StringToWstring(s, StringEncoding::ANSI);
                 return String::WstringToString(String::Reverse(wstr), StringEncoding::ANSI);
 #endif
-#if defined(SYSTEM_LINUX) || defined(SYSTEM_MACOS)
+#ifdef SYSTEM_POSIX
                 std::string str;
                 for (int i = s.size() - 1; i >= 0; i--)
                 {
@@ -1399,14 +1391,14 @@ namespace System
             std::basic_string<T> s;
             if (value)
             {
-                for (int i = 0; i < std::strlen(TRUE_STRING); i++)
+                for (int i = 0; i < std::string(TRUE_STRING).size(); i++)
                 {
                     s.push_back((T)TRUE_STRING[i]);
                 }
             }
             else
             {
-                for (int i = 0; i < std::strlen(FALSE_STRING); i++)
+                for (int i = 0; i < std::string(FALSE_STRING).size(); i++)
                 {
                     s.push_back((T)FALSE_STRING[i]);
                 }
@@ -1524,7 +1516,7 @@ namespace System
             delete[] wstr;
             return result;
 #endif
-#if defined(SYSTEM_LINUX) || defined(SYSTEM_MACOS)
+#ifdef SYSTEM_POSIX
             return s;
 #endif
         }
@@ -1554,7 +1546,7 @@ namespace System
             delete[] str;
             return result;
 #endif
-#if defined(SYSTEM_LINUX) || defined(SYSTEM_MACOS)
+#ifdef SYSTEM_POSIX
             return s;
 #endif
         }
@@ -1580,7 +1572,7 @@ namespace System
             }
             return result;
 #endif
-#if defined(SYSTEM_LINUX) || defined(SYSTEM_MACOS)
+#ifdef SYSTEM_POSIX
             return s;
 #endif
         }
@@ -1591,7 +1583,7 @@ namespace System
 #ifdef SYSTEM_WINDOWS
             return String::WstringToString(s, StringEncoding::UTF8);
 #endif
-#if defined(SYSTEM_LINUX) || defined(SYSTEM_MACOS)
+#ifdef SYSTEM_POSIX
             return s;
 #endif
         }
@@ -1620,7 +1612,7 @@ namespace System
             std::u16string str(reinterpret_cast<const char16_t*>(s.c_str()));
             return str;
 #endif
-#if defined(SYSTEM_LINUX) || defined(SYSTEM_MACOS)
+#ifdef SYSTEM_POSIX
             return String::To_UTF16(s);
 #endif
         }
@@ -1631,7 +1623,7 @@ namespace System
             std::wstring str(reinterpret_cast<const wchar_t*>(s.c_str()));
             return str;
 #endif
-#if defined(SYSTEM_LINUX) || defined(SYSTEM_MACOS)
+#ifdef SYSTEM_POSIX
             return String::To_Wstring(s);
 #endif
         }
@@ -1641,7 +1633,7 @@ namespace System
 #ifdef SYSTEM_WINDOWS
             return String::To_UTF32(s);
 #endif
-#if defined(SYSTEM_LINUX) || defined(SYSTEM_MACOS)
+#ifdef SYSTEM_POSIX
             std::u32string str(reinterpret_cast<const char32_t*>(s.c_str()));
             return str;
 #endif
@@ -1652,7 +1644,7 @@ namespace System
 #ifdef SYSTEM_WINDOWS
             return String::To_Wstring(s);
 #endif
-#if defined(SYSTEM_LINUX) || defined(SYSTEM_MACOS)
+#ifdef SYSTEM_POSIX
             std::wstring str(reinterpret_cast<const wchar_t*>(s.c_str()));
             return str;
 #endif
@@ -2097,7 +2089,7 @@ namespace System
 #ifdef SYSTEM_WINDOWS
             return true;
 #endif
-#if defined(SYSTEM_LINUX) || defined(SYSTEM_MACOS)
+#ifdef SYSTEM_POSIX
             return String::IsValidUTF16String(s);
 #endif
         }
@@ -2132,7 +2124,7 @@ namespace System
             }
             return charCount;
 #endif
-#if defined(SYSTEM_LINUX) || defined(SYSTEM_MACOS)
+#ifdef SYSTEM_POSIX
             return String::UTF16StringCharCount(s);
 #endif
         }
@@ -2143,7 +2135,7 @@ namespace System
             std::wstring str(reinterpret_cast<const wchar_t*>(s.c_str()));
             return String::UTF16CharCount(str);
 #endif
-#if defined(SYSTEM_LINUX) || defined(SYSTEM_MACOS)
+#ifdef SYSTEM_POSIX
             int charCount = 0;
             for (int i = 0; i < s.size(); i++)
             {
@@ -2193,7 +2185,7 @@ namespace System
             }
             return charArray;
 #endif
-#if defined(SYSTEM_LINUX) || defined(SYSTEM_MACOS)
+#ifdef SYSTEM_POSIX
             return String::UTF16StringToCharArray(s);
 #endif
         }
@@ -2204,7 +2196,7 @@ namespace System
             std::wstring str(reinterpret_cast<const wchar_t*>(s.c_str()));
             return String::UTF16ToCharArray(str);
 #endif
-#if defined(SYSTEM_LINUX) || defined(SYSTEM_MACOS)
+#ifdef SYSTEM_POSIX
             std::vector<UTF16Char> charArray;
             for (int i = 0; i < s.size(); i++)
             {
@@ -2618,7 +2610,7 @@ namespace System
                 }
             }
 #endif
-#if defined(SYSTEM_LINUX) || defined(SYSTEM_MACOS)
+#ifdef SYSTEM_POSIX
             //Get terminal I/O setting:
             termios io;
             int getRet = tcgetattr(STDIN_FILENO, &io);
@@ -2752,7 +2744,7 @@ namespace System
                 }
             }
 #endif
-#if defined(SYSTEM_LINUX) || defined(SYSTEM_MACOS)
+#ifdef SYSTEM_POSIX
             //Get terminal I/O setting:
             termios io;
             int getRet = tcgetattr(STDIN_FILENO, &io);
@@ -2834,7 +2826,7 @@ namespace System
                 str = String::WstringToString(std::wstring(buffer), System::StringEncoding::UTF8);
             }
 #endif
-#if defined(SYSTEM_LINUX) || defined(SYSTEM_MACOS)
+#ifdef SYSTEM_POSIX
 #if SYSTEM_STRING_INPUT_BUFFER_SIZE >= 2048
             const int bufferSize = SYSTEM_STRING_INPUT_BUFFER_SIZE;
 #else
@@ -2919,11 +2911,16 @@ namespace System
             BOOL success = WriteConsoleW(stdOutputHandle, str.c_str(), str.size(), &written, NULL);
             return success;
 #endif
-#if defined(SYSTEM_LINUX) || defined(SYSTEM_MACOS)
+#ifdef SYSTEM_POSIX
             ssize_t ret = write(STDOUT_FILENO, s.c_str(), s.size());
             return ret != -1;
 #endif
             return false;
+        }
+
+        static bool WriteLine()
+        {
+            return String::Write(U8(NEW_LINE_STRING));
         }
 
         //std::string must be UTF-8 Encoding.
