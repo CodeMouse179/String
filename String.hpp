@@ -1,5 +1,5 @@
 ﻿//      +--------------------------------------------------------------------------------+
-//      |                                  String v1.40.0                                |
+//      |                                  String v1.40.1                                |
 //      |  Modified Date : 2023/3/17                                                     |
 //      |  Introduction : System.String in C++                                           |
 //      |  License : MIT                                                                 |
@@ -19,9 +19,9 @@
 
 #define SYSTEM_STRING_VERSION_MAJOR 1
 #define SYSTEM_STRING_VERSION_MINOR 40
-#define SYSTEM_STRING_VERSION_PATCH 0
+#define SYSTEM_STRING_VERSION_PATCH 1
 #define SYSTEM_STRING_VERSION (SYSTEM_STRING_VERSION_MAJOR << 16 | SYSTEM_STRING_VERSION_MINOR << 8 | SYSTEM_STRING_VERSION_PATCH)
-#define SYSTEM_STRING_VERSION_STRING "1.40.0"
+#define SYSTEM_STRING_VERSION_STRING "1.40.1"
 
 //--------------------System.hpp START--------------------
 
@@ -2670,7 +2670,8 @@ namespace System
                 BuiltInConsole::Instance().ResetInput();
                 return false;
             }
-            //Dont reset terminal I/O setting here, we should invoke ReadKey after this function.
+            //Reset terminal I/O setting:
+            BuiltInConsole::Instance().ResetInput();
             return byteswaiting > 0;
 #endif
         }

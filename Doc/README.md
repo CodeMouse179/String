@@ -1,4 +1,4 @@
-# String 1.40.0 Documentation
+# String 1.40.1 Documentation
 
 1. Encoding wiki:
 
