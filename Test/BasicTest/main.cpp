@@ -1,10 +1,12 @@
-﻿#define SYSTEM_STRING_CONSOLE
-#ifdef _MSC_VER
+﻿// BasicTest of String.hpp
+// Programmer : CodeMouse179
+// Platform : Windows, Linux, macOS
+
+#define SYSTEM_STRING_CONSOLE
 #include "String.hpp"
-#else
-#include "../../String.hpp"
-#endif
 using namespace System;
+
+static const float sec = 0.05f;
 
 void wait(float second)
 {
@@ -16,22 +18,27 @@ void wait(float second)
 #endif
 }
 
-int main()
+int console_readkey_tutorial()
 {
-    StringA::WriteLine(U8("BasicTest"));
-    StringA::WriteLine(U8("BasicTest"), 255, 25, 135);
-    const float sec = 0.05f;
+    Console::WriteLine(U8("console_readkey_tutorial START (press Q to quit)"), 155, 75, 185);
     while (true)
     {
-        if (StringA::KeyAvailable())
+        //TODO:解决macOS平台按键一次，输出两次的问题。
+        if (Console::KeyAvailable())
         {
-            BuiltInConsoleKey key = StringA::ReadKey();
-            if (key.CodePoint == 'a')
-            {
-                break;
-            }
+           BuiltInConsoleKey key = Console::ReadKey();
+           if (StringA::ToLower(key.CodePoint) == 'q') break;
         }
         wait(sec);
     }
+    Console::WriteLine(U8("\nconsole_readkey_tutorial START"), 155, 75, 185);
+    return 0;
+}
+
+int main()
+{
+    Console::WriteLine(U8("BasicTest START"), 255, 25, 135);
+    console_readkey_tutorial();
+    Console::WriteLine(U8("BasicTest END"), 255, 25, 135);
     return 0;
 }

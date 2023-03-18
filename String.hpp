@@ -1,6 +1,6 @@
 ﻿//      +--------------------------------------------------------------------------------+
-//      |                                  String v1.40.1                                |
-//      |  Modified Date : 2023/3/17                                                     |
+//      |                                  String v1.40.2                                |
+//      |  Modified Date : 2023/3/18                                                     |
 //      |  Introduction : System.String in C++                                           |
 //      |  License : MIT                                                                 |
 //      |  Platform : Windows, Linux, macOS                                              |
@@ -19,9 +19,9 @@
 
 #define SYSTEM_STRING_VERSION_MAJOR 1
 #define SYSTEM_STRING_VERSION_MINOR 40
-#define SYSTEM_STRING_VERSION_PATCH 1
+#define SYSTEM_STRING_VERSION_PATCH 2
 #define SYSTEM_STRING_VERSION (SYSTEM_STRING_VERSION_MAJOR << 16 | SYSTEM_STRING_VERSION_MINOR << 8 | SYSTEM_STRING_VERSION_PATCH)
-#define SYSTEM_STRING_VERSION_STRING "1.40.1"
+#define SYSTEM_STRING_VERSION_STRING "1.40.2"
 
 //--------------------System.hpp START--------------------
 
@@ -472,6 +472,26 @@ namespace System
         {
             if (!IsInited()) Init();
             return Success();
+        }
+
+        bool SetInput(bool nonBlocking, bool noEcho)
+        {
+#ifdef SYSTEM_WINDOWS
+            return false;
+#endif
+#ifdef SYSTEM_POSIX
+            termios input;
+            //Get terminal input setting:
+            int getRet = tcgetattr(STDIN_FILENO, &input);
+            if (getRet == -1) return false;
+            //Modify terminal input setting:
+            if (nonBlocking) input.c_lflag &= ~ICANON; //Non Blocking
+            if (noEcho) input.c_lflag &= ~ECHO;        //No Echo
+            //Set terminal input setting:
+            int setRet = tcsetattr(STDIN_FILENO, TCSANOW, &input);
+            if (setRet == -1) return false;
+            return true;
+#endif
         }
 
         void ResetInput()
@@ -2645,34 +2665,15 @@ namespace System
             }
 #endif
 #ifdef SYSTEM_POSIX
-            //Get terminal I/O setting:
-            termios io;
-            int getRet = tcgetattr(STDIN_FILENO, &io);
-            if (getRet == -1)
-            {
-                return false;
-            }
-            //Modify terminal I/O setting:
-            io.c_lflag &= ~ICANON; //Non Blocking
-            io.c_lflag &= ~ECHO;   //No Echo
-            //Set terminal I/O setting:
-            int setRet = tcsetattr(STDIN_FILENO, TCSANOW, &io);
-            if (setRet == -1)
-            {
-                BuiltInConsole::Instance().ResetInput();
-                return false;
-            }
+            //Set terminal input setting:
+            bool setInputSuccess = BuiltInConsole::Instance().SetInput(true, true);
+            if (!setInputSuccess) return false;
             //ioctl:
             int byteswaiting;
             int ret = ioctl(STDIN_FILENO, FIONREAD, &byteswaiting);
-            if (ret == -1)
-            {
-                BuiltInConsole::Instance().ResetInput();
-                return false;
-            }
-            //Reset terminal I/O setting:
+            //Reset terminal input setting:
             BuiltInConsole::Instance().ResetInput();
-            return byteswaiting > 0;
+            return (ret != -1 && byteswaiting > 0);
 #endif
         }
 
@@ -2781,25 +2782,11 @@ namespace System
             }
 #endif
 #ifdef SYSTEM_POSIX
-            //Get terminal I/O setting:
-            termios io;
-            int getRet = tcgetattr(STDIN_FILENO, &io);
-            if (getRet == -1)
-            {
-                return key;
-            }
-            //Modify terminal I/O setting:
-            io.c_lflag &= ~ICANON; //Non Blocking
-            io.c_lflag &= ~ECHO;   //No Echo
-            //Set terminal I/O setting:
-            int setRet = tcsetattr(STDIN_FILENO, TCSANOW, &io);
-            if (setRet == -1)
-            {
-                BuiltInConsole::Instance().ResetInput();
-                return key;
-            }
+            //Set terminal input setting:
+            bool setInputSuccess = BuiltInConsole::Instance().SetInput(true, true);
+            if (!setInputSuccess) return key;
             //Alloc buffer:
-            const int bufferSize = 8;
+            const int bufferSize = 4;       //Unicode character at most takes 4 bytes to represent.
             char buffer[bufferSize + 1];    //bufferSize + 1 because we need '\0' at end of this string.
             buffer[bufferSize] = 0;         //add '\0' at the end.
             //Read terminal:
