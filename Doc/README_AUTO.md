@@ -1,0 +1,109 @@
+# String 1.41.0 Documentation - AutoGen
+
+1. String.hpp
+
+    1. SYSTEM_STRING_HPP
+
+    1. SYSTEM_STRING_VERSION_MAJOR
+
+    1. SYSTEM_STRING_VERSION_MINOR
+
+    1. SYSTEM_STRING_VERSION_PATCH
+
+    1. SYSTEM_STRING_VERSION
+
+    1. SYSTEM_STRING_VERSION_STRING
+
+    1. SYSTEM_WINDOWS
+
+    1. SYSTEM_LINUX
+
+    1. SYSTEM_MACOS
+
+    1. SYSTEM_POSIX
+
+    1. SYSTEM_CXX
+
+    1. SYSTEM_CXX_98
+
+    1. SYSTEM_CXX_11
+
+    1. SYSTEM_CXX_14
+
+    1. SYSTEM_CXX_17
+
+    1. SYSTEM_CXX_20
+
+    1. StringA
+
+    1. StringW
+
+    1. StringU8
+
+    1. StringU16
+
+    1. StringU32
+
+    1. StringT
+
+    1. S(s)
+
+    1. W(s)
+
+    1. U8c(c)
+
+    1. U8s(s)
+
+    1. U8(s)
+
+    1. U8S(s)
+
+    1. U16(s)
+
+    1. U32(s)
+
+    1. T(s)
+
+    1. T8(s)
+
+    1. TRUE_STRING
+
+    1. FALSE_STRING
+
+    1. NEW_LINE_STRING
+
+    1. ERASE_STRING
+
+    1. SYSTEM_STRING_INPUT_BUFFER_SIZE
+
+    1. ESC
+
+    1. USE_ALTERNATE_SCREEN_BUFFER_FORMAT
+
+    1. USE_MAIN_SCREEN_BUFFER_FORMAT
+
+    1. SET_CURSOR_POSITION_FORMAT
+
+    1. SET_RGB_COLOR_FORMAT
+
+    1. SET_DEFAULT_ATTRIBUTE_FORMAT
+
+    1. Console
+
+    1. STRING_TO_BOOLEAN_EXCEPTION
+
+    1. STRING_READKEY_EXCEPTION
+
+    1. STRING_NOT_IMPLEMENTED_EXCEPTION
+
+    1. SPACE_CHAR
+
+    1. N_CHAR
+
+    1. R_CHAR
+
+    1. B_CHAR
+
+    1. LEFT_CURLY_BRACKET
+
+    1. RIGHT_CURLY_BRACKET

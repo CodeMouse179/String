@@ -131,6 +131,7 @@ int console_example()
     Console::SetCursorPosition(4, 2);
     Console::WriteLine(U8("Console Example:"));
     Console::WriteLineU8(U8("你好世界😄"));
+    Console::WriteLine(1);
     Console::ReadLine();
     Console::DeinitConsole();
     return 0;

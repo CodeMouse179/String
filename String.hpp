@@ -1,6 +1,6 @@
 ﻿//      +--------------------------------------------------------------------------------+
-//      |                                  String v1.40.2                                |
-//      |  Modified Date : 2023/3/18                                                     |
+//      |                                  String v1.41.0                                |
+//      |  Modified Date : 2023/3/20                                                     |
 //      |  Introduction : System.String in C++                                           |
 //      |  License : MIT                                                                 |
 //      |  Platform : Windows, Linux, macOS                                              |
@@ -18,10 +18,10 @@
 #define SYSTEM_STRING_HPP
 
 #define SYSTEM_STRING_VERSION_MAJOR 1
-#define SYSTEM_STRING_VERSION_MINOR 40
-#define SYSTEM_STRING_VERSION_PATCH 2
+#define SYSTEM_STRING_VERSION_MINOR 41
+#define SYSTEM_STRING_VERSION_PATCH 0
 #define SYSTEM_STRING_VERSION (SYSTEM_STRING_VERSION_MAJOR << 16 | SYSTEM_STRING_VERSION_MINOR << 8 | SYSTEM_STRING_VERSION_PATCH)
-#define SYSTEM_STRING_VERSION_STRING "1.40.2"
+#define SYSTEM_STRING_VERSION_STRING "1.41.0"
 
 //--------------------System.hpp START--------------------
 
@@ -566,6 +566,11 @@ namespace System
         static int Length(const std::basic_string<T>& s)
         {
             return s.size();
+        }
+
+        static int Length(const char* c_str)
+        {
+            return String::Length(std::string(c_str));
         }
 
     public:
@@ -2941,6 +2946,14 @@ namespace System
             return false;
         }
 
+        template<typename Type>
+        static bool Write(Type value)
+        {
+            std::basic_ostringstream<T> boss;
+            boss << value;
+            return String::Write(boss.str());
+        }
+
         static bool WriteLine()
         {
             return String::Write(U8(NEW_LINE_STRING));
@@ -2950,6 +2963,14 @@ namespace System
         static bool WriteLine(const std::string& s)
         {
             return String::Write(s + U8(NEW_LINE_STRING));
+        }
+
+        template<typename Type>
+        static bool WriteLine(Type value)
+        {
+            std::basic_ostringstream<T> boss;
+            boss << value;
+            return String::Write(boss.str() + U8(NEW_LINE_STRING));
         }
 
         static int WindowWidth()
