@@ -1,4 +1,4 @@
-# String 1.41.0 Documentation - AutoGen
+# String 1.42.0 Documentation - AutoGen
 
 1. String.hpp
 
@@ -66,6 +66,8 @@
 
     1. T8(s)
 
+    1. TEXT(s)
+
     1. TRUE_STRING
 
     1. FALSE_STRING
@@ -107,3 +109,5 @@
     1. LEFT_CURLY_BRACKET
 
     1. RIGHT_CURLY_BRACKET
+
+    1. SYSTEM_STRING_BASE_BUFFER_SIZE

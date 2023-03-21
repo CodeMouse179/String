@@ -23,6 +23,10 @@ using namespace System;
 #define MACRO_DEFINE "#define"
 #endif
 
+#ifndef README_PATH
+#define README_PATH "../../README.md"
+#endif
+
 void add_item(std::vector<std::string>& output_lines, const std::string& line, int level)
 {
     std::string indent;
@@ -127,6 +131,40 @@ int main()
     }
     //close output:
     output_readme_doc.close();
+
+    //read README.md:
+    std::ifstream input_readme;
+    input_readme.open(README_PATH);
+    if (!input_readme.is_open())
+    {
+        Console::WriteLine(U8("Can't find README_PATH"));
+        return -1;
+    }
+    std::vector<std::string> input_readme_lines;
+    std::string tempLine;
+    while (std::getline(input_readme, tempLine))
+    {
+        input_readme_lines.push_back(tempLine);
+    }
+    input_readme.close();
+    //write README.md
+    std::ofstream output_readme;
+    output_readme.open(README_PATH);
+    if (!output_readme.is_open())
+    {
+        Console::WriteLine(U8("Can't find README_PATH"));
+        return -1;
+    }
+    output_readme << StringA::Format("# String {0}.{1}.{2}\n", 
+        SYSTEM_STRING_VERSION_MAJOR, SYSTEM_STRING_VERSION_MINOR, SYSTEM_STRING_VERSION_PATCH);
+    for (int i = 1; i < input_readme_lines.size(); i++)
+    {
+        if (i < input_readme_lines.size() - 1)
+            output_readme << input_readme_lines[i] << "\n";
+        else
+            output_readme << input_readme_lines[i];
+    }
+    output_readme.close();
 
     Console::WriteLine(U8("success"));
     return 0;

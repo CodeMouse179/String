@@ -1,6 +1,6 @@
 ﻿//      +--------------------------------------------------------------------------------+
-//      |                                  String v1.41.0                                |
-//      |  Modified Date : 2023/3/20                                                     |
+//      |                                  String v1.42.0                                |
+//      |  Modified Date : 2023/3/21                                                     |
 //      |  Introduction : System.String in C++                                           |
 //      |  License : MIT                                                                 |
 //      |  Platform : Windows, Linux, macOS                                              |
@@ -18,10 +18,10 @@
 #define SYSTEM_STRING_HPP
 
 #define SYSTEM_STRING_VERSION_MAJOR 1
-#define SYSTEM_STRING_VERSION_MINOR 41
+#define SYSTEM_STRING_VERSION_MINOR 42
 #define SYSTEM_STRING_VERSION_PATCH 0
 #define SYSTEM_STRING_VERSION (SYSTEM_STRING_VERSION_MAJOR << 16 | SYSTEM_STRING_VERSION_MINOR << 8 | SYSTEM_STRING_VERSION_PATCH)
-#define SYSTEM_STRING_VERSION_STRING "1.41.0"
+#define SYSTEM_STRING_VERSION_STRING "1.42.0"
 
 //--------------------System.hpp START--------------------
 
@@ -230,6 +230,9 @@
 #define T8(s) s
 #endif
 
+//TEXT:
+#define TEXT(s) U8(s)
+
 //Specifies the execution character set used for string and character literals.
 #ifdef SYSTEM_STRING_SET_UTF8
 #ifdef SYSTEM_WINDOWS
@@ -329,6 +332,10 @@
 
 #ifndef RIGHT_CURLY_BRACKET
 #define RIGHT_CURLY_BRACKET '}'
+#endif
+
+#ifndef SYSTEM_STRING_BASE_BUFFER_SIZE
+#define SYSTEM_STRING_BASE_BUFFER_SIZE 16
 #endif
 
 namespace System
@@ -3127,6 +3134,13 @@ namespace System
             boss << value << separator;
         }
     };
+
+    template<typename CharType>
+    class StringBase
+    {
+    };
+
+    typedef StringBase<char> string;
 }
 
 #endif

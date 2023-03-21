@@ -137,10 +137,25 @@ int console_example()
     return 0;
 }
 
+int system_string_example()
+{
+    Console::WriteLine(U8("system_string_example starts!"), 198, 251, 19);
+    System::string str;
+    Console::WriteLine(U8("system_string_example ends!"), 198, 251, 19);
+    return 0;
+}
+
 int main()
 {
+    //TEXT:
+    std::string text = TEXT("你好世界😄😄");
+    Console::WriteLine(text);
+
     //Intro:
     Console::WriteLine(U8("String.hpp ") + std::string(U8(SYSTEM_STRING_VERSION_STRING)), 255, 45, 145);
+
+    //system string example:
+    system_string_example();
 
     //console example:
     console_example();
