@@ -16,7 +16,7 @@ C++ Required Version : C++ 11
 
 API Family : [System](https://github.com/CodeMouse179/System)
 
-## Introduce
+## Introduction
 
 String.hpp is a System.String (C#) implemented in C++.
 
@@ -24,7 +24,7 @@ The purpose is to provide C++ programmers with convenient and reliable string ma
 
 It supports multiple character types by manipulating std::basic_string: char, wchar_t, char8_t, char16_t , char32_t.
 
-## Install
+## Installation
 
 String.hpp is distributed as a single header file so it's easy to install, just follow 2 steps:
 
@@ -41,52 +41,6 @@ Linux, macOS : cmake . && make && ./ss
 ## Documentation
 
 [Documentation](https://github.com/CodeMouse179/String/blob/main/Doc/README.md)
-
-## Macros
-
-Header infomation macros:
-
-    SYSTEM_STRING_HPP
-
-    SYSTEM_STRING_VERSION_MAJOR
-
-    SYSTEM_STRING_VERSION_MINOR
-
-    SYSTEM_STRING_VERSION_PATCH
-
-    SYSTEM_STRING_VERSION
-
-    SYSTEM_STRING_VERSION_STRING
-
-Platform macros:
-
-    SYSTEM_WINDOWS
-
-    SYSTEM_LINUX
-
-    SYSTEM_MACOS
-
-    SYSTEM_POSIX(Linux, macOS)
-
-Language macros:
-
-    SYSTEM_CXX
-
-    SYSTEM_CXX_11
-
-    SYSTEM_CXX_14
-
-    SYSTEM_CXX_17
-
-    SYSTEM_CXX_20
-
-You can define these macros before include String.hpp:
-
-    SYSTEM_STRING_ONLY(Disable extra functions)
-
-    SYSTEM_STRING_SET_UTF8(Change execution character set to UTF8, only effects on Windows)
-
-    SYSTEM_STRING_CONSOLE(Enable console functions)
 
 ## String API Tutorial
 
