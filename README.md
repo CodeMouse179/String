@@ -42,95 +42,42 @@ Linux, macOS : cmake . && make && ./ss
 
 [Documentation](https://github.com/CodeMouse179/String/blob/main/Doc/README.md)
 
-## String API Tutorial
-
-Include String.hpp:
+## Tutorial
 
 ``` cpp
+#define SYSTEM_STRING_CONSOLE
 #include "String.hpp"
-using namespace System; //optional
-```
+using namespace System;
 
-String::Format example:
-
-``` cpp
-//output: a:2:3
-std::string format1 = StringA::Format("{0}:{1}:{2}", (char)97, 2, 3);
-
-//output: 97:2:3
-std::string format2 = StringA::Format("{0}:{1}:{2}", 97, 2, 3);
-```
-
-String::Split example:
-
-``` cpp
-//vector values:1,2,3
-std::vector<std::string> split1 = StringA::Split("1 2 3", ' ');
-```
-
-## Console API Tutorial
-
-Include String.hpp and enable console function support:
-
-``` cpp
-#define SYSTEM_STRING_CONSOLE //Enable console function support
-#include "String.hpp"
-using namespace System; //optional
-```
-
-## Example 1
-
-``` cpp
-//(Optional) Only valid for Windows, let runtime strings be encoded in UTF-8 format
-#define SYSTEM_STRING_SET_UTF8
-#include "String.hpp"
 int main()
 {
-    //Get the current version of String.hpp:
-    int major = SYSTEM_STRING_VERSION_MAJOR;
-    int minor = SYSTEM_STRING_VERSION_MINOR;
-    int patch = SYSTEM_STRING_VERSION_PATCH;
+    //String::Format 1:
+    std::string version = StringA::Format("String {0}.{1}.{2}",
+        SYSTEM_STRING_VERSION_MAJOR, SYSTEM_STRING_VERSION_MINOR, SYSTEM_STRING_VERSION_PATCH);
+    Console::WriteLine(version, 255, 45, 145);
 
-    //Get an empty string of type char:
-    std::string empty = System::String<char>::Empty();
-    //Get an empty string of type char by using the StringA macro:
-    std::string emtpyA = StringA::Empty();
+    //String::Format 2:
+    std::string format = StringA::Format("My name is {0}, I am {1} years old.", "Nora", 20);
+    Console::WriteLine(format);
 
-    //Get an empty string of type wchar_t:
-    std::wstring empty2 = System::String<wchar_t>::Empty();
-    //Get an empty string of type wchar_t by using the StringW macro:
-    std::wstring empty2W = StringW::Empty();
+    //String::Split:
+    auto split = StringA::Split("Maomao and Shushu", " ");
+    for (int i = 0; i < split.size(); i++)
+    {
+        if (i == split.size() - 1)
+            Console::Write(split[i] + "\n");
+        else
+            Console::Write(split[i] + "    ");
+    }
 
-    //Get an empty string of type char16_t:
-    std::u16string empty3 = System::String<char16_t>::Empty();
-    //Get an empty string of type char16_t by using the StringU16 macro:
-    std::u16string empty3U16 = StringU16::Empty();
+    //String::To_UTF8:
+    std::string utf8_string = StringA::To_UTF8(L"你好世界😄");
+    Console::WriteLine(utf8_string);
 
-    //Get an empty string of type char32_t:
-    std::u32string empty4 = System::String<char32_t>::Empty();
-    //Get an empty string of type char32_t by using the StringU32 macro:
-    std::u32string empty4U32 = StringU32::Empty();
+    //String::UTF8CharCount:
+    int charCount = StringA::UTF8CharCount(U8("你好世界😄"));
+    Console::WriteLine(StringA::Format("char count : {0}", charCount));
 
     return 0;
 }
-```
-
-## Example 2
-
-``` cpp
-    //String::Format, output:"Anna is your Wife."
-    std::string format_str = System::String<char>::Format("{0} is your {1}.", "Anna", "Wife");
-
-    //String::StringToWstring, output:L"Hello World"(on Windows) or "Hello World"(on Linux)
-    System::tstring hello_world = System::String<char>::StringToWstring(U8("Hello World"), System::StringEncoding::UTF8);
-    
-    //String::WstringToString, output:"Hello World"
-    std::string hello_world2 = System::String<char>::WstringToString(T("Hello World"), System::StringEncoding::UTF8);
-    
-    //String::IsValidUTF8, output:true
-    bool is_utf8_str = System::String<char>::IsValidUTF8(U8("你好世界"));
-
-    //String::UTF8CharCount, output:7
-    int count = System::String<char>::UTF8CharCount(U8("你好世界123"));
-
 ```
