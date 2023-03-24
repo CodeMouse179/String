@@ -1,4 +1,4 @@
-# String 1.42.0
+# String 1.43.0
 
 [README - 中文](https://github.com/CodeMouse179/String/blob/main/Doc/README_CN.md)
 
@@ -23,6 +23,10 @@ String.hpp is a System.String (C#) implemented in C++.
 The purpose is to provide C++ programmers with convenient and reliable string manipulation functions.
 
 It supports multiple character types by manipulating std::basic_string: char, wchar_t, char8_t, char16_t , char32_t.
+
+## Inspiration
+
+[C# System.String](https://learn.microsoft.com/en-us/dotnet/api/system.string?view=net-8.0)
 
 ## Installation
 

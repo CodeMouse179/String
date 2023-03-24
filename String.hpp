@@ -1,6 +1,6 @@
 ﻿//      +--------------------------------------------------------------------------------+
-//      |                                  String v1.42.0                                |
-//      |  Modified Date : 2023/3/21                                                     |
+//      |                                  String v1.43.0                                |
+//      |  Modified Date : 2023/3/25                                                     |
 //      |  Introduction : System.String in C++                                           |
 //      |  License : MIT                                                                 |
 //      |  Platform : Windows, Linux, macOS                                              |
@@ -18,12 +18,38 @@
 #define SYSTEM_STRING_HPP
 
 #define SYSTEM_STRING_VERSION_MAJOR 1
-#define SYSTEM_STRING_VERSION_MINOR 42
+#define SYSTEM_STRING_VERSION_MINOR 43
 #define SYSTEM_STRING_VERSION_PATCH 0
 #define SYSTEM_STRING_VERSION (SYSTEM_STRING_VERSION_MAJOR << 16 | SYSTEM_STRING_VERSION_MINOR << 8 | SYSTEM_STRING_VERSION_PATCH)
-#define SYSTEM_STRING_VERSION_STRING "1.42.0"
+#define SYSTEM_STRING_VERSION_STRING "1.43.0"
 
 //--------------------System.hpp START--------------------
+
+#define SYSTEM_VERSION_MAJOR 0
+#define SYSTEM_VERSION_MINOR 5
+#define SYSTEM_VERSION_PATCH 1
+#define SYSTEM_VERSION (SYSTEM_VERSION_MAJOR << 16 | SYSTEM_VERSION_MINOR << 8 | SYSTEM_VERSION_PATCH)
+#define SYSTEM_VERSION_STRING "0.5.1"
+
+//Microsoft C/C++ Compiler:
+#if defined(_MSC_VER) && !defined(__clang__)
+#define SYSTEM_MSC 1
+#endif
+
+//GNU C/C++ Compiler:
+#if defined(__GNUC__) && !defined(__clang__)
+#define SYSTEM_GCC 1
+#endif
+
+//Clang C/C++ Compiler:
+#if defined(__clang__)
+#define SYSTEM_CLA 1
+#endif
+
+//Standard C/C++ Compiler:
+#if defined(SYSTEM_GCC) || defined(SYSTEM_CLA)
+#define SYSTEM_SCC 1
+#endif
 
 //Windows Platform:
 #if defined(WIN32) || defined(_WIN32)
@@ -45,6 +71,64 @@
 //POSIX Platform:
 #if defined(SYSTEM_LINUX) || defined(SYSTEM_MACOS)
 #define SYSTEM_POSIX 1
+#endif
+
+//C Language(Microsoft C/C++ Compiler):
+#if defined(SYSTEM_MSC)
+#if defined(__STDC_VERSION__) && !defined(__cplusplus)
+#define SYSTEM_C 1
+#endif
+#if !defined(__cplusplus)
+#define SYSTEM_C 2
+#endif
+#endif
+
+//C Language(Standard C/C++ Compiler):
+#if defined(SYSTEM_SCC)
+#if defined(__STDC__) && !defined(__cplusplus)
+#define SYSTEM_C 1
+#endif
+#if !defined(__cplusplus)
+#define SYSTEM_C 2
+#endif
+#endif
+
+//C Version Definition(Microsoft C/C++ Compiler):
+#if defined(SYSTEM_MSC) && defined(SYSTEM_C)
+#if !defined(__STDC_VERSION__)
+#define SYSTEM_C_90 1
+#endif
+#if defined(__STDC_VERSION__) && (__STDC_VERSION__ >= 199409L)
+#define SYSTEM_C_90 1
+#endif
+#if defined(__STDC_VERSION__) && (__STDC_VERSION__ >= 199901L)
+#define SYSTEM_C_99 1
+#endif
+#if defined(__STDC_VERSION__) && (__STDC_VERSION__ >= 201112L)
+#define SYSTEM_C_11 1
+#endif
+#if defined(__STDC_VERSION__) && (__STDC_VERSION__ >= 201710L)
+#define SYSTEM_C_17 1
+#endif
+#endif
+
+//C Version Definition(Standard C/C++ Compiler):
+#if defined(SYSTEM_SCC) && defined(SYSTEM_C)
+#if defined(__STDC__) && !defined(__STDC_VERSION__)
+#define SYSTEM_C_90 1
+#endif
+#if defined(__STDC_VERSION__) && (__STDC_VERSION__ >= 199409L)
+#define SYSTEM_C_90 1
+#endif
+#if defined(__STDC_VERSION__) && (__STDC_VERSION__ >= 199901L)
+#define SYSTEM_C_99 1
+#endif
+#if defined(__STDC_VERSION__) && (__STDC_VERSION__ >= 201112L)
+#define SYSTEM_C_11 1
+#endif
+#if defined(__STDC_VERSION__) && (__STDC_VERSION__ >= 201710L)
+#define SYSTEM_C_17 1
+#endif
 #endif
 
 //C++ Language:
@@ -88,6 +172,12 @@
 #if (__cplusplus >= 202002L)
 #define SYSTEM_CXX_20 1
 #endif
+#endif
+
+#if defined(SYSTEM_CXX)
+namespace System
+{
+}
 #endif
 
 //--------------------System.hpp END--------------------
