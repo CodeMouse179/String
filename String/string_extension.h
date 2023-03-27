@@ -1,0 +1,3 @@
+﻿#ifndef STRING_EXTENSION_H
+#define STRING_EXTENSION_H
+#endif
