@@ -1,6 +1,6 @@
 ﻿//      +--------------------------------------------------------------------------------+
-//      |                                  String v1.43.0                                |
-//      |  Modified Date : 2023/3/25                                                     |
+//      |                                  String v1.44.0                                |
+//      |  Modified Date : 2023/3/28                                                     |
 //      |  Introduction : System.String in C++                                           |
 //      |  License : MIT                                                                 |
 //      |  Platform : Windows, Linux, macOS                                              |
@@ -18,18 +18,18 @@
 #define SYSTEM_STRING_HPP
 
 #define SYSTEM_STRING_VERSION_MAJOR 1
-#define SYSTEM_STRING_VERSION_MINOR 43
+#define SYSTEM_STRING_VERSION_MINOR 44
 #define SYSTEM_STRING_VERSION_PATCH 0
 #define SYSTEM_STRING_VERSION (SYSTEM_STRING_VERSION_MAJOR << 16 | SYSTEM_STRING_VERSION_MINOR << 8 | SYSTEM_STRING_VERSION_PATCH)
-#define SYSTEM_STRING_VERSION_STRING "1.43.0"
+#define SYSTEM_STRING_VERSION_STRING "1.44.0"
 
 //--------------------System.hpp START--------------------
 
 #define SYSTEM_VERSION_MAJOR 0
 #define SYSTEM_VERSION_MINOR 5
-#define SYSTEM_VERSION_PATCH 1
+#define SYSTEM_VERSION_PATCH 2
 #define SYSTEM_VERSION (SYSTEM_VERSION_MAJOR << 16 | SYSTEM_VERSION_MINOR << 8 | SYSTEM_VERSION_PATCH)
-#define SYSTEM_VERSION_STRING "0.5.1"
+#define SYSTEM_VERSION_STRING "0.5.2"
 
 //Microsoft C/C++ Compiler:
 #if defined(_MSC_VER) && !defined(__clang__)
@@ -77,8 +77,7 @@
 #if defined(SYSTEM_MSC)
 #if defined(__STDC_VERSION__) && !defined(__cplusplus)
 #define SYSTEM_C 1
-#endif
-#if !defined(__cplusplus)
+#elif !defined(__cplusplus)
 #define SYSTEM_C 2
 #endif
 #endif
@@ -87,8 +86,7 @@
 #if defined(SYSTEM_SCC)
 #if defined(__STDC__) && !defined(__cplusplus)
 #define SYSTEM_C 1
-#endif
-#if !defined(__cplusplus)
+#elif !defined(__cplusplus)
 #define SYSTEM_C 2
 #endif
 #endif
@@ -855,6 +853,12 @@ namespace System
             {
                 return String::Equals(a, b);
             }
+        }
+
+        //该重载的意义在于防止String::Format在Visual C++11, C++14环境下只传入format参数而产生的编译错误
+        static std::basic_string<T> Format(const std::basic_string<T>& format)
+        {
+            return format;
         }
 
         template<typename... Types>
