@@ -11,6 +11,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "string_extension", "String\
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ReadmeTest", "Test\ReadmeTest\ReadmeTest.vcxproj", "{CA99D973-5AB6-422D-ABE6-481C6B57B922}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "DocGenTest", "Test\DocGenTest\DocGenTest.vcxproj", "{715C9DD1-9A9C-4E99-A69B-9DAE8351801A}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -51,6 +53,14 @@ Global
 		{CA99D973-5AB6-422D-ABE6-481C6B57B922}.Release|x64.Build.0 = Release|x64
 		{CA99D973-5AB6-422D-ABE6-481C6B57B922}.Release|x86.ActiveCfg = Release|Win32
 		{CA99D973-5AB6-422D-ABE6-481C6B57B922}.Release|x86.Build.0 = Release|Win32
+		{715C9DD1-9A9C-4E99-A69B-9DAE8351801A}.Debug|x64.ActiveCfg = Debug|x64
+		{715C9DD1-9A9C-4E99-A69B-9DAE8351801A}.Debug|x64.Build.0 = Debug|x64
+		{715C9DD1-9A9C-4E99-A69B-9DAE8351801A}.Debug|x86.ActiveCfg = Debug|Win32
+		{715C9DD1-9A9C-4E99-A69B-9DAE8351801A}.Debug|x86.Build.0 = Debug|Win32
+		{715C9DD1-9A9C-4E99-A69B-9DAE8351801A}.Release|x64.ActiveCfg = Release|x64
+		{715C9DD1-9A9C-4E99-A69B-9DAE8351801A}.Release|x64.Build.0 = Release|x64
+		{715C9DD1-9A9C-4E99-A69B-9DAE8351801A}.Release|x86.ActiveCfg = Release|Win32
+		{715C9DD1-9A9C-4E99-A69B-9DAE8351801A}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

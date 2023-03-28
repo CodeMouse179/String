@@ -1,4 +1,4 @@
-# String 1.42.0 Documentation - AutoGen
+# String 1.44.0 Documentation - AutoGen
 
 1. String.hpp
 
@@ -14,6 +14,24 @@
 
     1. SYSTEM_STRING_VERSION_STRING
 
+    1. SYSTEM_VERSION_MAJOR
+
+    1. SYSTEM_VERSION_MINOR
+
+    1. SYSTEM_VERSION_PATCH
+
+    1. SYSTEM_VERSION
+
+    1. SYSTEM_VERSION_STRING
+
+    1. SYSTEM_MSC
+
+    1. SYSTEM_GCC
+
+    1. SYSTEM_CLA
+
+    1. SYSTEM_SCC
+
     1. SYSTEM_WINDOWS
 
     1. SYSTEM_LINUX
@@ -21,6 +39,16 @@
     1. SYSTEM_MACOS
 
     1. SYSTEM_POSIX
+
+    1. SYSTEM_C
+
+    1. SYSTEM_C_90
+
+    1. SYSTEM_C_99
+
+    1. SYSTEM_C_11
+
+    1. SYSTEM_C_17
 
     1. SYSTEM_CXX
 
