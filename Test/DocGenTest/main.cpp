@@ -1,4 +1,4 @@
-#define SYSTEM_STRING_CONSOLE
+﻿#define SYSTEM_STRING_CONSOLE
 #include "String.hpp"
 using namespace System;
 

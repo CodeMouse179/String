@@ -1,4 +1,4 @@
-#define SYSTEM_STRING_CONSOLE
+﻿#define SYSTEM_STRING_CONSOLE
 #include "String.hpp"
 using namespace System;
 
@@ -24,7 +24,11 @@ int main()
     }
 
     //String::To_UTF8:
+#ifdef SYSTEM_WINDOWS
+    std::string utf8_string = StringA::WstringToString(T("你好世界😄"), System::StringEncoding::UTF8);
+#else
     std::string utf8_string = StringA::To_UTF8(L"你好世界😄");
+#endif
     Console::WriteLine(utf8_string);
 
     //String::UTF8CharCount:
