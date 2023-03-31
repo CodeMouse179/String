@@ -1,5 +1,11 @@
 # String 1.41.0 Documentation
 
+1. C# System.String:
+
+    * [.Net Document](https://learn.microsoft.com/en-us/dotnet/api/system.string)
+
+    * [.NET Framework 4.8 Source Code](https://referencesource.microsoft.com/#mscorlib/system/string.cs)
+
 1. Encoding wiki:
 
     * [ASCII](https://en.wikipedia.org/wiki/ASCII)
@@ -11,12 +17,6 @@
     * [UTF-16](https://en.wikipedia.org/wiki/UTF-16)
 
     * [UTF-32](https://en.wikipedia.org/wiki/UTF-32)
-
-1. C# System.String:
-
-    * [.Net Document](https://learn.microsoft.com/en-us/dotnet/api/system.string)
-
-    * [.NET Framework 4.8 Source Code](https://referencesource.microsoft.com/#mscorlib/system/string.cs)
 
 1. Other String/StringUtils class Implementations:
 
