@@ -548,6 +548,13 @@ int main()
     int void2int_result = StringA::Void2Int(void2int_void);
     Console::WriteLine(U8("我今年") + StringA::ToString(void2int_result) + U8("岁"), 169, 119, 197);
 
+    bool number_is_palindrome1 = StringA::IsPalindrome(12321);
+    bool number_is_palindrome2 = StringA::IsPalindrome(1);
+    bool number_is_palindrome3 = StringA::IsPalindrome(-1);
+    bool string_is_palindrome1 = StringA::IsPalindrome("12321");
+    bool string_is_palindrome2 = StringA::IsPalindrome("1");
+    bool string_is_palindrome3 = StringA::IsPalindrome("");
+
     //Russian Test:
     //Output:здравствуйте, Expected output:ЗДРАВСТВУЙТЕ
     //TODO:Implement a language-independent ToUpper function

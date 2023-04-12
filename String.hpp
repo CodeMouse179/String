@@ -1,6 +1,6 @@
 ﻿//      +--------------------------------------------------------------------------------+
-//      |                                  String v1.44.0                                |
-//      |  Modified Date : 2023/3/28                                                     |
+//      |                                  String v1.45.0                                |
+//      |  Modified Date : 2023/4/12                                                     |
 //      |  Introduction : System.String in C++                                           |
 //      |  License : MIT                                                                 |
 //      |  Platform : Windows, Linux, macOS                                              |
@@ -18,10 +18,10 @@
 #define SYSTEM_STRING_HPP
 
 #define SYSTEM_STRING_VERSION_MAJOR 1
-#define SYSTEM_STRING_VERSION_MINOR 44
+#define SYSTEM_STRING_VERSION_MINOR 45
 #define SYSTEM_STRING_VERSION_PATCH 0
 #define SYSTEM_STRING_VERSION (SYSTEM_STRING_VERSION_MAJOR << 16 | SYSTEM_STRING_VERSION_MINOR << 8 | SYSTEM_STRING_VERSION_PATCH)
-#define SYSTEM_STRING_VERSION_STRING "1.44.0"
+#define SYSTEM_STRING_VERSION_STRING "1.45.0"
 
 //--------------------System.hpp START--------------------
 
@@ -2658,6 +2658,34 @@ namespace System
             int result = (int)p;
             return result;
 #endif
+        }
+
+        static bool IsPalindrome(const std::basic_string<T>& s)
+        {
+            if (s.empty()) return false;
+            for (int i = 0, j = s.size() - 1; i < s.size() / 2; i++, j--)
+            {
+                if (s[i] != s[j]) return false;
+            }
+            return true;
+        }
+
+        static bool IsPalindrome(int number)
+        {
+            if (number < 0) return false;
+            std::vector<int> digits;
+            while (true)
+            {
+                int digit = number % 10;
+                digits.push_back(digit);
+                number /= 10;
+                if (number == 0) break;
+            }
+            for (int i = 0, j = digits.size() - 1; i < digits.size() / 2; i++, j--)
+            {
+                if (digits[i] != digits[j]) return false;
+            }
+            return true;
         }
 #endif
 
