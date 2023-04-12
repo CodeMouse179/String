@@ -2,6 +2,76 @@
 
 ## History
 
+### 1.45.0
+
+Release Date : 2023/4/12
+
+Added : String::IsPalindrome(function)
+
+### 1.44.0
+
+Release Date : 2023/3/28
+
+Added : String::Format(overload)
+
+Fixed : SYSTEM_C
+
+### 1.43.0
+
+Release Date : 2023/3/25
+
+Added : SYSTEM_VERSION_MAJOR(macro), SYSTEM_VERSION_MINOR(macro), SYSTEM_VERSION_PATCH(macro), SYSTEM_VERSION(macro), SYSTEM_VERSION_STRING(macro), SYSTEM_MSC(macro), SYSTEM_GCC(macro), SYSTEM_CLA(macro), SYSTEM_SCC(macro), SYSTEM_C(macro), SYSTEM_C_90(macro), SYSTEM_C_99(macro), SYSTEM_C_11(macro), SYSTEM_C_17(macro)
+
+### 1.42.0
+
+Release Date : 2023/3/21
+
+Added : TEXT(macro), SYSTEM_STRING_BASE_BUFFER_SIZE(macro), System::StringBase(class), System::string(typedef)
+
+### 1.41.0
+
+Release Date : 2023/3/20
+
+Added : String::Length(overload), String::Write(overload), String::WriteLine(overload)
+
+### 1.40.2
+
+Release Date : 2023/3/18
+
+Added : BuiltInConsole::SetInput(function)
+
+Changed : String::KeyAvailable, String::ReadKey
+
+### 1.40.1
+
+Release Date : 2023/3/17
+
+Fixed : String::KeyAvailable
+
+### 1.40.0
+
+Release Date : 2023/3/17
+
+Added : STRING_NOT_IMPLEMENTED_EXCEPTION(macro), BuiltInConsole::input_state(field), BuiltInConsole::output_state(field), BuiltInConsole::SaveIOState(function), BuiltInConsole::LoadIOState(function), String::Void2Int(function)
+
+Changed : String::ReplaceLineEndings, String::InitConsole, String::DeinitConsole, String::KeyAvailable, String::ReadKey
+
+### 1.39.0
+
+Release Date : 2023/3/17
+
+Added : String::WriteLine(overload)
+
+Removed : #ifdef __cpp_char8_t, #ifdef __SYSTEM_STRING_ONLY
+
+Changed : include headers, #if defined(SYSTEM_LINUX) || defined(SYSTEM_MACOS) => #ifdef SYSTEM_POSIX, std::strlen(TRUE_STRING) => std::string(TRUE_STRING).size()
+
+### 1.38.1-update
+
+Release Date : 2023/3/15
+
+Fixed : add #ifdef SYSTEM_CXX before include cpp headers.
+
 ### 1.38.1
 
 Release Date : 2023/3/13
