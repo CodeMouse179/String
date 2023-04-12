@@ -64,7 +64,7 @@ Added : String::WriteLine(overload)
 
 Removed : #ifdef __cpp_char8_t, #ifdef __SYSTEM_STRING_ONLY
 
-Changed : include headers, #if defined(SYSTEM_LINUX) || defined(SYSTEM_MACOS) => #ifdef SYSTEM_POSIX, std::strlen(TRUE_STRING) => std::string(TRUE_STRING).size()
+Changed : include headers(MAYBE_INCOMPATIBLE), #if defined(SYSTEM_LINUX) || defined(SYSTEM_MACOS) => #ifdef SYSTEM_POSIX, std::strlen(TRUE_STRING) => std::string(TRUE_STRING).size()
 
 ### 1.38.1-update
 
