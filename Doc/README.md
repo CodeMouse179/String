@@ -535,3 +535,5 @@
     * [C++ character types : char , wchar_t , char8_t , char16_t and char32_t a tutorial !](https://twiserandom.com/cpp/cpp-character-types-char-wchar_t-char8_t-char16_t-and-char32_t-a-tutorial/index.html)
 
     * [Variable number of arguments in C++?](https://stackoverflow.com/questions/1657883/variable-number-of-arguments-in-c)
+
+    * [Is a .gitattributes file really necessary for git?](https://stackoverflow.com/questions/73086622/is-a-gitattributes-file-really-necessary-for-git)
