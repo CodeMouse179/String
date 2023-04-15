@@ -1,6 +1,6 @@
 ﻿//      +--------------------------------------------------------------------------------+
-//      |                                  String v1.45.0                                |
-//      |  Modified Date : 2023/4/12                                                     |
+//      |                                  String v1.46.0                                |
+//      |  Modified Date : 2023/4/15                                                     |
 //      |  Introduction : System.String in C++                                           |
 //      |  License : MIT                                                                 |
 //      |  Platform : Windows, Linux, macOS                                              |
@@ -18,10 +18,10 @@
 #define SYSTEM_STRING_HPP
 
 #define SYSTEM_STRING_VERSION_MAJOR 1
-#define SYSTEM_STRING_VERSION_MINOR 45
+#define SYSTEM_STRING_VERSION_MINOR 46
 #define SYSTEM_STRING_VERSION_PATCH 0
 #define SYSTEM_STRING_VERSION (SYSTEM_STRING_VERSION_MAJOR << 16 | SYSTEM_STRING_VERSION_MINOR << 8 | SYSTEM_STRING_VERSION_PATCH)
-#define SYSTEM_STRING_VERSION_STRING "1.45.0"
+#define SYSTEM_STRING_VERSION_STRING "1.46.0"
 
 //--------------------System.hpp START--------------------
 
@@ -3260,6 +3260,29 @@ namespace System
     template<typename CharType>
     class StringBase
     {
+    public:
+        std::basic_string<CharType> raw_string;
+
+        StringBase()
+        {
+        }
+
+        StringBase(const std::basic_string<CharType>& s)
+        {
+            this->raw_string = s;
+        }
+
+    public:
+        operator std::basic_string<CharType>()
+        {
+            return this->raw_string;
+        }
+
+        friend std::basic_ostringstream<CharType>& operator<<(std::basic_ostringstream<CharType>& boss, const StringBase<CharType>& s)
+        {
+            boss << s.raw_string;
+            return boss;
+        }
     };
 
     typedef StringBase<char> string;
