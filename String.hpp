@@ -3286,6 +3286,12 @@ namespace System
     };
 
     typedef StringBase<char> string;
+    typedef StringBase<wchar_t> wstring;
+#if defined(SYSTEM_CXX_20)
+    typedef StringBase<char8_t> u8string;
+#endif
+    typedef StringBase<char16_t> u16string;
+    typedef StringBase<char32_t> u32string;
 }
 
 #endif
