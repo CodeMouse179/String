@@ -153,7 +153,7 @@ int main()
 {
     //system string example:
     system_string_example();
-    return 0;
+    //return 0;
     //TEXT:
     std::string text = TEXT("你好世界😄😄");
     Console::WriteLine(text);
@@ -558,6 +558,12 @@ int main()
     bool string_is_palindrome1 = StringA::IsPalindrome("12321");
     bool string_is_palindrome2 = StringA::IsPalindrome("1");
     bool string_is_palindrome3 = StringA::IsPalindrome("");
+
+    int string_to_int1 = StringA::StringTo<int>("123");
+    int string_to_bool1 = StringA::StringTo("TRUE", true);
+    int string_to_bool2 = StringA::StringTo("TRUE", false);
+    int string_to_bool3 = StringA::StringTo("True", false);
+    //int string_to_bool4 = StringA::StringTo("XXX", true); //Cause exception here.
 
     //Russian Test:
     //Output:здравствуйте, Expected output:ЗДРАВСТВУЙТЕ

@@ -1,6 +1,6 @@
 ﻿//      +--------------------------------------------------------------------------------+
-//      |                                  String v1.46.0                                |
-//      |  Modified Date : 2023/4/15                                                     |
+//      |                                  String v1.47.0                                |
+//      |  Modified Date : 2023/4/20                                                     |
 //      |  Introduction : System.String in C++                                           |
 //      |  License : MIT                                                                 |
 //      |  Platform : Windows, Linux, macOS                                              |
@@ -18,10 +18,10 @@
 #define SYSTEM_STRING_HPP
 
 #define SYSTEM_STRING_VERSION_MAJOR 1
-#define SYSTEM_STRING_VERSION_MINOR 46
+#define SYSTEM_STRING_VERSION_MINOR 47
 #define SYSTEM_STRING_VERSION_PATCH 0
 #define SYSTEM_STRING_VERSION (SYSTEM_STRING_VERSION_MAJOR << 16 | SYSTEM_STRING_VERSION_MINOR << 8 | SYSTEM_STRING_VERSION_PATCH)
-#define SYSTEM_STRING_VERSION_STRING "1.46.0"
+#define SYSTEM_STRING_VERSION_STRING "1.47.0"
 
 //--------------------System.hpp START--------------------
 
@@ -2686,6 +2686,32 @@ namespace System
                 if (digits[i] != digits[j]) return false;
             }
             return true;
+        }
+
+        static bool StringTo(const std::basic_string<T>& s, bool ignore_case)
+        {
+            StringComparison comparisonType = ignore_case ? StringComparison::IgnoreCase : StringComparison::None;
+            if (String::Equals(s, std::basic_string<T>(TRUE_STRING), comparisonType))
+            {
+                return true;
+            }
+            else if (String::Equals(s, std::basic_string<T>(FALSE_STRING), comparisonType))
+            {
+                return false;
+            }
+            else
+            {
+                throw STRING_TO_BOOLEAN_EXCEPTION;
+            }
+        }
+
+        template<typename Type>
+        static Type StringTo(const std::basic_string<T>& s)
+        {
+            std::basic_istringstream<T> biss(s);
+            Type value;
+            biss >> value;
+            return value;
         }
 #endif
 
