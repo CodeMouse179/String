@@ -182,7 +182,7 @@ namespace System
 
 //--------------------Compiler START--------------------
 
-#ifdef _MSC_VER
+#if defined(SYSTEM_MSC)
 //Disable warnings for MSVC++ 20:
 #define _SILENCE_ALL_CXX17_DEPRECATION_WARNINGS
 //Enable UNICODE:
