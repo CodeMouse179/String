@@ -1,4 +1,4 @@
-# String 1.48.0
+# String 2.0.0-DEV
 
 [README - 中文](https://github.com/CodeMouse179/String/blob/main/Doc/README_CN.md)
 
