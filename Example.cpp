@@ -142,9 +142,15 @@ int system_string_example()
     Console::WriteLine(U8("system_string_example starts!"), 198, 251, 19);
     System::string str;
     std::string test = "test";
-    System::string a = test;        // impl constructor
+    System::string a = test;        // impl constructor2
     test = a;                       // impl implicit convert
     Console::WriteLine(a);          // impl operator <<
+    Console::WriteLine(a.Length()); // length of System::string
+    char ch = a[0];                 // impl operator []
+    Console::WriteLine(ch);
+    System::string b = a.Clone();   // clone
+    a = "a";                        // impl constructor3
+    Console::WriteLine(b);
     Console::WriteLine(U8("system_string_example ends!"), 198, 251, 19);
     return 0;
 }
@@ -153,7 +159,8 @@ int main()
 {
     //system string example:
     system_string_example();
-    //return 0;
+    return 0;
+    
     //TEXT:
     std::string text = TEXT("你好世界😄😄");
     Console::WriteLine(text);
@@ -561,9 +568,9 @@ int main()
 
     int string_to_int1 = StringA::StringTo<int>("123");
     int string_to_bool1 = StringA::StringTo("TRUE", true);
-    int string_to_bool2 = StringA::StringTo("TRUE", false);
+    //int string_to_bool2 = StringA::StringTo("TRUE", false);   //Cause exception here.
     int string_to_bool3 = StringA::StringTo("True", false);
-    //int string_to_bool4 = StringA::StringTo("XXX", true); //Cause exception here.
+    //int string_to_bool4 = StringA::StringTo("XXX", true);     //Cause exception here.
 
     //Russian Test:
     //Output:здравствуйте, Expected output:ЗДРАВСТВУЙТЕ

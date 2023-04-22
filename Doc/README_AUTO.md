@@ -1,4 +1,4 @@
-# String 1.47.0 Documentation - AutoGen
+# String 1.48.0 Documentation - AutoGen
 
 1. String.hpp
 

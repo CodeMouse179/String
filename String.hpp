@@ -1,6 +1,6 @@
 ﻿//      +--------------------------------------------------------------------------------+
-//      |                                  String v1.47.0                                |
-//      |  Modified Date : 2023/4/20                                                     |
+//      |                                  String v1.48.0                                |
+//      |  Modified Date : 2023/4/22                                                     |
 //      |  Introduction : System.String in C++                                           |
 //      |  License : MIT                                                                 |
 //      |  Platform : Windows, Linux, macOS                                              |
@@ -18,10 +18,10 @@
 #define SYSTEM_STRING_HPP
 
 #define SYSTEM_STRING_VERSION_MAJOR 1
-#define SYSTEM_STRING_VERSION_MINOR 47
+#define SYSTEM_STRING_VERSION_MINOR 48
 #define SYSTEM_STRING_VERSION_PATCH 0
 #define SYSTEM_STRING_VERSION (SYSTEM_STRING_VERSION_MAJOR << 16 | SYSTEM_STRING_VERSION_MINOR << 8 | SYSTEM_STRING_VERSION_PATCH)
-#define SYSTEM_STRING_VERSION_STRING "1.47.0"
+#define SYSTEM_STRING_VERSION_STRING "1.48.0"
 
 //--------------------System.hpp START--------------------
 
@@ -3298,6 +3298,11 @@ namespace System
             this->raw_string = s;
         }
 
+        StringBase(const CharType* ptr)
+        {
+            this->raw_string = ptr;
+        }
+
     public:
         operator std::basic_string<CharType>()
         {
@@ -3308,6 +3313,30 @@ namespace System
         {
             boss << s.raw_string;
             return boss;
+        }
+
+    public:
+        static System::StringBase<CharType> Empty()
+        {
+            return System::StringBase<CharType>();
+        }
+
+    public:
+        CharType operator[](int index)
+        {
+            return this->raw_string[index];
+        }
+
+        int Length()
+        {
+            return this->raw_string.size();
+        }
+
+    public:
+        System::StringBase<CharType> Clone()
+        {
+            System::StringBase<CharType> instance(this->raw_string);
+            return instance;
         }
     };
 
