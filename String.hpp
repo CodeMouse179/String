@@ -1,6 +1,6 @@
 ﻿//      +--------------------------------------------------------------------------------+
-//      |                                  String v1.48.0                                |
-//      |  Modified Date : 2023/4/22                                                     |
+//      |                                  String v1.49.0                                |
+//      |  Modified Date : 2023/5/1                                                      |
 //      |  Introduction : System.String in C++                                           |
 //      |  License : MIT                                                                 |
 //      |  Platform : Windows, Linux, macOS                                              |
@@ -18,10 +18,10 @@
 #define SYSTEM_STRING_HPP
 
 #define SYSTEM_STRING_VERSION_MAJOR 1
-#define SYSTEM_STRING_VERSION_MINOR 48
+#define SYSTEM_STRING_VERSION_MINOR 49
 #define SYSTEM_STRING_VERSION_PATCH 0
 #define SYSTEM_STRING_VERSION (SYSTEM_STRING_VERSION_MAJOR << 16 | SYSTEM_STRING_VERSION_MINOR << 8 | SYSTEM_STRING_VERSION_PATCH)
-#define SYSTEM_STRING_VERSION_STRING "1.48.0"
+#define SYSTEM_STRING_VERSION_STRING "1.49.0"
 
 //--------------------System.hpp START--------------------
 
@@ -424,6 +424,30 @@ namespace System
 
 #ifndef SYSTEM_STRING_BASE_BUFFER_SIZE
 #define SYSTEM_STRING_BASE_BUFFER_SIZE 16
+#endif
+
+#ifndef SYSTEM_INLINE
+#define SYSTEM_INLINE inline
+#endif
+
+#ifndef UTF16LE_STRING
+#define UTF16LE_STRING "UTF-16LE"
+#endif
+
+#ifndef UTF16BE_STRING
+#define UTF16BE_STRING "UTF-16BE"
+#endif
+
+#ifndef UTF32LE_STRING
+#define UTF32LE_STRING "UTF-32LE"
+#endif
+
+#ifndef UTF32BE_STRING
+#define UTF32BE_STRING "UTF-32BE"
+#endif
+
+#ifndef UTF8_STRING
+#define UTF8_STRING "UTF-8"
 #endif
 
 namespace System
@@ -2712,6 +2736,29 @@ namespace System
             Type value;
             biss >> value;
             return value;
+        }
+
+        static std::basic_string<T> StringToBasicString(const std::string& s)
+        {
+            std::basic_string<T> result;
+            for (int i = 0; i < s.size(); i++)
+            {
+                result.push_back((T)s[i]);
+            }
+            return result;
+        }
+
+        static std::basic_string<T> EncodingString(System::StringEncoding encoding)
+        {
+            switch (encoding)
+            {
+                case System::StringEncoding::UTF16LE:   return StringToBasicString(UTF16LE_STRING);
+                case System::StringEncoding::UTF16BE:   return StringToBasicString(UTF16BE_STRING);
+                case System::StringEncoding::UTF32LE:   return StringToBasicString(UTF32LE_STRING);
+                case System::StringEncoding::UTF32BE:   return StringToBasicString(UTF32BE_STRING);
+                case System::StringEncoding::UTF8:      return StringToBasicString(UTF8_STRING);
+                default: return std::basic_string<T>();
+            }
         }
 #endif
 
