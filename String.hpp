@@ -664,6 +664,7 @@ namespace System
     template<typename T>
     class String
     {
+    // RawString:
     private:
         std::basic_string<T> rawString;
 
@@ -678,6 +679,7 @@ namespace System
             this->rawString = rawString;
         }
 
+    // Constructors:
     public:
         String()
         {
@@ -695,26 +697,11 @@ namespace System
             this->rawString = ptr;
         }
 
+    // Fields:
     public:
-        // std::string = System::string (implicit conversion)
-        operator std::basic_string<T>()
-        {
-            return this->rawString;
-        }
+        static const std::basic_string<T> Empty;
 
-        // std::basic_ostringstream<T> << System::String<T>
-        friend std::basic_ostringstream<T>& operator<<(std::basic_ostringstream<T>& boss, const String<T>& s)
-        {
-            boss << s.rawString;
-            return boss;
-        }
-
-    public:
-        static std::basic_string<T> Empty()
-        {
-            return std::basic_string<T>();
-        }
-
+    // Properties:
     public:
         static T Chars(const std::basic_string<T>& s, int index)
         {
@@ -741,6 +728,7 @@ namespace System
             return this->rawString.size();
         }
 
+    // Methods:
     public:
         static std::basic_string<T> Clone(const std::basic_string<T>& s)
         {
@@ -1105,7 +1093,7 @@ namespace System
 #else
             int arr[] = { (String::JoinHelper(boss, separator, args), 0)... }; //C++11
 #endif
-            if (boss.str().empty()) return String::Empty();
+            if (boss.str().empty()) return String::Empty;
             return String::Substring(boss.str(), 0, boss.str().size() - separator.size());
         }
 
@@ -1118,7 +1106,7 @@ namespace System
 #else
             int arr[] = { (String::JoinHelper(boss, separator, args), 0)... }; //C++11
 #endif
-            if (boss.str().empty()) return String::Empty();
+            if (boss.str().empty()) return String::Empty;
             return String::Substring(boss.str(), 0, boss.str().size() - 1);
         }
 
@@ -1212,7 +1200,7 @@ namespace System
 
         static std::basic_string<T> Remove(const std::basic_string<T>& s, int startIndex)
         {
-            if (startIndex <= 0) return String::Empty();
+            if (startIndex <= 0) return String::Empty;
             if (startIndex >= s.size()) return s;
             std::basic_string<T> str;
             for (int i = 0; i < startIndex; i++)
@@ -1224,7 +1212,7 @@ namespace System
 
         static std::basic_string<T> Remove(const std::basic_string<T>& s, int startIndex, int count)
         {
-            if (startIndex <= 0) return String::Empty();
+            if (startIndex <= 0) return String::Empty;
             if (startIndex >= s.size()) return s;
             if (count == 0) return s;
             if (startIndex + count > s.size()) return s;
@@ -1667,7 +1655,7 @@ namespace System
         static std::basic_string<T> Trim(const std::basic_string<T>& s, const std::basic_string<T>& trimString)
         {
             size_t indexOfFirstNonTrimChar = s.find_first_not_of(trimString);
-            if (indexOfFirstNonTrimChar == std::string::npos) return String::Empty();
+            if (indexOfFirstNonTrimChar == std::string::npos) return String::Empty;
             size_t indexOfLastNonTrimChar = s.find_last_not_of(trimString);
             return s.substr(indexOfFirstNonTrimChar, indexOfLastNonTrimChar - indexOfFirstNonTrimChar + 1);
         }
@@ -1675,7 +1663,7 @@ namespace System
         static std::basic_string<T> Trim(const std::basic_string<T>& s, T trimChar)
         {
             size_t indexOfFirstNonTrimChar = s.find_first_not_of(trimChar);
-            if (indexOfFirstNonTrimChar == std::string::npos) return String::Empty();
+            if (indexOfFirstNonTrimChar == std::string::npos) return String::Empty;
             size_t indexOfLastNonTrimChar = s.find_last_not_of(trimChar);
             return s.substr(indexOfFirstNonTrimChar, indexOfLastNonTrimChar - indexOfFirstNonTrimChar + 1);
         }
@@ -1689,14 +1677,14 @@ namespace System
         static std::basic_string<T> TrimEnd(const std::basic_string<T>& s, const std::basic_string<T>& trimString)
         {
             size_t indexOfLastNonTrimChar = s.find_last_not_of(trimString);
-            if (indexOfLastNonTrimChar == std::string::npos) return String::Empty();
+            if (indexOfLastNonTrimChar == std::string::npos) return String::Empty;
             return s.substr(0, indexOfLastNonTrimChar + 1);
         }
 
         static std::basic_string<T> TrimEnd(const std::basic_string<T>& s, T trimChar)
         {
             size_t indexOfLastNonTrimChar = s.find_last_not_of(trimChar);
-            if (indexOfLastNonTrimChar == std::string::npos) return String::Empty();
+            if (indexOfLastNonTrimChar == std::string::npos) return String::Empty;
             return s.substr(0, indexOfLastNonTrimChar + 1);
         }
 
@@ -1709,20 +1697,35 @@ namespace System
         static std::basic_string<T> TrimStart(const std::basic_string<T>& s, const std::basic_string<T>& trimString)
         {
             size_t indexOfFirstNonTrimChar = s.find_first_not_of(trimString);
-            if (indexOfFirstNonTrimChar == std::string::npos) return String::Empty();
+            if (indexOfFirstNonTrimChar == std::string::npos) return String::Empty;
             return s.substr(indexOfFirstNonTrimChar);
         }
 
         static std::basic_string<T> TrimStart(const std::basic_string<T>& s, T trimChar)
         {
             size_t indexOfFirstNonTrimChar = s.find_first_not_of(trimChar);
-            if (indexOfFirstNonTrimChar == std::string::npos) return String::Empty();
+            if (indexOfFirstNonTrimChar == std::string::npos) return String::Empty;
             return s.substr(indexOfFirstNonTrimChar);
         }
 
         static std::basic_string<T> TrimStart(const std::basic_string<T>& s)
         {
             return String::TrimStart(s, (T)SPACE_CHAR);
+        }
+
+    // Operators:
+    public:
+        // std::string = System::string (implicit conversion)
+        operator std::basic_string<T>()
+        {
+            return this->rawString;
+        }
+
+        // std::basic_ostringstream<T> << System::String<T>
+        friend std::basic_ostringstream<T>& operator<<(std::basic_ostringstream<T>& boss, const String<T>& s)
+        {
+            boss << s.rawString;
+            return boss;
         }
 
 #ifndef SYSTEM_STRING_ONLY
@@ -3164,7 +3167,7 @@ namespace System
                 charArray.push_back(UnicodeChar(4, key.CodePoint));
             }
             if (charArray.size() > 0) return String::CodePointToUTF8(charArray);
-            return StringA::Empty();
+            return StringA::Empty;
         }
 
         //zero-based position
@@ -3389,6 +3392,9 @@ namespace System
             boss << value << separator;
         }
     };
+
+    template<typename T>
+    const std::basic_string<T> String<T>::Empty = std::basic_string<T>();
 
     typedef String<char> string;
     typedef String<wchar_t> wstring;

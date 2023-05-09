@@ -73,8 +73,7 @@ bool handle(const std::vector<std::string>& input_lines, std::vector<std::string
         }
     }
     //title:
-    std::string title = StringA::Format("# {0} {1}.{2}.{3} Documentation - AutoGen", "String",
-        SYSTEM_STRING_VERSION_MAJOR, SYSTEM_STRING_VERSION_MINOR, SYSTEM_STRING_VERSION_PATCH);
+    std::string title = StringA::Format("# {0} {1} {2}", "String", SYSTEM_STRING_VERSION_STRING, "Documentation - AutoGen");
     output_lines.push_back(title);
     //main item:
     add_item(output_lines, "String.hpp", 0);
@@ -155,8 +154,7 @@ int main()
         Console::WriteLine(U8("Can't find README_PATH"));
         return -1;
     }
-    output_readme << StringA::Format("# String {0}.{1}.{2}\n", 
-        SYSTEM_STRING_VERSION_MAJOR, SYSTEM_STRING_VERSION_MINOR, SYSTEM_STRING_VERSION_PATCH);
+    output_readme << StringA::Format("# {0} {1}\n", "String", SYSTEM_STRING_VERSION_STRING);
     for (int i = 1; i < input_readme_lines.size(); i++)
     {
         if (i < input_readme_lines.size() - 1)

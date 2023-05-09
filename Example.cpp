@@ -275,24 +275,24 @@ int main()
     assert(_ch4 == wen1);       //OK!
 
     //获得char类型组成的空字符串：
-    std::string empty = System::String<char>::Empty();
+    std::string empty = System::String<char>::Empty;
     //通过使用StringA宏，获得char类型组成的空字符串：
-    std::string emtpyA = StringA::Empty();
+    std::string emtpyA = StringA::Empty;
 
     //获得wchar_t类型组成的空字符串：
-    std::wstring empty2 = System::String<wchar_t>::Empty();
+    std::wstring empty2 = System::String<wchar_t>::Empty;
     //通过使用StringW宏，获得wchar_t类型组成的空字符串：
-    std::wstring empty2W = StringW::Empty();
+    std::wstring empty2W = StringW::Empty;
 
     //获得char16_t类型组成的空字符串：
-    std::u16string empty3 = System::String<char16_t>::Empty();
+    std::u16string empty3 = System::String<char16_t>::Empty;
     //通过使用StringU16宏，获得char16_t类型组成的空字符串：
-    std::u16string empty3U16 = StringU16::Empty();
+    std::u16string empty3U16 = StringU16::Empty;
 
     //获得char32_t类型组成的空字符串：
-    std::u32string empty4 = System::String<char32_t>::Empty();
+    std::u32string empty4 = System::String<char32_t>::Empty;
     //通过使用StringU32宏，获得char32_t类型组成的空字符串：
-    std::u32string empty4U32 = StringU32::Empty();
+    std::u32string empty4U32 = StringU32::Empty;
 
     //String::Format, output:"Anna is your Wife."
     std::string format_str = System::String<char>::Format("{0} is your {1}.", "Anna", "Wife");
@@ -319,7 +319,7 @@ int main()
     StringA::WriteLine(U8("String.hpp version_patch:") + StringA::ToString(version_patch));
     StringA::WriteLine(U8("String.hpp version:") + StringA::ToString(version));
     StringA::WriteLine(U8("String.hpp version_string:") + version_string);
-    System::tstring s = StringT::Empty();
+    System::tstring s = StringT::Empty;
     char string_chars = StringA::Chars("ABCDEFG", 5);
     int string_length = StringA::Length("ABCDEFG");
     StringA::WriteLine(U8("string_chars:") + StringA::ToString(string_chars));
