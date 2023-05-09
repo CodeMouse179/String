@@ -151,6 +151,8 @@ int system_string_example()
     System::string b = a.Clone();   // clone
     a = "a";                        // impl constructor3
     Console::WriteLine(b);
+    int compare = a.CompareTo(b);
+    Console::WriteLine(StringA::Format("compare : {}", compare));
     Console::WriteLine(U8("system_string_example ends!"), 198, 251, 19);
     return 0;
 }

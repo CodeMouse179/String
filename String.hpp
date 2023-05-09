@@ -783,6 +783,11 @@ namespace System
             }
         }
 
+        int CompareTo(const System::String<T>& strB)
+        {
+            return String::Compare(this->rawString, strB.rawString);
+        }
+
         static std::basic_string<T> Concat(const std::basic_string<T>& str0, const std::basic_string<T>& str1)
         {
             return str0 + str1;
