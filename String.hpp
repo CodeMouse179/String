@@ -1,6 +1,6 @@
 ﻿//      +--------------------------------------------------------------------------------+
-//      |                                  String v1.49.0                                |
-//      |  Modified Date : 2023/5/1                                                      |
+//      |                                  String v2.0.0-DEV                             |
+//      |  Modified Date : 2023/5/9                                                      |
 //      |  Introduction : System.String in C++                                           |
 //      |  License : MIT                                                                 |
 //      |  Platform : Windows, Linux, macOS                                              |
@@ -17,11 +17,11 @@
 #ifndef SYSTEM_STRING_HPP
 #define SYSTEM_STRING_HPP
 
-#define SYSTEM_STRING_VERSION_MAJOR 1
-#define SYSTEM_STRING_VERSION_MINOR 49
+#define SYSTEM_STRING_VERSION_MAJOR 2
+#define SYSTEM_STRING_VERSION_MINOR 0
 #define SYSTEM_STRING_VERSION_PATCH 0
 #define SYSTEM_STRING_VERSION (SYSTEM_STRING_VERSION_MAJOR << 16 | SYSTEM_STRING_VERSION_MINOR << 8 | SYSTEM_STRING_VERSION_PATCH)
-#define SYSTEM_STRING_VERSION_STRING "1.49.0"
+#define SYSTEM_STRING_VERSION_STRING "2.0.0-DEV"
 
 //--------------------System.hpp START--------------------
 
@@ -665,9 +665,48 @@ namespace System
     class String
     {
     private:
-        //static class
+        std::basic_string<T> rawString;
+
+    public:
+        std::basic_string<T> GetRawString()
+        {
+            return this->rawString;
+        }
+
+        void SetRawString(const std::basic_string<T>& rawString)
+        {
+            this->rawString = rawString;
+        }
+
+    public:
         String()
         {
+        }
+
+        // System::string = std::string (assignment)
+        String(const std::basic_string<T>& s)
+        {
+            this->rawString = s;
+        }
+
+        // System::string = T[] (assignment)
+        String(const T* ptr)
+        {
+            this->rawString = ptr;
+        }
+
+    public:
+        // std::string = System::string (implicit conversion)
+        operator std::basic_string<T>()
+        {
+            return this->rawString;
+        }
+
+        // std::basic_ostringstream<T> << System::String<T>
+        friend std::basic_ostringstream<T>& operator<<(std::basic_ostringstream<T>& boss, const String<T>& s)
+        {
+            boss << s.rawString;
+            return boss;
         }
 
     public:
@@ -682,6 +721,11 @@ namespace System
             return s[index];
         }
 
+        T operator[](int index)
+        {
+            return this->rawString[index];
+        }
+
         static int Length(const std::basic_string<T>& s)
         {
             return s.size();
@@ -692,10 +736,21 @@ namespace System
             return String::Length(std::string(c_str));
         }
 
+        int Length()
+        {
+            return this->rawString.size();
+        }
+
     public:
         static std::basic_string<T> Clone(const std::basic_string<T>& s)
         {
             std::basic_string<T> instance = s;
+            return instance;
+        }
+
+        System::String<T> Clone()
+        {
+            System::String<T> instance(this->rawString);
             return instance;
         }
 
@@ -3330,70 +3385,13 @@ namespace System
         }
     };
 
-    template<typename CharType>
-    class StringBase
-    {
-    public:
-        std::basic_string<CharType> raw_string;
-
-        StringBase()
-        {
-        }
-
-        StringBase(const std::basic_string<CharType>& s)
-        {
-            this->raw_string = s;
-        }
-
-        StringBase(const CharType* ptr)
-        {
-            this->raw_string = ptr;
-        }
-
-    public:
-        operator std::basic_string<CharType>()
-        {
-            return this->raw_string;
-        }
-
-        friend std::basic_ostringstream<CharType>& operator<<(std::basic_ostringstream<CharType>& boss, const StringBase<CharType>& s)
-        {
-            boss << s.raw_string;
-            return boss;
-        }
-
-    public:
-        static System::StringBase<CharType> Empty()
-        {
-            return System::StringBase<CharType>();
-        }
-
-    public:
-        CharType operator[](int index)
-        {
-            return this->raw_string[index];
-        }
-
-        int Length()
-        {
-            return this->raw_string.size();
-        }
-
-    public:
-        System::StringBase<CharType> Clone()
-        {
-            System::StringBase<CharType> instance(this->raw_string);
-            return instance;
-        }
-    };
-
-    typedef StringBase<char> string;
-    typedef StringBase<wchar_t> wstring;
+    typedef String<char> string;
+    typedef String<wchar_t> wstring;
 #if defined(SYSTEM_CXX_20)
-    typedef StringBase<char8_t> u8string;
+    typedef String<char8_t> u8string;
 #endif
-    typedef StringBase<char16_t> u16string;
-    typedef StringBase<char32_t> u32string;
+    typedef String<char16_t> u16string;
+    typedef String<char32_t> u32string;
 }
 
 #endif
