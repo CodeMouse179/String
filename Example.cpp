@@ -9,6 +9,21 @@
 #include <iostream>     //std::cin, std::cout, std::wcout
 #include <locale.h>     //setlocale(ONLY FOR TUTORIAL, NEVER USE SETLOCALE IN ANY WHERE!!!)
 
+void write(const std::string& s)
+{
+    std::cout << s;
+}
+
+void write_line()
+{
+    std::cout << "\n";
+}
+
+void write_line(const std::string& s)
+{
+    std::cout << s << "\n";
+}
+
 void wait(float second)
 {
 #ifdef SYSTEM_WINDOWS
@@ -159,6 +174,9 @@ int system_string_example()
 
 int main()
 {
+    std::string __string__ = System::format<char>("Hello, {}", "World!");
+    write_line(__string__);
+
     //system string example:
     system_string_example();
     return 0;

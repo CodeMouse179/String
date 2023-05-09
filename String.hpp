@@ -414,12 +414,12 @@ namespace System
 #define B_CHAR '\b'
 #endif
 
-#ifndef LEFT_CURLY_BRACKET
-#define LEFT_CURLY_BRACKET '{'
+#ifndef OPEN_BRACKET
+#define OPEN_BRACKET '{'
 #endif
 
-#ifndef RIGHT_CURLY_BRACKET
-#define RIGHT_CURLY_BRACKET '}'
+#ifndef CLOSE_BRACKET
+#define CLOSE_BRACKET '}'
 #endif
 
 #ifndef SYSTEM_STRING_BASE_BUFFER_SIZE
@@ -452,6 +452,33 @@ namespace System
 
 namespace System
 {
+    template<typename CharType, typename Type>
+    void format_helper(std::basic_ostringstream<CharType>& boss, std::basic_string<CharType>& s, const Type& value)
+    {
+        std::size_t openBracket = s.find((CharType)OPEN_BRACKET);
+        if (openBracket == std::string::npos) return;
+        std::size_t closeBracket = s.find((CharType)CLOSE_BRACKET, openBracket + 1);
+        if (closeBracket == std::string::npos) return;
+        boss << s.substr(0, openBracket) << value;
+        s = s.substr(closeBracket + 1);
+    }
+
+    template<typename CharType>
+    std::basic_string<CharType> format(const std::basic_string<CharType>& s)
+    {
+        return s;
+    }
+
+    template<typename CharType, typename... Types>
+    std::basic_string<CharType> format(const std::basic_string<CharType>& s, Types... args)
+    {
+        std::basic_ostringstream<CharType> boss;
+        std::basic_string<CharType> clone = s;
+        int arr[] = { (format_helper(boss, clone, args), 0)... }; //C++ 11 and above
+        boss << clone;
+        return boss.str();
+    }
+
     //generic types:
 #ifdef SYSTEM_WINDOWS
     typedef std::wstring tstring;
@@ -3372,9 +3399,9 @@ namespace System
         template<typename Type>
         static void FormatHelper(std::basic_ostringstream<T>& boss, std::basic_string<T>& s, const Type& value)
         {
-            std::size_t openBracket = s.find((T)LEFT_CURLY_BRACKET);
+            std::size_t openBracket = s.find((T)OPEN_BRACKET);
             if (openBracket == std::string::npos) return;
-            std::size_t closeBracket = s.find((T)RIGHT_CURLY_BRACKET, openBracket + 1);
+            std::size_t closeBracket = s.find((T)CLOSE_BRACKET, openBracket + 1);
             if (closeBracket == std::string::npos) return;
             boss << s.substr(0, openBracket) << value;
             s = s.substr(closeBracket + 1);
