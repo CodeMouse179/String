@@ -1,6 +1,6 @@
 ﻿//      +--------------------------------------------------------------------------------+
-//      |                                  String v2.0.0-DEV                             |
-//      |  Modified Date : 2023/5/9                                                      |
+//      |                                String v2.0.0-DEV                               |
+//      |  Modified Date : 2023/5/10                                                     |
 //      |  Introduction : System.String in C++                                           |
 //      |  License : MIT                                                                 |
 //      |  Platform : Windows, Linux, macOS                                              |
