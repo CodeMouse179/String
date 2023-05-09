@@ -1,4 +1,4 @@
-# String 1.48.0 Documentation - AutoGen
+# String 1.49.0 Documentation - AutoGen
 
 1. String.hpp
 
@@ -139,3 +139,15 @@
     1. RIGHT_CURLY_BRACKET
 
     1. SYSTEM_STRING_BASE_BUFFER_SIZE
+
+    1. SYSTEM_INLINE
+
+    1. UTF16LE_STRING
+
+    1. UTF16BE_STRING
+
+    1. UTF32LE_STRING
+
+    1. UTF32BE_STRING
+
+    1. UTF8_STRING
