@@ -871,6 +871,40 @@ namespace System
             }
         }
 
+        bool Contains(T value)
+        {
+            return this->rawString.find(value) != std::string::npos;
+        }
+
+        bool Contains(const std::basic_string<T>& value)
+        {
+            return this->rawString.find(value) != std::string::npos;
+        }
+
+        bool Contains(T value, System::StringComparison comparisonType)
+        {
+            if (comparisonType == System::StringComparison::IgnoreCase)
+            {
+                return String::Contains(String::ToLower(this->rawString), String::ToLower(value));
+            }
+            else
+            {
+                return String::Contains(value);
+            }
+        }
+
+        bool Contains(const std::basic_string<T>& value, System::StringComparison comparisonType)
+        {
+            if (comparisonType == System::StringComparison::IgnoreCase)
+            {
+                return String::Contains(String::ToLower(this->rawString), String::ToLower(value));
+            }
+            else
+            {
+                return String::Contains(value);
+            }
+        }
+
         static std::basic_string<T> Copy(const std::basic_string<T>& str)
         {
             std::basic_string<T> instance = str;

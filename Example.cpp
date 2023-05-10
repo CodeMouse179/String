@@ -168,6 +168,10 @@ int system_string_example()
     Console::WriteLine(b);
     int compare = a.CompareTo(b);
     Console::WriteLine(StringA::Format("compare : {}", compare));
+    bool contains1 = a.Contains('A', System::StringComparison::None);
+    bool contains2 = a.Contains('A', System::StringComparison::IgnoreCase);
+    Console::WriteLine(contains1);
+    Console::WriteLine(contains2);
     Console::WriteLine(U8("system_string_example ends!"), 198, 251, 19);
     return 0;
 }
