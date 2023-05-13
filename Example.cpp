@@ -180,6 +180,10 @@ int system_string_example()
     bool ends_with6 = a.EndsWith("A");
     bool ends_with7 = a.EndsWith("a", System::StringComparison::IgnoreCase);
     bool ends_with8 = a.EndsWith("A", System::StringComparison::IgnoreCase);
+    bool eq1 = a.Equals("a");
+    bool eq2 = a.Equals("A");
+    bool eq3 = a.Equals("a", System::StringComparison::IgnoreCase);
+    bool eq4 = a.Equals("A", System::StringComparison::IgnoreCase);
     Console::WriteLine(U8("system_string_example ends!"), 198, 251, 19);
     return 0;
 }

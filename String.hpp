@@ -1008,6 +1008,16 @@ namespace System
             }
         }
 
+        bool Equals(const std::basic_string<T>& value)
+        {
+            return String::Equals(this->rawString, value);
+        }
+
+        bool Equals(const std::basic_string<T>& value, System::StringComparison comparisonType)
+        {
+            return String::Equals(this->rawString, value, comparisonType);
+        }
+
         //该重载的意义在于防止String::Format在Visual C++11, C++14环境下只传入format参数而产生的编译错误
         static std::basic_string<T> Format(const std::basic_string<T>& format)
         {
