@@ -184,6 +184,12 @@ int system_string_example()
     bool eq2 = a.Equals("A");
     bool eq3 = a.Equals("a", System::StringComparison::IgnoreCase);
     bool eq4 = a.Equals("A", System::StringComparison::IgnoreCase);
+    System::string hash_string1 = "abcdefg";
+    System::string hash_string2 = "ABCDEFG";
+    int hash1 = hash_string1.GetHashCode();
+    int hash2 = hash_string2.GetHashCode();
+    int hash3 = hash_string1.GetHashCode(System::StringComparison::IgnoreCase);
+    int hash4 = hash_string2.GetHashCode(System::StringComparison::IgnoreCase);
     Console::WriteLine(U8("system_string_example ends!"), 198, 251, 19);
     return 0;
 }
@@ -196,7 +202,7 @@ int main()
     //system string example:
     system_string_example();
     return 0;
-    
+
     //TEXT:
     std::string text = TEXT("你好世界😄😄");
     Console::WriteLine(text);

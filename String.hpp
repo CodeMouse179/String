@@ -1061,6 +1061,16 @@ namespace System
             }
         }
 
+        int GetHashCode()
+        {
+            return String::GetHashCode(this->rawString);
+        }
+
+        int GetHashCode(System::StringComparison comparisonType)
+        {
+            return String::GetHashCode(this->rawString, comparisonType);
+        }
+
         static int GetTypeCode()
         {
             return 18;
