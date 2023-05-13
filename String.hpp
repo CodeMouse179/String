@@ -957,6 +957,26 @@ namespace System
             }
         }
 
+        bool EndsWith(T value)
+        {
+            return String::EndsWith(this->rawString, value);
+        }
+
+        bool EndsWith(const std::basic_string<T>& value)
+        {
+            return String::EndsWith(this->rawString, value);
+        }
+
+        bool EndsWith(T value, System::StringComparison comparisonType)
+        {
+            return String::EndsWith(this->rawString, value, comparisonType);
+        }
+
+        bool EndsWith(const std::basic_string<T>& value, System::StringComparison comparisonType)
+        {
+            return String::EndsWith(this->rawString, value, comparisonType);
+        }
+
         static bool Equals(const std::basic_string<T>& a, const std::basic_string<T>& b)
         {
             return a.compare(b) == 0;

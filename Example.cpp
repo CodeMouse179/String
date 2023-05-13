@@ -172,6 +172,14 @@ int system_string_example()
     bool contains2 = a.Contains('A', System::StringComparison::IgnoreCase);
     Console::WriteLine(contains1);
     Console::WriteLine(contains2);
+    bool ends_with1 = a.EndsWith('a');
+    bool ends_with2 = a.EndsWith('A');
+    bool ends_with3 = a.EndsWith('a', System::StringComparison::IgnoreCase);
+    bool ends_with4 = a.EndsWith('A', System::StringComparison::IgnoreCase);
+    bool ends_with5 = a.EndsWith("a");
+    bool ends_with6 = a.EndsWith("A");
+    bool ends_with7 = a.EndsWith("a", System::StringComparison::IgnoreCase);
+    bool ends_with8 = a.EndsWith("A", System::StringComparison::IgnoreCase);
     Console::WriteLine(U8("system_string_example ends!"), 198, 251, 19);
     return 0;
 }
