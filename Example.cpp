@@ -202,8 +202,21 @@ int system_string_example()
     return 0;
 }
 
+int system_string_copy_to_example()
+{
+    using namespace System;
+    string a = TEXT("nihao");
+    char buffer[20] { 0 };
+    a.CopyTo(0, buffer, 0, a.Length());
+    Console::WriteLine(buffer, 255, 0, 0);
+    return 0;
+}
+
 int main()
 {
+    //CopyTo:
+    system_string_copy_to_example();
+
     std::string __string__ = System::format<char>("Hello, {}", "World!");
     write_line(__string__);
 

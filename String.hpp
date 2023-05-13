@@ -1,6 +1,6 @@
 ﻿//      +--------------------------------------------------------------------------------+
 //      |                                String v2.0.0-DEV                               |
-//      |  Modified Date : 2023/5/10                                                     |
+//      |  Modified Date : 2023/5/13                                                     |
 //      |  Introduction : System.String in C++                                           |
 //      |  License : MIT                                                                 |
 //      |  Platform : Windows, Linux, macOS                                              |
@@ -691,7 +691,7 @@ namespace System
     template<typename T>
     class String
     {
-    // RawString:
+        // ---------- String ----------
     private:
         std::basic_string<T> rawString;
 
@@ -706,7 +706,7 @@ namespace System
             this->rawString = rawString;
         }
 
-    // Constructors:
+        // ---------- Constructors ----------
     public:
         String()
         {
@@ -724,11 +724,11 @@ namespace System
             this->rawString = ptr;
         }
 
-    // Fields:
+        // ---------- Fields ----------
     public:
         static const std::basic_string<T> Empty;
 
-    // Properties:
+        // ---------- Properties ----------
     public:
         static T Chars(const std::basic_string<T>& s, int index)
         {
@@ -755,7 +755,7 @@ namespace System
             return this->rawString.size();
         }
 
-    // Methods:
+        // ---------- Methods ----------
     public:
         static std::basic_string<T> Clone(const std::basic_string<T>& s)
         {
@@ -909,6 +909,18 @@ namespace System
         {
             std::basic_string<T> instance = str;
             return instance;
+        }
+
+        void CopyTo(int sourceIndex, char* destination, int destinationIndex, int count)
+        {
+            // Exceptions:
+            if (destination == nullptr) return;
+            if (sourceIndex + count > Length()) return;
+            // CopyTo:
+            for (int i = sourceIndex; i < Length(); i++)
+            {
+                destination[destinationIndex + i] = this->rawString[i];
+            }
         }
 
         static bool EndsWith(const std::basic_string<T>& s, const std::basic_string<T>& value)
@@ -1834,7 +1846,7 @@ namespace System
             return String::TrimStart(s, (T)SPACE_CHAR);
         }
 
-    // Operators:
+        // ---------- Operators ----------
     public:
         // std::string = System::string (implicit conversion)
         operator std::basic_string<T>()
@@ -2936,12 +2948,12 @@ namespace System
         {
             switch (encoding)
             {
-                case System::StringEncoding::UTF16LE:   return StringToBasicString(UTF16LE_STRING);
-                case System::StringEncoding::UTF16BE:   return StringToBasicString(UTF16BE_STRING);
-                case System::StringEncoding::UTF32LE:   return StringToBasicString(UTF32LE_STRING);
-                case System::StringEncoding::UTF32BE:   return StringToBasicString(UTF32BE_STRING);
-                case System::StringEncoding::UTF8:      return StringToBasicString(UTF8_STRING);
-                default: return std::basic_string<T>();
+            case System::StringEncoding::UTF16LE:   return StringToBasicString(UTF16LE_STRING);
+            case System::StringEncoding::UTF16BE:   return StringToBasicString(UTF16BE_STRING);
+            case System::StringEncoding::UTF32LE:   return StringToBasicString(UTF32LE_STRING);
+            case System::StringEncoding::UTF32BE:   return StringToBasicString(UTF32BE_STRING);
+            case System::StringEncoding::UTF8:      return StringToBasicString(UTF8_STRING);
+            default: return std::basic_string<T>();
             }
         }
 #endif
