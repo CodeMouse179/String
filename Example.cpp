@@ -190,6 +190,14 @@ int system_string_example()
     int hash2 = hash_string2.GetHashCode();
     int hash3 = hash_string1.GetHashCode(System::StringComparison::IgnoreCase);
     int hash4 = hash_string2.GetHashCode(System::StringComparison::IgnoreCase);
+    bool starts_with1 = a.StartsWith('a');
+    bool starts_with2 = a.StartsWith('A');
+    bool starts_with3 = a.StartsWith('a', System::StringComparison::IgnoreCase);
+    bool starts_with4 = a.StartsWith('A', System::StringComparison::IgnoreCase);
+    bool starts_with5 = a.StartsWith("a");
+    bool starts_with6 = a.StartsWith("A");
+    bool starts_with7 = a.StartsWith("a", System::StringComparison::IgnoreCase);
+    bool starts_with8 = a.StartsWith("A", System::StringComparison::IgnoreCase);
     Console::WriteLine(U8("system_string_example ends!"), 198, 251, 19);
     return 0;
 }

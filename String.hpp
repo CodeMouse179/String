@@ -1609,6 +1609,26 @@ namespace System
             }
         }
 
+        bool StartsWith(const std::basic_string<T>& value)
+        {
+            return String::StartsWith(this->rawString, value);
+        }
+
+        bool StartsWith(T value)
+        {
+            return String::StartsWith(this->rawString, value);
+        }
+
+        bool StartsWith(const std::basic_string<T>& value, System::StringComparison comparisonType)
+        {
+            return String::StartsWith(this->rawString, value, comparisonType);
+        }
+
+        bool StartsWith(T value, System::StringComparison comparisonType)
+        {
+            return String::StartsWith(this->rawString, value, comparisonType);
+        }
+
         static std::basic_string<T> Substring(const std::basic_string<T>& s, int startIndex)
         {
             return s.substr(startIndex);
