@@ -3344,6 +3344,12 @@ namespace System
             return false;
         }
 
+        static bool Write(bool value)
+        {
+            std::string s = StringA::ToString(value);
+            return String::Write(s);
+        }
+
         template<typename Type>
         static bool Write(Type value)
         {
@@ -3360,6 +3366,12 @@ namespace System
         //std::string must be UTF-8 Encoding.
         static bool WriteLine(const std::string& s)
         {
+            return String::Write(s + U8(NEW_LINE_STRING));
+        }
+
+        static bool WriteLine(bool value)
+        {
+            std::string s = StringA::ToString(value);
             return String::Write(s + U8(NEW_LINE_STRING));
         }
 
